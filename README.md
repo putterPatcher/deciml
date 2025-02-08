@@ -77,8 +77,8 @@ Random -
 3. (f) random(__n, __s): generate random numbers (in rdeciml)
 	
    __n: number of random numbers to generate
-
-  __s: seed for generating random numbers if wanted
+	
+   __s: seed for generating random numbers if wanted
 
 
 4. (f) cgpr(__pr): change precision for random numbers (in rdeciml) 
