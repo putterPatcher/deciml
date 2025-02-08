@@ -1,0 +1,8 @@
+'''
+class algbra:
+'''
+
+This class contains simple arithmatic operations. The class is explained below. 
+
+
+
