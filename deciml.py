@@ -3,14 +3,27 @@ from random import randint, seed
 
 
 __DecimalPrecision=16
-
+"""
+    variable used for precision
+"""
 
 getcontext().rounding=ROUND_HALF_UP
 
 
-def setpr(__p:int)->None:global __DecimalPrecision;__DecimalPrecision=__p;
+def setpr(__p:int)->None:
+    """
+        __p: the new precision\n
+        changes __DecimalPrecision
+    """
+    if (not int(__p)):print("__p cannot be an integer");return;
+    global __DecimalPrecision;__DecimalPrecision=__p;
 
-def getpr()->int:return __DecimalPrecision;
+
+def getpr()->int:
+    """
+        get the precision, __DecimalPrecision
+    """
+    return __DecimalPrecision;
 
 
 def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
@@ -48,16 +61,28 @@ def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
 
 # args: (start number,end number), decimal precision, seed
 def rint(__i:int,__j:int,__n=1,s=None)->int|tuple[int,...]:
+    """
+		__i: minimum integer\n
+		__j: maximum integer\n
+		__n: number of numbers\n
+		s: seed (positive integer)\n
+        get a random integer or tuple of random integers
+    """
     try:
         if s is not None:seed(s);
         if __n==1:return randint(__i,__j);
         return tuple(map(lambda _:randint(__i,__j),range(__n)))
     except Exception as e:print("Invalid command: rint\n",e);
 
+
 # rdeciml(num1,num2,precision)
 # rdeciml.random(n,seed)
 # .cgpr(new precision)
-class rdeciml():
+class rdeciml:
+    """
+        __a,__b: range extremities\n
+        __pr: precision
+    """
     
     def __init__(self,__a:int|float|Decimal|str,__b:int|float|Decimal|str,__pr=getpr())->None:
         try:
@@ -104,6 +129,11 @@ class rdeciml():
             if __a is None or __b is None:raise Exception;
             self.__oa=__a;self.__ob=__b;del a1,b1;__a,__b=map(self.__dtip,((__a,__pr),(__b,__pr)));
             self.__a=__a;self.__b=__b;self.__pr=__pr;del __a,__b,__pr;self.random=lambda __n,__s=None:self.__frandom(self.__pr,__n,__s);
+            """
+                __n: number of random numbers to generate\n 
+                __s: seed for generating random numbers if wanted\n 
+                get a tuple of random Decimal
+            """
         except Exception as e:print("Invalid command: rdeciml\n",e);
 
     def __dtip(self,__apr)->int:
@@ -121,27 +151,48 @@ class rdeciml():
                 z=''
                 for _ in range(-r1):z+='0';
                 return '0.'+z+r
-        seed(__s);return [Decimal(rint(self.__a,self.__b,__pr)) for _ in range(__n)];
-
+        seed(__s);return tuple(Decimal(rint(self.__a,self.__b,__pr)) for _ in range(__n));
+    
     def cgpr(self,__pr)->None:
+        """
+            __pr: new precision
+            change precision for random numbers
+        """
         try:
             self.__pr=__pr;del __pr;self.__a,self.__b=map(self.__dtip,((self.__oa,self.__pr),(self.__ob,self.__pr)));print("New precision: "+str(self.__pr));
         except Exception as e:print("Invalid command: rdeciml.cgpr\n",e);
 
 
-_Pi='3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679';_EulersNumber='2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274';
-
+_Pi='3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679';
+"""
+    variable that stores the value of pi
+"""
+_EulersNumber='2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274';
+"""
+    variable that stores the value of e
+"""
 
 class constant:
+    """
+        get values of constants
+    """
     
     @staticmethod
     def e(pr=getpr())->Decimal|None:
+        """
+			pr: the precision, not more than 100\n
+            get value of e as Decimal
+        """
         try:
             if pr>100:raise Exception;
             global _EulersNumber;return Decimal(_EulersNumber[:pr+2]);
         except:print("Invalid argument: pr -> < 100");
 
     def pi(pr=getpr())->Decimal|None:
+        """
+			pr: the precision, not more than 100\n
+            get value of pi as Decimal
+        """
         try:
             if pr>100:raise Exception;
             global _Pi;return Decimal(_Pi[:pr+2]);
@@ -149,6 +200,9 @@ class constant:
 
 
 def abs(__a:float|int|str|Decimal)->Decimal|None:
+    """
+        get the absolute value of __a in Decimal
+    """
     a=Decimal(str(__a))
     if (a1:=str(a))=='NaN' or a1=='Inf' or a1=='-Inf':return None;
     elif a<0:return Decimal(a1[1:]);
