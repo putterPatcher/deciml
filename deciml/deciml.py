@@ -335,17 +335,17 @@ class algbra:
             if b>=1:
                 if a>=1:
                     while a>b:a=cls.div(a,b,p);c+=1;
-                    return deciml(str(c)+"."+str(a.ln()/b.ln())[2:],__pr);
+                    return deciml(str(c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
                 if a<1:
                     while a<1:a=cls.mul(a,b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+str(a.ln()/b.ln())[2:],__pr);
+                    return deciml(str(-c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
             if b<1:
                 if a>=b:
                     while a>b:a=cls.mul(a,b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+str(a.ln()/b.ln())[2:],__pr);
+                    return deciml(str(-c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
                 if a<b:
                     while a<b:a=cls.div(a,b,p);c+=1;
-                    return deciml(str(c)+"."+str(a.ln()/b.ln())[2:],__pr);
+                    return deciml(str(c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
         except:return Decimal('NaN');
 
     @classmethod
@@ -654,4 +654,4 @@ class stat:
 # a=stat.mode(['1','2','3','4','5','3','2','1','2','3'])
 # print(a)
 # print(deciml('000.00000000000000000045'))
-
+print(algbra.log('1', '10'))
