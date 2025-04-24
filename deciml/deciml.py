@@ -4,7 +4,7 @@ from random import randint, seed
 
 __DecimalPrecision=16
 """
-    variable used for precision
+#### Variable used for precision.
 """
 
 getcontext().rounding=ROUND_HALF_UP
@@ -12,21 +12,29 @@ getcontext().rounding=ROUND_HALF_UP
 
 def setpr(__p:int)->None:
     """
-        __p: the new precision\n
-        changes __DecimalPrecision
+#### Changes __DecimalPrecision.
+- **__p**: The new precision
     """
-    if (not int(__p)):print("__p cannot be an integer");return;
-    global __DecimalPrecision;__DecimalPrecision=__p;
+    try:
+        if (__p:=int(__p)) < 0:raise Exception("{} less than 0.".format(__p));
+        global __DecimalPrecision;__DecimalPrecision=__p;
+    except Exception as e:
+        print(e)
 
 
 def getpr()->int:
     """
-        get the precision, __DecimalPrecision
+#### Get the precision i.e. __DecimalPrecision.
     """
     return __DecimalPrecision;
 
 
 def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
+    '''
+#### Get Decimal object.
+- **__a**: Value to convert to Decimal
+- **__pr**: Precision for the Decimal value
+    '''
     try:
         if (sa:=str(__a))=='NaN' or sa=='Inf' or sa=='-Inf':return __a;
         def __exp(__a:str)->list:
@@ -43,6 +51,19 @@ def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
         else:a0='';
         if (a1:=__exp(__a)) is None:raise Exception;
         if len(a2:=a1[0].split('.'))==1:a2+=['0',];
+        if (ia1:=int(a1[1])) > 0:
+            if (la2:=len(a2[1])) > 0:
+                i = la2 - 1
+                while a2[1][i] == '0':
+                    i-=1
+                a2[1] = a2[1][:i+1]
+                la2 = len(a2[1])
+                a2[0]=a2[0]+a2[1][:ia1 if (dd:=la2 - ia1) > 0 else la2]
+                if dd < 0:
+                    s = ''
+                    for i in range(-dd):
+                        s+='0'
+                a2[0]=a2[0]+('' if dd > 0 else s);a2[1]='0' if dd <= 0 else a2[1][ia1:];a1[1]='0';
         if Decimal(a1[0])==0:return Decimal('0.0');
         if int(a2[0])==0:
             if a2[1][0]=='0':
@@ -51,22 +72,30 @@ def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
                     if i=='0':c+=1;
                     else:break;
                 a2[0]=a2[1][c];a2[1]=a2[1][c+1:];a1[1]=str(int(a1[1])-c-1);
-        if len(a2[1])>__pr:
-            a2[1]=a2[1][:__pr+1];del __pr,__a;
-            if int(a2[1][-1])>=5:
-                a2[1]=a2[1][:-2]+str(int(a2[1][-2])+1);
-            else:a2[1]=a2[1][:-1];
+        if __pr > 0:
+            if len(a2[1]) > 1:
+                if len(a2[1])>__pr:
+                    a2[1]=a2[1][:__pr+1];del __pr,__a;
+                    if int(a2[1][-1])>=5:
+                        a2[1]=a2[1][:-2]+str(int(a2[1][-2])+1);
+                    else:a2[1]=a2[1][:-1];
+        else:
+            if len(a2[1]) > 0:
+                a2[1]=a2[1][0];del __pr,__a;
+                if int(a2[1][0])>=5:
+                    a2[0]=a2[0][:-2]+str(int(a2[0][-2:])+1);
+                a2[1]='0';
         return Decimal(a0+a2[0]+'.'+a2[1]+'E'+a1[1]);
     except:return Decimal('NaN');
 
 # args: (start number,end number), decimal precision, seed
 def rint(__i:int,__j:int,__n=1,s=None)->int|tuple[int,...]:
     """
-		__i: minimum integer\n
-		__j: maximum integer\n
-		__n: number of numbers\n
-		s: seed (positive integer)\n
-        get a random integer or tuple of random integers
+#### Get a random integer or tuple of random integers.
+- **__i**: Minimum integer
+- **__j**: Maximum integer
+- **__n**: Number of numbers
+- **s**: Seed *"Positive integer"*
     """
     try:
         if s is not None:seed(s);
@@ -80,8 +109,9 @@ def rint(__i:int,__j:int,__n=1,s=None)->int|tuple[int,...]:
 # .cgpr(new precision)
 class rdeciml:
     """
-        __a,__b: range extremities\n
-        __pr: precision
+#### Object to generate random numbers
+- **__a, __b**: Range extremities
+- **__pr**: Precision for random numbers
     """
     
     def __init__(self,__a:int|float|Decimal|str,__b:int|float|Decimal|str,__pr=getpr())->None:
@@ -130,9 +160,9 @@ class rdeciml:
             self.__oa=__a;self.__ob=__b;del a1,b1;__a,__b=map(self.__dtip,((__a,__pr),(__b,__pr)));
             self.__a=__a;self.__b=__b;self.__pr=__pr;del __a,__b,__pr;self.random=lambda __n,__s=None:self.__frandom(self.__pr,__n,__s);
             """
-                __n: number of random numbers to generate\n 
-                __s: seed for generating random numbers if wanted\n 
-                get a tuple of random Decimal
+#### Get a tuple of random Decimal
+- **__n**: Number of random numbers to generate
+- **__s**: Seed for generating random numbers
             """
         except Exception as e:print("Invalid command: rdeciml\n",e);
 
@@ -153,35 +183,35 @@ class rdeciml:
                 return '0.'+z+r
         seed(__s);return tuple(Decimal(rint(self.__a,self.__b,__pr)) for _ in range(__n));
     
-    def cgpr(self,__pr)->None:
+    def cgpr(self,__pr: int)->None:
         """
-            __pr: new precision
-            change precision for random numbers
+#### Change precision for random numbers
+- __pr: New precision
         """
         try:
-            self.__pr=__pr;del __pr;self.__a,self.__b=map(self.__dtip,((self.__oa,self.__pr),(self.__ob,self.__pr)));print("New precision: "+str(self.__pr));
+            if __pr < 0:raise Exception("{} less than 0.".format(__pr));self.__pr=__pr;del __pr;self.__a,self.__b=map(self.__dtip,((self.__oa,self.__pr),(self.__ob,self.__pr)));print("New precision: "+str(self.__pr));
         except Exception as e:print("Invalid command: rdeciml.cgpr\n",e);
 
 
 _Pi='3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679';
 """
-    variable that stores the value of pi
+#### Variable that stores the value of Pi.
 """
 _EulersNumber='2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274';
 """
-    variable that stores the value of e
+#### Variable that stores the value of e.
 """
 
 class constant:
     """
-        get values of constants
+### Get values of constants.
     """
     
     @staticmethod
     def e(pr=getpr())->Decimal|None:
         """
-			pr: the precision, not more than 100\n
-            get value of e as Decimal
+#### Get value of Euler's number as Decimal.
+- **pr**: The precision *"not more than 100"*
         """
         try:
             if pr>100:raise Exception;
@@ -190,8 +220,8 @@ class constant:
 
     def pi(pr=getpr())->Decimal|None:
         """
-			pr: the precision, not more than 100\n
-            get value of pi as Decimal
+#### Get value of Pi as Decimal.
+- **pr**: The precision *"not more than 100"*
         """
         try:
             if pr>100:raise Exception;
@@ -201,12 +231,26 @@ class constant:
 
 def abs(__a:float|int|str|Decimal)->Decimal|None:
     """
-        get the absolute value of __a in Decimal
+#### Get the absolute value in Decimal.
+- **__a**: Value to convert to it's absolute value
     """
     a=Decimal(str(__a))
     if (a1:=str(a))=='NaN' or a1=='Inf' or a1=='-Inf':return None;
     elif a<0:return Decimal(a1[1:]);
     else:return a;
+
+def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal], __pr=getpr()) -> list[Decimal]:
+    '''
+#### Returns a new sorted list.
+- **__a**: List to convert to Decimal and sort
+- **__pr**: Precison for Decimal
+    '''
+    try:
+        lis = list(map(lambda i: deciml(i, __pr), __a))
+        print(lis)
+        lis.sort()
+        return lis
+    except Exception as e:print(e);return None;
 
 class algbra:
 
@@ -654,4 +698,8 @@ class stat:
 # a=stat.mode(['1','2','3','4','5','3','2','1','2','3'])
 # print(a)
 # print(deciml('000.00000000000000000045'))
-print(algbra.log('1', '10'))
+# print(algbra.log('1', '10'))
+# print(deciml_sort(['2.42153154E3', 2.852582, 5.52582], 4))
+# print(deciml('2.42153154E+10', 0))
+# print(algbra.div(1, '2.4215315E-30', 1))
+# print(algbra.div(1, '24215315.0E-37', 1))

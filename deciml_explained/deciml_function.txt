@@ -20,7 +20,7 @@ This function splits the string into a list with an non exponential part and an 
 
 '''
 try:
-		if (sa:=str(__a))=='NaN' or sa=='Inf' or sa=='-Inf':return __a;
+	if (sa:=str(__a))=='NaN' or sa=='Inf' or sa=='-Inf':return __a;
     __a=str(__a)
     if __a[0]=='-':a0=__a[0];__a=__a[1:];
     else:a0='';
@@ -53,3 +53,5 @@ try:
 '''
 
 The we separate the negative sign if the number is negative. Then we split the non exponential part. We return 0 if the non exponential part is equal to zero. After that we count the number of zeros for the decimal part of the non exponential part if the decimal part has leading zeros. Then we update the list containing the non exponential part such that the integer part has only one value. Then we update the exponential part. After that we round the decimal part of the non exponential part to have a value that has an length equal to the precision. In the end we return the decimal value of the number that was represented in lists.
+
+The decimal value for exponent value greater than 0 is ignored as 
