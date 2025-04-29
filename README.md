@@ -14,7 +14,7 @@
 
 **Note - The function arguments are explained in the "Docstring" (See in an editor).**
 
-**Note - The default precision is used if precision is not given. Precison is the number of decimal digits,** ***different from total digits (As used in Decimal).***
+**Note - The default precision is used if precision is not given. Precison is the number of digits after decimal point,** ***different from total digits (As used in Decimal).***
 
 <details>
    <summary>Precision</summary>
@@ -25,8 +25,8 @@
    2. (f) **setpr(__p)**: Changes the precision
    
       ```python
-      from deciml.deciml import setpr
-      setpr(18)
+      >>> from deciml.deciml import setpr
+      >>> setpr(18)
       '''
          18 - The new precision
       '''
@@ -35,8 +35,10 @@
    3. (f) **getpr()**: Get the precision
 
       ```python
-      from deciml.deciml import getpr
-      precision = getpr()
+      >>> from deciml.deciml import getpr
+      >>> precision = getpr()
+      >>> precision
+      18
       ```
 
    ***Note - Precision is integer***
@@ -47,30 +49,36 @@
    <summary>Constant</summary>
    <p>
 
-   1. (v) **__Pi**: Variable that stores the value of pi
+   1. (v) **_Pi**: Variable that stores the value of pi
 
-   2. (v) **__EulersNumber**: Variable that stores the value of e
+   2. (v) **_EulersNumber**: Variable that stores the value of e
 
    3. (c) **constant**: Get values of constants
+
+      ```python
+      >>> from deciml.deciml import constant
+      ```
 
       i. (sm) **e(pr)**: Get value of e (in constant)
 
          ```python
-         from deciml.deciml.contant import e
-         value = e(18)
+         >>> value = constant.e(18)
          '''
             18 - The precision
          '''
+         >>> value
+         Decimal('2.718281828459045235')
          ```
 
       ii. (sm) **pi(pr)**: Get value of pi (in constant)
 
          ```python
-         from deciml.deciml.constant import pi
-         value = pi(18)
+         >>> value = constant.pi(18)
          '''
             18 - The precision
          '''
+         >>> value
+         Decimal('3.141592653589793238')
          ```
    </p>
 </details>
@@ -82,21 +90,23 @@
    1. (f) **rint(__i, __j, __n, s)**: Generate random integers
 
       ```python
-      from deciml.deciml import rint
-      nums = rint(0, 100, 20, 2102)
+      >>> from deciml.deciml import rint
+      >>> nums = rint(0, 100, 5, 2102)
       '''
          0 - Start integer
          100 - End integer
-         20 - Number of integers to generate
+         5 - Number of integers to generate
          2102 - Seed
       '''
+      >>> nums
+      (38, 89, 64, 13, 59)
       ```
 
    2. (o) **rdeciml(__a, __b, __pr)**: Generate a rdeciml object
 
       ```python
-      from deciml.deciml import rdeciml
-      robj = rdeciml(0, 20, 18)
+      >>> from deciml.deciml import rdeciml
+      >>> robj = rdeciml(0, 20, 18)
       '''
          0 - Start number
          20 - End number
@@ -107,21 +117,28 @@
       i. (f) **random(__n, __s)**: Generate random numbers (in rdeciml)
 
       ```python
-      nums = robj.random(24, 2025)
+      >>> nums = robj.random(4, 2025)
       '''
-         24 - Number of random numbers to generate
+         4 - Number of random numbers to generate
          2025 - The seed
       '''
+      >>> nums
+      (Decimal('19.972330207834593468'), Decimal('9.763654124294660886'), Decimal('17.954068930830723688'), Decimal('4.279774972623744952'))
       ```
 
       ii. (f) **cgpr(__pr)**: Change precision for random numbers (in rdeciml) 
 
       ```python
-      robj.cgpr(17)
+      >>> robj.cgpr(2)
+      New precision: 2
       '''
-         17 - New precision to generate random numbers
+         2 - New precision to generate random numbers
       '''
+      >>> robj.random(4, 2025)
+      (Decimal('11.42'), Decimal('1.69'), Decimal('13.22'), Decimal('17.15'))
       ```
+
+   ***Note - The seed returns different values after changing precision.***
 
    </p>
 </details>
@@ -134,33 +151,39 @@
    1. (f) **deciml(__a, __pr)**: Get a Decimal object
 
       ```python
-      from deciml.deciml import deciml
-      num = deciml('32.0722168131', 7)
+      >>> from deciml.deciml import deciml
+      >>> num = deciml('32.0722168131', 7)
       '''
          '32.0722168131' - The variable to convert to Decimal
          7 - The precision
       '''
+      >>> num
+      Decimal('32.0722168')
       ```
 
    2. (f) **abs(__a)**: Get the absolute value
 
       ```python
-      from deciml.deciml import abs
-      abs_value = abs(-0.526842)
+      >>> from deciml.deciml import abs
+      >>> abs_value = abs(-0.526842)
       '''
          -0.526842 - The variable to convert to it's absolute value
       '''
+      >>> abs_value
+      Decimal('0.526842')
       ```
    
    3. (f) **deciml_sort(__a, __pr)**: Get a new sorted list
 
       ```python
-      from deciml.deciml import deciml_sort
-      sorted_list = deciml_sort([12.525, 2.08, 9.2552, '-4.51511'], 16)
+      >>> from deciml.deciml import deciml_sort
+      >>> sorted_list = deciml_sort([12.525, 2.08, 9.2552, '-4.515117E1'], 4)
       '''
-         [12.525, 2.08, 9.2552, '-4.51511'] - Variable to sort
-         16 - The precision for sorted list
+         [12.525, 2.08, 9.2552, '-4.515117E1'] - Variable to sort
+         4 - The precision for sorted list
       '''
+      >>> sorted_list
+      [Decimal('-45.1512'), Decimal('2.08'), Decimal('9.2552'), Decimal('12.525')]
       ```
 
    </p>
@@ -169,56 +192,282 @@
 <details>
    <summary>Arithmatic Operations</summary>
    <p>
+<details>
+   <summary>Primitive Operations</summary>
+   <p>
 
-   1. (c) **algbra**: primitive arithmatic operations
+   **(c) algbra**: primitive arithmatic operations
 
-      ```python
-      from deciml.deciml import algbra
-      ```
+   ```python
+   >>> from deciml.deciml import algbra
+   ```
 
-      i. (sm) **add()**: add given numbers (in algbra)
+   i. (sm) **add(*__a, pr)**: add given numbers (in algbra)
 
-         *__a: arbitrary number of numbers
-         
-         pr: desired precision
+   ```python
+   >>> nums_sum = algbra.add(2.3221, 5.2425, 120.522, pr=3)
+   '''
+      2.3221, 5.2425, 120.522 - Numbers to add
+      3 - The precision
+   '''
+   >>> nums_sum
+   Decimal('128.087')
+   ```
 
-      ii. (sm) **sub**: subtract given numbers (in algbra)
+   ii. (sm) **sub(*__a, pr)**: subtract given numbers (in algbra)
 
-         *__a: arbitrary number of numbers
-         
-         pr: desired precision
+   ```python
+   >>> nums_sub = algbra.sub(2.5562, 25.5521, 2.245, pr=3)
+   '''
+      25.5521, 2.245 - Numbers to subtract from 2.5562
+      3 - The precision
+   '''
+   >>> nums_sub
+   Decimal('-25.241')
+   ```
 
-      iii. (sm) **mul**: multiply given numbers (in algbra)
 
-         *__a: arbitrary number of numbers
-         
-         pr: desired precision
+   iii. (sm) **mul(*__a, pr)**: multiply given numbers (in algbra)
 
-      iv. (sm) **div**: divide given numbers (in algbra)
+   ```python
+   >>> nums_mul = algbra.mul(2.9525, 3.755, 2.3524, pr=3)
+   '''
+      2.9525, 3.755, 2.3524 - Numbers to multiply
+      3 - The precision
+   '''
+   >>> nums_mul
+   Decimal('26.080')
+   ```
+   iv. (sm) **div(__a, __b, __pr)**: divide given numbers (in algbra)
 
-         __a: numerator of division
-         
-         __b: denominator of division
-         
-         __pr: desired precision
+   ```python
+   >>> num = algbra.div(2.02354, 3.2152, 4)
+   '''
+      2.02354 - Numerator
+      3.2152 - Denominator
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.6294')
+   ```
 
-      v. (cm) **log**: logarithmic given numbers (in algbra)
+   v. (cm) **log(__a, __b, __pr)**: logarithmic given numbers (in algbra)
 
-         __a: number to operate
-         
-         __b: base of the log
-         
-         __pr: desired precision
+   ```python
+   >>> num = algbra.log(2.23541, 3, 4)
+   '''
+      2.23541 - Number
+      3 - Base
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.7322')
+   ```
 
-      vi. (cm) **pwr**: exponent from given numbers (in algbra)
+   vi. (cm) **pwr(__a, __b, __pr)**: exponent from given numbers (in algbra)
 
-         __a: number to operate
-         
-         __b: power
-         
-         __pr: desired precision
+   ```python
+   >>> num = algbra.pwr(2.3214, 2.213, 4)
+   '''
+      2.3214 - Number
+      2.213 - Power
+      4 - The precision
+   '''
+   >>> num
+   Decimal('6.4477')
+   ```
 
-   2. (c) **galgbra**: Arithmatic operations using lists
+   </p>
+</details>
+<details>
+   <summary>Grouped Operations</summary>
+   <p>
+
+   **(c) galgbra**: Arithmatic operations using lists
+
+   ```python
+   >>> from deciml.deciml import galgbra
+   ```
+
+   i. (sm) **add(*__a, pr)**: Add lists of numbers
+
+   ```python
+   >>> nums = galgbra.add([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
+   '''
+      [2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894] - Lists to add
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('30.8847'), Decimal('88.1372'), Decimal('50.1749'))
+   ```
+
+   ii. (sm) **sub(*__a, pr)**: Subtract list of numbers
+
+   ```python
+   >>> nums = galgbra.sub([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
+   '''
+      [2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894] - Lists to subtract
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('-26.4217'), Decimal('-83.4067'), Decimal('-37.5235'))
+   ```
+
+   iii. (sm) **mul(*__a, pr)**: Multiply list of numbers
+
+   ```python
+   >>> nums = galgbra.mul([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
+   '''
+      [2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894] - Lists to multiply
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('348.6825'), Decimal('47.8556'), Decimal('3024.5107'))
+   ```
+
+   iv. (sm) **div(__a, __b, __pr)**: Divide list of numbers
+
+   ```python
+   >>> nums = galgbra.div([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
+   '''
+      [2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235] - Lists to divide
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.3046'), Decimal('0.027653'), Decimal('0.2689'))
+   ```
+
+   v. (sm) **log(__a, __b, __pr)**: Logarithm of list of numbers
+
+   ```python
+   >>> nums = galgbra.log([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
+   '''
+      [2.23153, 2.36528, 6.32569] - List of numbers
+      [7.32669, 85.5354, 23.5235] - List of base
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.4031'), Decimal('0.1935'), Decimal('0.5841'))
+   ```
+
+   vi. (sm) **pwr(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.pwr([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
+   '''
+      [2.23153, 2.36528, 6.32569] - Lists of numbers
+      [7.32669, 85.5354, 23.5235] - Lists of exponents
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('358.1823'), Decimal('95541990468229107013623363686972.6621'), Decimal('6996193289690917769.8999'))
+   ```
+
+   vii. (sm) **addsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.addsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+      2.02552 - number to add
+      [7.32669, 85.5354, 23.5235] - List of numbers to add
+      4 - 
+   '''
+   >>> nums
+   (Decimal('9.3522'), Decimal('87.5609'), Decimal('25.5490'))
+   ```
+
+   viii. (sm) **subsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.subsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('-5.3012'), Decimal('-83.5099'), Decimal('-21.49710'))
+   ```
+
+   ix. (sm) **subgs(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.subgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('5.3012'), Decimal('83.5099'), Decimal('21.49710'))
+   ```
+
+   x. (sm) **mulsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.mulsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('14.8404'), Decimal('173.2537'), Decimal('47.6473'))
+   ```
+
+   xi. (sm) **divsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.divsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('0.2765'), Decimal('0.023681'), Decimal('0.086106'))
+   ```
+
+   xii. (sm) **divgs(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.divgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('3.6172'), Decimal('42.2289'), Decimal('11.6136'))
+   ```
+
+   xiii. (sm) **logsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.logsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('0.3544'), Decimal('0.1587'), Decimal('0.2235'))
+   ```
+
+   xvi. (sm) **loggs(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.loggs([7.32669, 85.5354, 23.5235], 2.02552 , 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('2.8215'), Decimal('6.3031'), Decimal('4.4742'))
+   ```
+
+   xvii. (sm) **pwrsg(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.pwrsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('176.1563'), Decimal('165853714112712692593865989.2344'), Decimal('16248459.7577'))
+   ```
+
+   xviii. (sm) **pwrgs(__a, __b, __pr)**
+
+   ```python
+   >>> nums = galgbra.pwrgs([7.32669, 85.5354, 23.5235], 2.02552 , 4)
+   '''
+   '''
+   >>> nums
+   (Decimal('56.4791'), Decimal('8195.9659'), Decimal('599.7974'))
+   ```
+
+   </p>
+</details>
    </p>
 </details>
 

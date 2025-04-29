@@ -51,6 +51,7 @@ def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
         else:a0='';
         if (a1:=__exp(__a)) is None:raise Exception;
         if len(a2:=a1[0].split('.'))==1:a2+=['0',];
+        # for positive exponential
         if (ia1:=int(a1[1])) > 0:
             if (la2:=len(a2[1])) > 0:
                 i = la2 - 1
@@ -160,7 +161,7 @@ class rdeciml:
             self.__oa=__a;self.__ob=__b;del a1,b1;__a,__b=map(self.__dtip,((__a,__pr),(__b,__pr)));
             self.__a=__a;self.__b=__b;self.__pr=__pr;del __a,__b,__pr;self.random=lambda __n,__s=None:self.__frandom(self.__pr,__n,__s);
             """
-#### Get a tuple of random Decimal
+#### Get a tuple of random numbers in Decimal.
 - **__n**: Number of random numbers to generate
 - **__s**: Seed for generating random numbers
             """
@@ -189,7 +190,8 @@ class rdeciml:
 - __pr: New precision
         """
         try:
-            if __pr < 0:raise Exception("{} less than 0.".format(__pr));self.__pr=__pr;del __pr;self.__a,self.__b=map(self.__dtip,((self.__oa,self.__pr),(self.__ob,self.__pr)));print("New precision: "+str(self.__pr));
+            if __pr < 0:raise Exception("{} less than 0.".format(__pr))
+            self.__pr=__pr;del __pr;self.__a,self.__b=map(self.__dtip,((self.__oa,self.__pr),(self.__ob,self.__pr)));print("New precision: "+str(self.__pr));
         except Exception as e:print("Invalid command: rdeciml.cgpr\n",e);
 
 
@@ -241,13 +243,12 @@ def abs(__a:float|int|str|Decimal)->Decimal|None:
 
 def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal], __pr=getpr()) -> list[Decimal]:
     '''
-#### Returns a new sorted list.
+#### Returns a new sorted list in Decimal.
 - **__a**: List to convert to Decimal and sort
 - **__pr**: Precison for Decimal
     '''
     try:
         lis = list(map(lambda i: deciml(i, __pr), __a))
-        print(lis)
         lis.sort()
         return lis
     except Exception as e:print(e);return None;
@@ -256,6 +257,11 @@ class algbra:
 
     @staticmethod
     def add(*__a:float|int|str|Decimal,pr=getpr())->Decimal:
+        '''
+#### Get the addition of numbers in Decimal.
+- **\\*__a**: Numbers to add
+- **pr**: Precision for returned Decimal
+        '''
         try:
             p=pr+2
             def __add(__a:str,__b:str)->Decimal:
@@ -289,6 +295,11 @@ class algbra:
 
     @staticmethod
     def sub(*__a:float|int|str|Decimal,pr=getpr())->Decimal:
+        '''
+#### Get the subtraction of numbers in Decimal.
+- **\\*__a**: The numbers to subtract (Next arguments subtracted from the first number)
+- **pr**: Precision for returned Decimal
+        '''
         try:
             p=pr+2
             def __sub(__a:str,__b:str)->Decimal:
@@ -322,6 +333,11 @@ class algbra:
 
     @staticmethod
     def mul(*__a:float|int|str|Decimal,pr=getpr())->Decimal:
+        '''
+#### Get the multiplication of numbers in Decimal.
+- **\\*__a**: The numbers to multiply
+- **pr**: Precision for returned Decimal
+        '''
         try:
             p=pr+2
             def __mul(__a:str,__b:str)->Decimal:
@@ -351,6 +367,12 @@ class algbra:
 
     @staticmethod
     def div(__a:float|int|str|Decimal,__b:float|int|str|Decimal,__pr=getpr())->Decimal:
+        '''
+#### Get the division of numbers in Decimal.
+- **__a**: The numerator
+- **__b**: The denominator
+- **__pr**: Precision for returned Decimal
+        '''
         try:
             p=__pr+2
             def __exp(__a)->list:
@@ -372,6 +394,12 @@ class algbra:
     
     @classmethod
     def log(cls,__a:float|int|str|Decimal,__b=constant.e(),__pr=getpr())->Decimal:
+        '''
+#### Get the logarithm of number in Decimal.
+- **__a**: The number
+- **__b**: The base
+- **__pr**: Precision for returned Decimal
+        '''
         try:
             p=__pr+2
             a=Decimal(str(__a));b=Decimal(str(__b));c=0;
@@ -394,6 +422,12 @@ class algbra:
 
     @classmethod
     def pwr(cls,__a:float|int|Decimal|str,__b:float|int|Decimal|str,__pr=getpr())->Decimal:
+        '''
+#### Get the Decimal after exponentiation.
+- **__a**: The number to exponent
+- **__b**: The exponent
+- **__pr**: Precision for returned Decimal
+        '''
         try:
             a=Decimal(str(__a));c=0;p=__pr+2;
             if (b:=Decimal(str(__b)))==(ib:=int(b)):
@@ -425,66 +459,155 @@ class galgbra:
 
     @staticmethod
     def add(*__a:list[Decimal]|tuple[Decimal,...],pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after addition for lists or tuples.
+##### (a, b, c) + [A, B, C] + ... = (a+A+..., b+B+..., c+C+...)
+- **\\*__a**: Lists or tuples to perform addition
+- **pr**: Precision for the returned Decimal values
+        '''
         try:return tuple(map(lambda x:algbra.add(*x,pr=pr),zip(*__a)));
         except Exception as e:print("Invalid command: galgra.add\n",e);
     
     @staticmethod
     def sub(*__a:list[Decimal]|tuple[Decimal,...],pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after subtraction for lists or tuples.
+##### (a, b, c) - [A, B, C] - ... = (a-A-..., b-B-..., c-C-...)
+- **\\*__a**: Lists or tuples to perform subtraction
+- **pr**: Precision for the returned Decimal values
+        '''
         try:return tuple(map(lambda x:algbra.sub(*x,pr=pr),zip(*__a)));
         except Exception as e:print("Invalid command: galgra.sub\n",e);
     
     @staticmethod
     def mul(*__a:list[Decimal]|tuple[Decimal,...],pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after multiplication for lists or tuples.
+##### (a, b, c) x [A, B, C] x ... = (a\\*A\\*..., b\\*B\\*..., c\\*C\\*...)
+- **\\*__a**: Lists or tuples to perform mutiplication
+- **pr**: Precision for the returned Decimal values
+        '''
         try:return tuple(map(lambda x:algbra.mul(*x,pr=pr),zip(*__a)));
         except Exception as e:print("Invalid command: galgra.mul\n",e);
     
     @staticmethod
     def div(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after division for lists or tuples.
+##### (a, b, c, ...) / [A, B, C, ...] = (a/A, b/B, c/C, ...)
+- **__a**: List or tuple with numerators
+- **__b**: List or tuple with denominators
+- **__pr**: Precision for the returned Decimal values
+        '''
         try:return tuple(map(lambda x:algbra.div(*x,__pr),zip(__a,__b)));
         except Exception as e:print("Invalid command: galgra.div\n",e);
     
     @staticmethod
     def pwr(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after exponentiation.
+##### (a, b, c, ...) ^ (A, B, C, ...) = (a^A, b^B, c^C, ...)
+- **__a**: List or tuple with numbers
+- **__b**: List or tuple of exponents
+- **__pr**: Precision for the returned Decimal values
+
+        '''
         try:return tuple(map(lambda x:algbra.pwr(*x,__pr),zip(__a,__b)));
         except Exception as e:print("Invalid command: galgra.pwr\n",e);
     
     @staticmethod
     def log(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the logarithm of numbers.
+##### (a, b, c), (A, B, C) = (log_a(A), log_b(B), log_c(C))
+- **__a**: List or tuple with numbers
+- **__b**: List or tuple with base values
+- **__pr**: Precision for the returned Decimal values 
+        '''
         try:return tuple(map(lambda x:algbra.log(*x,__pr),zip(__a,__b)));
         except Exception as e:print("Invalid command: galgra.log\n",e);
     
     @staticmethod
     def addsg(__a:Decimal,__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after addition.
+##### N + (A, B, C, ...) = (N+A, N+B, N+C, ...)
+- **__a**: Number to add
+- **__b**: List or tuple with numbers for addition
+- **__pr**: Precision for the returned Decimal values
+        '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.add(__a,x,pr=__pr),__b));
         except Exception as e:print("Invalid command: galgra.addsg\n",e);
     
     @staticmethod
     def subgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal,__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after subtraction.
+##### (A, B, C, ...) - N = (A-N, B-N, C-N, ...)
+- **__a**: List or tuple with numbers
+- **__b**: Number to subtract
+- **__pr**: Precision for the returned Decimal values
+        '''
         try:__b=str(__b);return tuple(map(lambda x:algbra.sub(x,__b,pr=__pr),__a));
         except Exception as e:print("Invalid command: galgra.subgs\n",e);
     
     @staticmethod
     def subsg(__a:Decimal,__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after subtraction.
+##### N - (A, B, C, ...) = (N-A, N-B, N-C, ...)
+- **__a**: Number
+- **__b**: List or tuple with numbers to subtract
+- **__pr**: Precision for the returned Decimal values
+        '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.sub(__a,x,pr=__pr),__b));
         except Exception as e:print("Invalid command: galgra.subsg\n",e);
 
     @staticmethod
     def mulsg(__a:Decimal,__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after multiplication.
+##### N x (A, B, C, ...) = (N*A, N*B, N*C, ...)
+- **__a**: Number
+- **__b**: List or tuple with numbers to multiply
+- **__pr**: Precision for the returned Decimal
+        '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.mul(__a,x,pr=__pr),__b));
         except Exception as e:print("Invalid command: galgra.mulsg\n",e);
 
     @staticmethod
     def divgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal,__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after division.
+##### (A, B, C, ...) / N = (A/N, B/N, C/N, ...)
+- **__a**: List or tuple with numerators
+- **__b**: Denominator
+- **__pr**: Precision for the returned Decimal
+        '''
         try:__b=str(__b);return tuple(map(lambda x:algbra.div(x,__b,__pr),__a));
         except Exception as e:print("Invalid command: galgra.divgs\n",e);
     
     @staticmethod
     def divsg(__a:Decimal,__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after division.
+##### N / (A, B, C, ...) = (N/A, N/B, N/C, ...)
+- **__a**: Numerator
+- **__b**: List or tuple with numbers to denominators
+- **__pr**: Precision for the returned Decimal
+        '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.div(__a,x,__pr),__b));
         except Exception as e:print("Invalid command: galgra.divsg\n",e);
 
     @staticmethod
     def pwrgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal,__pr=getpr())->tuple[Decimal,...]:
+        '''
+#### Get the numbers after exponentiation.
+##### (A, B, C, ...) ^ N = (A^N, B^N, B^N, ...)
+- **__a**: List or tuple with numbers
+- **__b**: Exponent
+- **__pr**: Precision for the returned Decimal 
+        '''
         try:__b=str(__b);return tuple(map(lambda x:algbra.pwr(x,__b,__pr),__a));
         except Exception as e:print("Invalid command: galgra.pwrgs\n",e);
     
