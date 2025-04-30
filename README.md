@@ -202,7 +202,7 @@
    >>> from deciml.deciml import algbra
    ```
 
-   i. (sm) **add(*__a, pr)**: add given numbers (in algbra)
+   i. (sm) **add(*__a, pr)**: add given numbers
 
    ```python
    >>> nums_sum = algbra.add(2.3221, 5.2425, 120.522, pr=3)
@@ -214,7 +214,7 @@
    Decimal('128.087')
    ```
 
-   ii. (sm) **sub(*__a, pr)**: subtract given numbers (in algbra)
+   ii. (sm) **sub(*__a, pr)**: subtract given numbers
 
    ```python
    >>> nums_sub = algbra.sub(2.5562, 25.5521, 2.245, pr=3)
@@ -227,7 +227,7 @@
    ```
 
 
-   iii. (sm) **mul(*__a, pr)**: multiply given numbers (in algbra)
+   iii. (sm) **mul(*__a, pr)**: multiply given numbers
 
    ```python
    >>> nums_mul = algbra.mul(2.9525, 3.755, 2.3524, pr=3)
@@ -238,7 +238,7 @@
    >>> nums_mul
    Decimal('26.080')
    ```
-   iv. (sm) **div(__a, __b, __pr)**: divide given numbers (in algbra)
+   iv. (sm) **div(__a, __b, __pr)**: divide given numbers
 
    ```python
    >>> num = algbra.div(2.02354, 3.2152, 4)
@@ -251,7 +251,7 @@
    Decimal('0.6294')
    ```
 
-   v. (cm) **log(__a, __b, __pr)**: logarithmic given numbers (in algbra)
+   v. (cm) **log(__a, __b, __pr)**: logarithmic given numbers
 
    ```python
    >>> num = algbra.log(2.23541, 3, 4)
@@ -264,7 +264,7 @@
    Decimal('0.7322')
    ```
 
-   vi. (cm) **pwr(__a, __b, __pr)**: exponent from given numbers (in algbra)
+   vi. (cm) **pwr(__a, __b, __pr)**: exponent from given numbers
 
    ```python
    >>> num = algbra.pwr(2.3214, 2.213, 4)
@@ -289,7 +289,7 @@
    >>> from deciml.deciml import galgbra
    ```
 
-   i. (sm) **add(*__a, pr)**: Add lists of numbers
+   i. (sm) **add(*__a, pr)**: Addition with lists of numbers
 
    ```python
    >>> nums = galgbra.add([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
@@ -301,7 +301,7 @@
    (Decimal('30.8847'), Decimal('88.1372'), Decimal('50.1749'))
    ```
 
-   ii. (sm) **sub(*__a, pr)**: Subtract list of numbers
+   ii. (sm) **sub(*__a, pr)**: Subtraction with list of numbers
 
    ```python
    >>> nums = galgbra.sub([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
@@ -313,7 +313,7 @@
    (Decimal('-26.4217'), Decimal('-83.4067'), Decimal('-37.5235'))
    ```
 
-   iii. (sm) **mul(*__a, pr)**: Multiply list of numbers
+   iii. (sm) **mul(*__a, pr)**: Multiplication with list of numbers
 
    ```python
    >>> nums = galgbra.mul([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], [21.3265, 0.23654, 20.3256894], pr=4)
@@ -325,7 +325,7 @@
    (Decimal('348.6825'), Decimal('47.8556'), Decimal('3024.5107'))
    ```
 
-   iv. (sm) **div(__a, __b, __pr)**: Divide list of numbers
+   iv. (sm) **div(__a, __b, __pr)**: Division with lists of numbers
 
    ```python
    >>> nums = galgbra.div([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
@@ -337,7 +337,7 @@
    (Decimal('0.3046'), Decimal('0.027653'), Decimal('0.2689'))
    ```
 
-   v. (sm) **log(__a, __b, __pr)**: Logarithm of list of numbers
+   v. (sm) **log(__a, __b, __pr)**: Logarithm with lists of numbers
 
    ```python
    >>> nums = galgbra.log([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
@@ -350,7 +350,7 @@
    (Decimal('0.4031'), Decimal('0.1935'), Decimal('0.5841'))
    ```
 
-   vi. (sm) **pwr(__a, __b, __pr)**
+   vi. (sm) **pwr(__a, __b, __pr)**: Exponentiation with lists of numbers
 
    ```python
    >>> nums = galgbra.pwr([2.23153, 2.36528, 6.32569], [7.32669, 85.5354, 23.5235], 4)
@@ -363,7 +363,7 @@
    (Decimal('358.1823'), Decimal('95541990468229107013623363686972.6621'), Decimal('6996193289690917769.8999'))
    ```
 
-   vii. (sm) **addsg(__a, __b, __pr)**
+   vii. (sm) **addsg(__a, __b, __pr)**: Addition of a list of numbers with a number
 
    ```python
    >>> nums = galgbra.addsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -376,7 +376,7 @@
    (Decimal('9.3522'), Decimal('87.5609'), Decimal('25.5490'))
    ```
 
-   viii. (sm) **subsg(__a, __b, __pr)**
+   viii. (sm) **subsg(__a, __b, __pr)**: Subtraction of a list of numbers from a number
 
    ```python
    >>> nums = galgbra.subsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -386,7 +386,7 @@
    (Decimal('-5.3012'), Decimal('-83.5099'), Decimal('-21.49710'))
    ```
 
-   ix. (sm) **subgs(__a, __b, __pr)**
+   ix. (sm) **subgs(__a, __b, __pr)**: Subtraction of number from a list of numbers
 
    ```python
    >>> nums = galgbra.subgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
@@ -396,7 +396,7 @@
    (Decimal('5.3012'), Decimal('83.5099'), Decimal('21.49710'))
    ```
 
-   x. (sm) **mulsg(__a, __b, __pr)**
+   x. (sm) **mulsg(__a, __b, __pr)**: Multiplication of number with a list of numbers
 
    ```python
    >>> nums = galgbra.mulsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -406,7 +406,7 @@
    (Decimal('14.8404'), Decimal('173.2537'), Decimal('47.6473'))
    ```
 
-   xi. (sm) **divsg(__a, __b, __pr)**
+   xi. (sm) **divsg(__a, __b, __pr)**: Division of number by a list of numbers 
 
    ```python
    >>> nums = galgbra.divsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -416,7 +416,7 @@
    (Decimal('0.2765'), Decimal('0.023681'), Decimal('0.086106'))
    ```
 
-   xii. (sm) **divgs(__a, __b, __pr)**
+   xii. (sm) **divgs(__a, __b, __pr)**: Division of a list of numbers by number  
 
    ```python
    >>> nums = galgbra.divgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
@@ -426,7 +426,7 @@
    (Decimal('3.6172'), Decimal('42.2289'), Decimal('11.6136'))
    ```
 
-   xiii. (sm) **logsg(__a, __b, __pr)**
+   xiii. (sm) **logsg(__a, __b, __pr)**: Logarithm of numbers with a list of bases
 
    ```python
    >>> nums = galgbra.logsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -436,17 +436,17 @@
    (Decimal('0.3544'), Decimal('0.1587'), Decimal('0.2235'))
    ```
 
-   xvi. (sm) **loggs(__a, __b, __pr)**
+   xvi. (sm) **loggs(__a, __b, __pr)**: Logarithm of a list of numbers with base
 
    ```python
-   >>> nums = galgbra.loggs([7.32669, 85.5354, 23.5235], 2.02552 , 4)
+   >>> nums = galgbra.loggs([7.32669, 85.5354, 23.5235], 2.02552, 4)
    '''
    '''
    >>> nums
    (Decimal('2.8215'), Decimal('6.3031'), Decimal('4.4742'))
    ```
 
-   xvii. (sm) **pwrsg(__a, __b, __pr)**
+   xvii. (sm) **pwrsg(__a, __b, __pr)**: Exponentiate a number by a list of numbers
 
    ```python
    >>> nums = galgbra.pwrsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
@@ -456,7 +456,7 @@
    (Decimal('176.1563'), Decimal('165853714112712692593865989.2344'), Decimal('16248459.7577'))
    ```
 
-   xviii. (sm) **pwrgs(__a, __b, __pr)**
+   xviii. (sm) **pwrgs(__a, __b, __pr)**: Exponentiate a list of numbers by number
 
    ```python
    >>> nums = galgbra.pwrgs([7.32669, 85.5354, 23.5235], 2.02552 , 4)
