@@ -613,6 +613,8 @@ class galgbra:
     
     @staticmethod
     def pwrsg(__a:Decimal,__b:list[Decimal]|tuple[Decimal,...],__pr=getpr())->tuple[Decimal,...]:
+        '''
+        '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.pwr(__a,x,__pr),__b));
         except Exception as e:print("Invalid command: galgra.pwrsg\n",e);
     
