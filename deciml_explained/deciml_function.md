@@ -1,10 +1,12 @@
-'''
+## deciml - Get the Decimal value
+
+```python
 def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
-'''
+```
 
-The function returns the Decimal object for the given number "__a", with a precision of "__pr".
+The function returns the Decimal object for the given number ***"__a"***, with a precision of ***"__pr"***.
 
-'''
+```python
 def __exp(__a:str)->list:
 		match len(a:=__a.split('e')):
     		case 1:
@@ -14,11 +16,11 @@ def __exp(__a:str)->list:
         				case _:return None;
     		case 2:return a if a[0]!='' else ['1',a[1]];
     		case _:return None;
-'''
+```
 
 This function splits the string into a list with an non exponential part and an exponential part.
 
-'''
+```python
 try:
 	if (sa:=str(__a))=='NaN' or sa=='Inf' or sa=='-Inf':return __a;
     __a=str(__a)
@@ -63,6 +65,6 @@ try:
                 a2[1]='0';
         return Decimal(a0+a2[0]+'.'+a2[1]+'E'+a1[1]);
     except:return Decimal('NaN');
-'''
+```
 
 The we separate the negative sign if the number is negative. Then we split the non exponential part. If the exponential is greater than zero, we convert the decimal value such that the exponential is not used (This is done to prevent the Decimal from converting the value which leads to different precision if not done as the precision is the number of digits after the decimal point). We return 0 if the non exponential part is equal to zero. After that we count the number of zeros for the decimal part of the non exponential part if the decimal part has leading zeros. Then we update the list containing the non exponential part such that the integer part has only one value. Then we update the exponential part. After that we round the decimal part of the non exponential part to have a value that has an length equal to the precision. In the end we return the decimal value of the number that was represented in lists.

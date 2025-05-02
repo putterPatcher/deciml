@@ -1,10 +1,12 @@
-'''
+## The *"pwr"* function
+
+```python
 def pwr(cls,__a:float|int|Decimal|str,__b:float|int|Decimal|str,__pr=getpr())->Decimal:
-'''
+```
 
 This is the function to find the number for a particular number with a particular power.
 
-'''
+```python
 a=Decimal(str(__a));c=0;p=__pr+2;
 if (b:=Decimal(str(__b)))==(ib:=int(b)):
     r=1
@@ -14,12 +16,12 @@ if (b:=Decimal(str(__b)))==(ib:=int(b)):
     else:
         for _ in range(ib):r=cls.mul(r,a,pr=p);
     return deciml(r,__pr)
-'''
+```
 
 
 First, if both the numbers are integers, the result is in the above way by multiplying the number "b" number of times if b > 0. If b < 0, then we first calculate by multiplying negative of b number of times and then taking the inverse.
 
-'''
+```python
 elif a<0:raise Exception;
 elif b==0:return Decimal('1');
 elif a==0:return Decimal('0');
@@ -35,7 +37,7 @@ if a<1:
         while a<1:a=cls.mul(a,10,pr=p);c+=1;
         getcontext().prec=int((p1:=cls.mul(-c, b, pr=p)))+p;return deciml((10**p1)*(a**b),__pr);
 except:return Decimal('NaN');
-'''
+```
 
 '''
 (a*(10^n)*(10^(-n)))^b
