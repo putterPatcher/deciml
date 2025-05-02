@@ -816,7 +816,7 @@ class trig:
 class gtrig:
 
     @staticmethod
-    def sine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def sine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sine for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -829,7 +829,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def cosine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def cosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosine for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -842,7 +842,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def tan(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def tan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the tan for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -855,7 +855,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def cot(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def cot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cot for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -868,7 +868,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def sec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def sec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sec for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -881,7 +881,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def cosec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def cosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosec for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -894,7 +894,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def asine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def asine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sine<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -907,7 +907,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def acosine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def acosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosine<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -920,7 +920,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def atan(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def atan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the tan<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -933,7 +933,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def acot(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def acot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cot<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -946,7 +946,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def asec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def asec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sec<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -959,7 +959,7 @@ class gtrig:
             return None
     
     @staticmethod
-    def acosec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def acosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosec<sup>-1</sup> for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1045,7 +1045,7 @@ class htrig:
 class ghtrig:
 
     @staticmethod
-    def sinh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def sinh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sinh for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1058,7 +1058,7 @@ class ghtrig:
             return None
     
     @staticmethod
-    def cosh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def cosh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosh for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1071,7 +1071,7 @@ class ghtrig:
             return None
     
     @staticmethod
-    def tanh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def tanh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the tanh for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1084,7 +1084,7 @@ class ghtrig:
             return None
     
     @staticmethod
-    def coth(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def coth(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the coth for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1097,7 +1097,7 @@ class ghtrig:
             return None
     
     @staticmethod
-    def sech(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def sech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the sech for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1110,7 +1110,7 @@ class ghtrig:
             return None
     
     @staticmethod
-    def cosech(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+    def cosech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->tuple[Decimal,...]:
         '''
 #### Get the cosech for list or tuple as tuple with Decimal
 - **__a**: List or tuple of numbers
@@ -1125,12 +1125,68 @@ class ghtrig:
 class stat:
 
     @staticmethod
+    def amean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.div(algbra.add(*__a, pr=__pr+1),len(__a),pr=__pr)
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def gmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.pwr(algbra.mul(*__a, pr=__pr+1),algbra.div('1',len(__a),__pr+1),pr=__pr)
+        except Exception as e:
+            print(e)
+            return None
+
+    @staticmethod
+    def hmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.div(algbra.add(*tuple(map(lambda i:algbra.div('1',i,__pr+2),__a)),pr=__pr+1),len(__a),__pr)
+        except Exception as e:
+            print(e)
+            return None
+
+    @classmethod
+    def pvar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.div(algbra.add(*galgbra.pwrgs(galgbra.subgs(__a,cls.amean(__a,__pr+4),__pr+3),'2',__pr+2),pr=__pr+1),len(__a),__pr)
+        except Exception as e:
+            print(e)
+            return None
+    
+    @classmethod
+    def svar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.div(algbra.add(*galgbra.pwrgs(galgbra.subgs(__a,cls.amean(__a,__pr+4),__pr+3),'2',__pr+2),pr=__pr+1),len(__a)-1,__pr)
+        except Exception as e:
+            print(e)
+            return None
+
+    @classmethod
+    def pstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.pwr(cls.pvar(__a,__pr+1),'0.5',__pr)
+        except Exception as e:
+            print(e)
+            return None
+
+    @classmethod
+    def sstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr=getpr())->Decimal:
+        try:
+            return algbra.pwr(cls.svar(__a,__pr+1),'0.5',__pr)
+        except Exception as e:
+            print(e)
+            return None
+
+    @staticmethod
     def median(__x:list[Decimal]|tuple[Decimal,...],__pr=getpr())->Decimal:
         try:
             x=tuple(map(lambda x:Decimal(str(x)),__x));lm=algbra.div(len(x),2);(x:=list(x)).sort();
             if (i:=int(lm)-1)==lm:return x[i];
             else:return(algbra.div(algbra.add(x[i],x[i+1],pr=__pr),2,__pr));
-        except Exception as e:print("Invalid command: stat.median\n",e);return Decimal('NaN');
+        except Exception as e:print("Invalid command: stat.median\n",e);return None;
     
     @staticmethod
     def mode(__x:list|tuple)->dict["values": tuple[Decimal,...], "mode": int]:
@@ -1141,7 +1197,7 @@ class stat:
             for i in d.items():
                 if i[1]==c:r.append(i[0]);
             return {"values":tuple(r),"mode":c}
-        except Exception as e:print("Invalid command: stat.mode\n",e);return Decimal('NaN');
+        except Exception as e:print("Invalid command: stat.mode\n",e);return None;
 
 
 
