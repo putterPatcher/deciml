@@ -368,7 +368,7 @@
    ```python
    >>> nums = galgbra.addsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
-      2.02552 - number to add
+      2.02552 - Number to add
       [7.32669, 85.5354, 23.5235] - List of numbers to add
       4 - 
    '''
@@ -381,6 +381,9 @@
    ```python
    >>> nums = galgbra.subsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
+      2.02552 - Number
+      [7.32669, 85.5354, 23.5235] - Numbers to subtract
+      4 - The precision
    '''
    >>> nums
    (Decimal('-5.3012'), Decimal('-83.5099'), Decimal('-21.49710'))
@@ -391,6 +394,9 @@
    ```python
    >>> nums = galgbra.subgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
    '''
+      [7.32669, 85.5354, 23.5235] - Numbers
+      2.02552 - Number to subtract
+      4 - The precision
    '''
    >>> nums
    (Decimal('5.3012'), Decimal('83.5099'), Decimal('21.49710'))
@@ -401,6 +407,9 @@
    ```python
    >>> nums = galgbra.mulsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
+      2.02552 - Number
+      [7.32669, 85.5354, 23.5235] - Numbers to multiply
+      4 - The precision
    '''
    >>> nums
    (Decimal('14.8404'), Decimal('173.2537'), Decimal('47.6473'))
@@ -411,6 +420,9 @@
    ```python
    >>> nums = galgbra.divsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
+      2.02552 - Numerator
+      [7.32669, 85.5354, 23.5235] - Denominators
+      4 - The precision
    '''
    >>> nums
    (Decimal('0.2765'), Decimal('0.023681'), Decimal('0.086106'))
@@ -421,6 +433,9 @@
    ```python
    >>> nums = galgbra.divgs([7.32669, 85.5354, 23.5235], 2.02552, 4)
    '''
+      [7.32669, 85.5354, 23.5235] - Numerators
+      2.02552 - Denominator
+      4 - The precision
    '''
    >>> nums
    (Decimal('3.6172'), Decimal('42.2289'), Decimal('11.6136'))
@@ -431,6 +446,9 @@
    ```python
    >>> nums = galgbra.logsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
+      2.02552 - Number
+      [7.32669, 85.5354, 23.5235] - Bases of logarithm
+      4 - The precision
    '''
    >>> nums
    (Decimal('0.3544'), Decimal('0.1587'), Decimal('0.2235'))
@@ -441,6 +459,9 @@
    ```python
    >>> nums = galgbra.loggs([7.32669, 85.5354, 23.5235], 2.02552, 4)
    '''
+      [7.32669, 85.5354, 23.5235] - Numbers
+      2.02552 - Base of logarithm
+      4 - The precision
    '''
    >>> nums
    (Decimal('2.8215'), Decimal('6.3031'), Decimal('4.4742'))
@@ -451,6 +472,9 @@
    ```python
    >>> nums = galgbra.pwrsg(2.02552, [7.32669, 85.5354, 23.5235], 4)
    '''
+      2.02552 - Number
+      [7.32669, 85.5354, 23.5235] - Exponents
+      4 - The precision
    '''
    >>> nums
    (Decimal('176.1563'), Decimal('165853714112712692593865989.2344'), Decimal('16248459.7577'))
@@ -461,6 +485,9 @@
    ```python
    >>> nums = galgbra.pwrgs([7.32669, 85.5354, 23.5235], 2.02552 , 4)
    '''
+      [7.32669, 85.5354, 23.5235] - Numbers
+      2.02552 - Exponent
+      4 - The precision
    '''
    >>> nums
    (Decimal('56.4791'), Decimal('8195.9659'), Decimal('599.7974'))

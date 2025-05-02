@@ -753,6 +753,8 @@ class trig:
         try:pr=__pr+2;r=cls.atan(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.acot\n",e);return Decimal('NaN');
 
+class gtrig:
+    pass
 
 class htrig:
 
@@ -815,6 +817,9 @@ class stat:
                 if i[1]==c:r.append(i[0]);
             return {"values":tuple(r),"mode":c}
         except Exception as e:print("Invalid command: stat.mode\n",e);return Decimal('NaN');
+
+class ghtrig:
+    pass
 
 
 # print(deciml(22.01234485145124641E+42), deciml(0.000015646541E+100))
