@@ -630,7 +630,7 @@ class galgbra:
 ##### (A, B, C, ...), N = (log_N(A), log_N(B), log_N(C), ...)
 - **__a**: List or tuple of numbers
 - **__b**: Base of logarithm
-- **__pr**: Precision of returned Decimal numbers
+- **__pr**: Precision for returned Decimal numbers
         '''
         try:__b=str(__b);return tuple(map(lambda x:algbra.log(x,__b,__pr),__a));
         except Exception as e:print("Invalid command: galgra.loggs\n",e);
@@ -642,7 +642,7 @@ class galgbra:
 ##### N, (A, B, C, ...) = (log_A(N), log_B(N), log_C(N), ...)
 - **__a**: Number
 - **__a**: List or tuple with bases of logarithms
-- **__pr**: Precision of returned Decimal numbers
+- **__pr**: Precision for returned Decimal numbers
         '''
         try:__a=str(__a);return tuple(map(lambda x:algbra.log(__a,x,__pr),__b));
         except Exception as e:print("Invalid command: galgra.logsg\n",e);
@@ -652,6 +652,11 @@ class trig:
 
     @staticmethod
     def sin(__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        """
+#### Get the sine in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        """
         try:
             pr=__pr+2
             if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
@@ -663,6 +668,11 @@ class trig:
 
     @staticmethod
     def cos(__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosine in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:
             pr=__pr+2
             if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
@@ -674,6 +684,11 @@ class trig:
 
     @classmethod
     def tan(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the tan in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:
             pr=__pr+2
             if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
@@ -683,22 +698,42 @@ class trig:
 
     @classmethod
     def cosec(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosec in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=algbra.div(1,cls.sin(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.cosec\n",e);return Decimal('NaN');
 
     @classmethod
     def sec(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the sec in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=algbra.div(1,cls.cos(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.sec\n",e);return Decimal('NaN');
 
     @classmethod
     def cot(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cot in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=algbra.div(cls.cos(__a),cls.sin(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.cot\n",e);return Decimal('NaN');
 
     # [-pi/2, pi/2]
     @classmethod
     def asin(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the sine<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:
             pr=__pr+2;a=Decimal(str(__a));
             if a<-1 or a>1:raise Exception;
@@ -713,6 +748,11 @@ class trig:
     # [0, pi]
     @classmethod
     def acos(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosine<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:
             pr=__pr+2;a=Decimal(str(__a));
             if a<-1 or a>1:raise Exception;
@@ -728,6 +768,11 @@ class trig:
     # [-pi/2, pi/2]
     @classmethod
     def atan(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the tan<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:
             pr=__pr+2
             if (a:=Decimal(str(__a)))<0:r=algbra.mul('-1',cls.asec(algbra.pwr(algbra.add(algbra.pwr(a,'2',pr),'1',pr=pr),'0.5',pr),pr),pr=pr);
@@ -738,28 +783,203 @@ class trig:
     # [-pi/2, pi/2]
     @classmethod
     def acosec(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosec<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=cls.asin(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.acosec\n",e);return Decimal('NaN');
 
     # [0, pi]
     @classmethod
     def asec(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the sec<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=cls.acos(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.asec\n",e);return Decimal('NaN');
 
     # [-pi/2, pi/2]
     @classmethod
     def acot(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cot<sup>-1</sup> in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal number
+        '''
         try:pr=__pr+2;r=cls.atan(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.acot\n",e);return Decimal('NaN');
 
 class gtrig:
-    pass
+
+    @staticmethod
+    def sine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sine for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.sin(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def cosine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosine for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.cos(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def tan(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the tan for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.tan(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def cot(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cot for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.cot(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def sec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sec for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.sec(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def cosec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosec for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.cosec(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def asine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sine<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.asin(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def acosine(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosine<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.acos(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def atan(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the tan<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.tan(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def acot(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cot<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.acot(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def asec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sec<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.asec(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def acosec(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosec<sup>-1</sup> for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:trig.acosec(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
 
 class htrig:
 
     @staticmethod
     def sinh(__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the sinh in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:
             pr=__pr+2;r=__a;rn=None;n=__a;d=1;c=1;a1=algbra.pwr(__a,'2',pr);
             while r!=rn:rn=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,pr=pr)),(d:=d*(c+1)*((c:=c+2))),pr),pr=pr);
@@ -768,6 +988,11 @@ class htrig:
     
     @staticmethod
     def cosh(__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosh in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:
             pr=__pr+2;r=1;rn=None;n=1;d=1;c=0;a1=algbra.pwr(__a,'2',pr);
             while r!=rn:rn=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,pr=pr)),(d:=d*(c+1)*((c:=c+2))),pr),pr=pr);
@@ -776,27 +1001,127 @@ class htrig:
     
     @classmethod
     def tanh(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the tanh in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:pr=__pr+2;r=algbra.div(cls.sinh(__a,pr),cls.cosh(__a,pr),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: htrig.tanh\n",e);return Decimal('NaN');
     
     @classmethod
     def cosech(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the cosech in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:pr=__pr+2;r=algbra.div(1,cls.sinh(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: htrig.cosech\n",e);return Decimal('NaN');
     
     @classmethod
     def sech(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the sech in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:pr=__pr+2;r=algbra.div(1,cls.cosh(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: htrig.sech\n",e);return Decimal('NaN');
     
     @classmethod
     def coth(cls,__a:Decimal|int|float|str,__pr=getpr())->Decimal:
+        '''
+#### Get the coth in Decimal
+- **__a**: Number
+- **__pr**: Precision for returned Decimal numbers
+        '''
         try:
             pr=__pr+2
             if deciml(__a)==0:raise Exception;
             r=algbra.div(cls.cosh(__a),cls.sinh(__a),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: htrig.coth\n",e);return Decimal('NaN');
     
+class ghtrig:
+
+    @staticmethod
+    def sinh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sinh for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.sinh(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def cosh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosh for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.cosh(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def tanh(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the tanh for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.tanh(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def coth(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the coth for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.coth(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def sech(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the sech for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.sech(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+    
+    @staticmethod
+    def cosech(__a:list[Decimal|str|float] | tuple[Decimal|str|float,...], __pr=getpr()) -> tuple[Decimal,...]:
+        '''
+#### Get the cosech for list or tuple as tuple with Decimal
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal numbers
+        '''
+        try:
+            return tuple(map(lambda i:htrig.cosech(i, __pr),__a))
+        except Exception as e:
+            print(e)
+            return None
+
 class stat:
 
     @staticmethod
@@ -808,7 +1133,7 @@ class stat:
         except Exception as e:print("Invalid command: stat.median\n",e);return Decimal('NaN');
     
     @staticmethod
-    def mode(__x:list|tuple)->Decimal|tuple[Decimal,...]:
+    def mode(__x:list|tuple)->dict["values": tuple[Decimal,...], "mode": int]:
         try:
             d=dict();r=list();
             for i in __x:d[i]=d.setdefault(i,0)+1;
@@ -818,8 +1143,6 @@ class stat:
             return {"values":tuple(r),"mode":c}
         except Exception as e:print("Invalid command: stat.mode\n",e);return Decimal('NaN');
 
-class ghtrig:
-    pass
 
 
 # print(deciml(22.01234485145124641E+42), deciml(0.000015646541E+100))
