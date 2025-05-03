@@ -27,8 +27,7 @@ return deciml(r,__pr);
 
 Here we use taylor series to find the sine of the number.
 ### $\sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} ...$
-
-### $\sum_{i=0}^n \frac{x(-x)^{2i}}{(2i+1)!}$
+### $\sum_{i=0}^n \frac{x^{2i+1}(-1)^i}{(2i+1)!}$
 
 Here we set the variables "rp", "n", "d", "c", "a1", and "r". Here "rp" is the previous result after an iteration and "r" is the result of the iteration. a1 is the square of the intial value. And r is the result of the first iteration meaning the first value in the summation. Then we calculate the the values in the summation for the required precision using the summation formula. Here "d" is the factorial of previous value and "c" is the number for factorial value of the next iteration.
 

@@ -675,10 +675,10 @@ class trig:
         '''
         try:
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
             rp=0;n=1;d=1;c=0;r=1;a1=algbra.pwr(a,'2',pr);
-            while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr)),(d:=d*(c+1)*((c:=c+2))),pr),pr=pr);
+            while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1),pr=pr);
             return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.cos\n",e);return Decimal('NaN');
 
@@ -691,9 +691,9 @@ class trig:
         '''
         try:
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            r=algbra.div(cls.sin(a,pr),cls.cos(a,pr),pr);return deciml(r,__pr);
+            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            r=algbra.div(cls.sin(a,pr+1),cls.cos(a,pr+1),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.tan\n",e);return Decimal('NaN');
 
     @classmethod
@@ -703,7 +703,7 @@ class trig:
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
         '''
-        try:pr=__pr+2;r=algbra.div(1,cls.sin(__a),pr);return deciml(r,__pr);
+        try:pr=__pr+2;r=algbra.div(1,cls.sin(__a,pr+1),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.cosec\n",e);return Decimal('NaN');
 
     @classmethod
@@ -713,7 +713,7 @@ class trig:
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
         '''
-        try:pr=__pr+2;r=algbra.div(1,cls.cos(__a),pr);return deciml(r,__pr);
+        try:pr=__pr+2;r=algbra.div(1,cls.cos(__a,pr+1),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.sec\n",e);return Decimal('NaN');
 
     @classmethod
@@ -723,7 +723,7 @@ class trig:
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
         '''
-        try:pr=__pr+2;r=algbra.div(cls.cos(__a),cls.sin(__a),pr);return deciml(r,__pr);
+        try:pr=__pr+2;r=algbra.div(cls.cos(__a,pr+1),cls.sin(__a,pr+1),pr);return deciml(r,__pr);
         except Exception as e:print("Invalid command: trig.cot\n",e);return Decimal('NaN');
 
     # [-pi/2, pi/2]
