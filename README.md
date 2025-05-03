@@ -19,6 +19,8 @@
 <details>
    <summary>Precision</summary>
    <p>
+
+   #### Note - Explaination of [precision](./deciml_explained/precision.md)
    
    1. (v) **__DecimalPrecision**: Variable used for precision, **default precision** used if precision is not specified.
 
@@ -48,6 +50,8 @@
 <details>
    <summary>Constant</summary>
    <p>
+
+   #### Note - Explaination of [constant](./deciml_explained/constant.md)
 
    1. (v) **_Pi**: Variable that stores the value of pi
 
@@ -86,6 +90,8 @@
 <details>
    <summary>Random</summary>
    <p>
+
+   #### Note - Explaination of [random](./deciml_explained/random.md)
 
    1. (f) **rint(__i, __j, __n, s)**: Generate random integers
 
@@ -150,6 +156,8 @@
 
    1. (f) **deciml(__a, __pr)**: Get a Decimal object
 
+      ##### Note - Explaination of [deciml](./deciml_explained/deciml_function.md)
+
       ```python
       >>> from deciml.deciml import deciml
       >>> num = deciml('32.0722168131', 7)
@@ -162,6 +170,8 @@
       ```
 
    2. (f) **abs(__a)**: Get the absolute value
+
+      ##### Note - Explaination of [absolute](./deciml_explained/absolute.md)
 
       ```python
       >>> from deciml.deciml import abs
@@ -204,6 +214,8 @@
 
    i. (sm) **add(*__a, pr)**: add given numbers
 
+   ##### Note - Explaination of [add](./deciml_explained/aithmatic_operations/add.md)
+
    ```python
    >>> nums_sum = algbra.add(2.3221, 5.2425, 120.522, pr=3)
    '''
@@ -215,6 +227,8 @@
    ```
 
    ii. (sm) **sub(*__a, pr)**: subtract given numbers
+
+   ##### Note - Explaination of [sub](./deciml_explained/aithmatic_operations/subtract.md)
 
    ```python
    >>> nums_sub = algbra.sub(2.5562, 25.5521, 2.245, pr=3)
@@ -229,6 +243,8 @@
 
    iii. (sm) **mul(*__a, pr)**: multiply given numbers
 
+   ##### Note - Explaination of [mul](./deciml_explained/aithmatic_operations/multiply.md)
+
    ```python
    >>> nums_mul = algbra.mul(2.9525, 3.755, 2.3524, pr=3)
    '''
@@ -239,6 +255,8 @@
    Decimal('26.080')
    ```
    iv. (sm) **div(__a, __b, __pr)**: divide given numbers
+
+   ##### Note - Explaination of [div](./deciml_explained/aithmatic_operations/divide.md)
 
    ```python
    >>> num = algbra.div(2.02354, 3.2152, 4)
@@ -253,6 +271,8 @@
 
    v. (cm) **log(__a, __b, __pr)**: logarithmic given numbers
 
+   ##### Note - Explaination of [log](./deciml_explained/aithmatic_operations/log.md)
+
    ```python
    >>> num = algbra.log(2.23541, 3, 4)
    '''
@@ -265,6 +285,8 @@
    ```
 
    vi. (cm) **pwr(__a, __b, __pr)**: exponent from given numbers
+
+   ##### Note - Explaination of [pwr](./deciml_explained/aithmatic_operations/exponent.md)
 
    ```python
    >>> num = algbra.pwr(2.3214, 2.213, 4)
@@ -513,6 +535,8 @@
 
    i. **sin(__a, __pr)**: To get the sine of a number
 
+   ##### Note - Explaination of [sin](./deciml_explained/trignometric_operations/sine.md)
+
    ```python
    >>> num = trig.sin(2.012414, 5)
    '''
@@ -524,6 +548,8 @@
    ```
 
    ii. **cos(__a, __pr)**: To get the cosine of a number
+
+   ##### Note - Explaination of [cos](./deciml_explained/trignometric_operations/cosine.md)
 
    ```python
    >>> num = trig.cos(2.012414, 5)
