@@ -498,4 +498,175 @@
    </p>
 </details>
 
+<details>
+   <summary>Trignometric Operations</summary>
+   <p>
+<details>
+   <summary>Primitive Operations</summary>
+   <p>
+
+   **(c) trig**: Primitive trignometric operations
+
+   ```python
+   >>> from deciml.deciml import trig
+   ```
+
+   i. **sin(__a, __pr)**: To get the sine of a number
+
+   ```python
+   >>> num = trig.sin(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('0.90406')
+   ```
+
+   ii. **cos(__a, __pr)**: To get the cosine of a number
+
+   ```python
+   >>> num = trig.cos(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('-0.42740')
+   ```
+
+   iii. **tan(__a, __pr)**: To get the tan of a number
+
+   ```python
+   >>> num = trig.tan(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('-2.11525')
+   ```
+
+   iv. **cosec(__a, __pr)**: To get the cosec of a number
+
+   ```python
+   >>> num = trig.cosec(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('1.10612')
+   ```
+
+   v. **sec(__a, __pr)**: To get the sec of a number
+
+   ```python
+   >>> num = trig.sec(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('-2.33971')
+   ```
+
+   vi. **cot(__a, __pr)**: To get the cot of a number
+
+   ```python
+   >>> num = trig.cot(2.012414, 5)
+   '''
+      2.012414 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('-0.47276')
+   ```
+
+   vii. **asin(__a, __pr)**: To get the sine<sup>-1</sup> of a number
+   #### Note - Return upper bound is pi/2 and lower bound is -pi/2.
+
+   ```python
+   >>> num = trig.asin(0.241445, 5)
+   '''
+      1.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('0.24385')
+   ```
+
+   viii. **acos(__a, __pr)**: To get the cosine<sup>-1</sup> of a number
+   #### Note - Return upper bound is pi and lower bound is 0.
+
+   ```python
+   >>> num = trig.acos(0.241445, 5)
+   '''
+      0.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('1.32694')
+   ```
+
+   ix. **atan(__a, __pr)**: To get the tan<sup>-1</sup> of a number
+
+   ```python
+   >>> num = trig.atan(7.241445, 5)
+   '''
+      7.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('1.43357')
+   ```
+
+   x. **acosec(__a, __pr)**: To get the cosec<sup>-1</sup> of a number
+
+   ```python
+   >>> num = trig.acosec(0.241445, 5)
+   '''
+      0.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   
+   ```
+
+   xi. **asec(__a, __pr)**: To get the sec<sup>-1</sup> of a number
+
+   xii. **acot(__a, __pr)**: To get the cot<sup>-1</sup> of a number
+   </p>
+</details>
+<details>
+   <summary>Grouped Operations</summary>
+   <p>
+
+   </p>
+</details>
+   </p>
+</details>
+
+<details>
+   <summary>Hyperbolic Operations</summary>
+   <p>
+<details>
+   <summary>Primitive Operations</summary>
+   <p>
+   </p>
+</details>
+<details>
+   <summary>Grouped Operations</summary>
+   <p>
+   </p>
+</details>
+   </p>
+</details>
+
+<details>
+   <summary>Statistics</summary>
+   <p>
+   </p>
+</details>
+
 
