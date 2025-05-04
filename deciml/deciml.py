@@ -1144,7 +1144,7 @@ class stat:
 - **__pr**: Precision for returned Decimal
         '''
         try:
-            return algbra.div(algbra.add(*__a, pr=__pr+1),len(__a),pr=__pr)
+            return algbra.div(algbra.add(*__a, pr=__pr+1),len(__a),__pr)
         except Exception as e:
             print(e)
             return None
@@ -1157,7 +1157,7 @@ class stat:
 - **__pr**: Precision for returned Decimal
         '''
         try:
-            return algbra.pwr(algbra.mul(*__a, pr=__pr+1),algbra.div('1',len(__a),__pr+1),pr=__pr)
+            return algbra.pwr(algbra.mul(*__a, pr=__pr+1),algbra.div('1',len(__a),__pr+1),__pr)
         except Exception as e:
             print(e)
             return None
@@ -1170,7 +1170,7 @@ class stat:
 - **__pr**: Precision for returned Decimal
         '''
         try:
-            return algbra.div(algbra.add(*tuple(map(lambda i:algbra.div('1',i,__pr+2),__a)),pr=__pr+1),len(__a),__pr)
+            return algbra.div('1', algbra.add(*tuple(map(lambda i:algbra.div('1',i,__pr+2),__a)),pr=__pr+1),__pr)
         except Exception as e:
             print(e)
             return None

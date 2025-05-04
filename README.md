@@ -533,7 +533,7 @@
    >>> from deciml.deciml import trig
    ```
 
-   i. **sin(__a, __pr)**: To get the sine of a number
+   i. (sm) **sin(__a, __pr)**: To get the sine of a number
 
    ##### Note - Explaination of [sin](./deciml_explained/trignometric_operations/sine.md)
 
@@ -547,7 +547,7 @@
    Decimal('0.90406')
    ```
 
-   ii. **cos(__a, __pr)**: To get the cosine of a number
+   ii. (sm) **cos(__a, __pr)**: To get the cosine of a number
 
    ##### Note - Explaination of [cos](./deciml_explained/trignometric_operations/cosine.md)
 
@@ -561,7 +561,7 @@
    Decimal('-0.42740')
    ```
 
-   iii. **tan(__a, __pr)**: To get the tan of a number
+   iii. (cm) **tan(__a, __pr)**: To get the tan of a number
 
    ```python
    >>> num = trig.tan(2.012414, 5)
@@ -573,7 +573,7 @@
    Decimal('-2.11525')
    ```
 
-   iv. **cosec(__a, __pr)**: To get the cosec of a number
+   iv. (cm) **cosec(__a, __pr)**: To get the cosec of a number
 
    ```python
    >>> num = trig.cosec(2.012414, 5)
@@ -585,7 +585,7 @@
    Decimal('1.10612')
    ```
 
-   v. **sec(__a, __pr)**: To get the sec of a number
+   v. (cm) **sec(__a, __pr)**: To get the sec of a number
 
    ```python
    >>> num = trig.sec(2.012414, 5)
@@ -597,7 +597,7 @@
    Decimal('-2.33971')
    ```
 
-   vi. **cot(__a, __pr)**: To get the cot of a number
+   vi. (cm) **cot(__a, __pr)**: To get the cot of a number
 
    ```python
    >>> num = trig.cot(2.012414, 5)
@@ -609,7 +609,7 @@
    Decimal('-0.47276')
    ```
 
-   vii. **asin(__a, __pr)**: To get the sine<sup>-1</sup> of a number
+   vii. (cm) **asin(__a, __pr)**: To get the sine<sup>-1</sup> of a number
    #### Note - Return upper bound is pi/2 and lower bound is -pi/2.
 
    ```python
@@ -622,7 +622,7 @@
    Decimal('0.24385')
    ```
 
-   viii. **acos(__a, __pr)**: To get the cosine<sup>-1</sup> of a number
+   viii. (cm) **acos(__a, __pr)**: To get the cosine<sup>-1</sup> of a number
    #### Note - Return upper bound is pi and lower bound is 0.
 
    ```python
@@ -635,7 +635,7 @@
    Decimal('1.32694')
    ```
 
-   ix. **atan(__a, __pr)**: To get the tan<sup>-1</sup> of a number
+   ix. (cm) **atan(__a, __pr)**: To get the tan<sup>-1</sup> of a number
 
    ```python
    >>> num = trig.atan(7.241445, 5)
@@ -647,26 +647,192 @@
    Decimal('1.43357')
    ```
 
-   x. **acosec(__a, __pr)**: To get the cosec<sup>-1</sup> of a number
+   x. (cm) **acosec(__a, __pr)**: To get the cosec<sup>-1</sup> of a number
 
    ```python
-   >>> num = trig.acosec(0.241445, 5)
+   >>> num = trig.acosec(1.241445, 5)
    '''
       0.241445 - Number
       5 - The precision
    '''
    >>> num
-   
+   Decimal('0.93654')
    ```
 
-   xi. **asec(__a, __pr)**: To get the sec<sup>-1</sup> of a number
+   xi. (cm) **asec(__a, __pr)**: To get the sec<sup>-1</sup> of a number
 
-   xii. **acot(__a, __pr)**: To get the cot<sup>-1</sup> of a number
+   ```python
+   >>> num = trig.asec(1.241445, 5)
+   '''
+      1.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('0.63426')
+   ```
+
+   xii. (cm) **acot(__a, __pr)**: To get the cot<sup>-1</sup> of a number
+
+   ```python
+   >>> num = trig.acot(7.241445, 5)
+   '''
+      7.241445 - Number
+      5 - The precision
+   '''
+   >>> num
+   Decimal('0.13723')
+   ```
    </p>
 </details>
 <details>
    <summary>Grouped Operations</summary>
    <p>
+
+   **(c) gtrig**: Grouped trignometric operations
+
+   i. (sm) **sine(__a, __pr)**: To get the sine for a list of numbers
+
+   ```python
+   >>> nums = gtrig.sine([0.256745, 0.754455, 0.454845, 0.3874258], 4)
+   '''
+      [0.256745, 0.754455, 0.454845, 0.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.2539'), Decimal('0.6849'), Decimal('0.4393'), Decimal('0.3778'))
+   ```
+
+   ii. (sm) **cosine(__a, __pr)**: To get the cosine for a list of numbers
+
+   ```python
+   >>> nums = gtrig.cosine([0.256745, 0.754455, 0.454845, 0.3874258], 4)
+   '''
+      [0.256745, 0.754455, 0.454845, 0.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.9672'), Decimal('0.7286'), Decimal('0.8983'), Decimal('0.9259'))
+   ```
+
+   iii. (sm) **tan(__a, __pr)**: To get the tan for a list of numbers
+
+   ```python
+   >>> nums = gtrig.tan([6.256745, 8.754455, 9.454845, 13.3874258], 4)
+   '''
+      [6.256745, 8.754455, 9.454845, 13.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('-0.026446'), Decimal('-0.7928'), Decimal('0.030077'), Decimal('1.07310'))
+   ```
+
+   iv. (sm) **cosec(__a, __pr)**: To get the cosec for a list of numbers
+
+   ```python
+   >>> nums = gtrig.cosec([6.256745, 8.754455, 9.454845, 13.3874258], 4)
+   '''
+      [6.256745, 8.754455, 9.454845, 13.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('-37.8254'), Decimal('1.6097'), Decimal('-33.2640'), Decimal('1.3664'))
+   ```
+
+   v. (sm) **sec(__a, __pr)**: To get the sec for a list of numbers
+
+   ```python
+   >>> nums = gtrig.sec([6.256745, 8.754455, 9.454845, 13.3874258], 4)
+   '''
+      [6.256745, 8.754455, 9.454845, 13.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('1.0003'), Decimal('-1.2761'), Decimal('-1.0005'), Decimal('1.4675'))
+   ```
+
+   vi. (sm) **cot(__a, __pr)**: To get the cot for a list of numbers
+
+   ```python
+   >>> nums = gtrig.cot([6.256745, 8.754455, 9.454845, 13.3874258], 4)
+   '''
+      [6.256745, 8.754455, 9.454845, 13.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('-37.8122'), Decimal('-1.2614'), Decimal('33.24810'), Decimal('0.9311'))
+   ```
+
+   vii. (sm) **asine(__a, __pr)**: To get the sine<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.asine([0.256745, 0.754455, 0.454845, 0.3874258], 4)
+   '''
+      [0.256745, 0.754455, 0.454845, 0.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.2596'), Decimal('0.8548'), Decimal('0.4722'), Decimal('0.3978'))
+   ```
+
+   viii. (sm) **acosine(__a, __pr)**: To  get the cosine<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.acosine([0.256745, 0.754455, 0.454845, 0.3874258], 4)
+   '''
+      [0.256745, 0.754455, 0.454845, 0.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('1.3111'), Decimal('0.71510'), Decimal('1.0986'), Decimal('1.17210'))
+   ```
+
+   ix. (sm) **atan(__a, __pr)**: To get the tan<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.atan([1.256745, 2.754455, 3.454845, 4.3874258], 4)
+   '''
+      [1.256745, 2.754455, 3.454845, 4.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('3.0788'), Decimal('-0.4077'), Decimal('0.3239'), Decimal('2.9682'))
+   ```
+
+   x. (sm) **acosec(__a, __pr)**: To get the cosec<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.acosec([1.256745, 2.754455, 3.454845, 4.3874258], 4)
+   '''
+      [1.256745, 2.754455, 3.454845, 4.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.9202'), Decimal('0.3715'), Decimal('0.2937'), Decimal('0.2299'))
+   ```
+
+   xi. (sm) **asec(__a, __pr)**: To get the sec<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.asec([1.256745, 2.754455, 3.454845, 4.3874258], 4)
+   '''
+      [1.256745, 2.754455, 3.454845, 4.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.6506'), Decimal('1.1993'), Decimal('1.2771'), Decimal('1.3409'))
+   ```
+
+   xii. (sm) **acot(__a, __pr)**: To get the cot<sup>-1</sup> for a list of numbers
+
+   ```python
+   >>> nums = gtrig.acot([1.256745, 2.754455, 3.454845, 4.3874258], 4)
+   '''
+      [1.256745, 2.754455, 3.454845, 4.3874258] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.6721'), Decimal('0.3483'), Decimal('0.2817'), Decimal('0.2241'))
+   ```
 
    </p>
 </details>
@@ -679,11 +845,160 @@
 <details>
    <summary>Primitive Operations</summary>
    <p>
+
+   **(c) htrig**: Primitive hyperbolic trignometry operations
+
+   i. (sm) **sinh(__a, __pr)**: To get the sinh for a number
+
+   ```python
+   >>> num = htrig.sinh(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('6.3551')
+   ```
+   ii. (sm) **cosh(__a, __pr)**: To get the cosh for a number
+
+   ```python
+   >>> num = htrig.cosh(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('6.4333')
+   ```
+
+   iii. (cm) **tanh(__a, __pr)**: To get the tanh for a number
+
+   ```python
+   >>> num = htrig.tanh(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.9878')
+   ```
+
+   iv. (cm) **cosech(__a, __pr)**: To get the cosech for a number
+
+   ```python
+   >>> num = htrig.cosech(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.1574')
+   ```
+
+   v. (cm) **sech(__a, __pr)**: To get the sech for a number
+
+   ```python
+   >>> num = htrig.sech(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.1554')
+   ```
+
+   vi. (cm) **coth(__a, __pr)**: To get the coth for a number
+
+   ```python
+   >>> num = htrig.coth(2.5485421, 4)
+   '''
+      2.5485421 - Number
+      4 - The precision
+   '''
+   >>> num
+   Decimal('1.0123')
+   ```
+
    </p>
 </details>
 <details>
    <summary>Grouped Operations</summary>
    <p>
+
+   **(c) ghtrig**: Grouped hyperbolic trignometry opeerations
+
+   i. (sm) **sinh(__a, __pr)**: To get the sinh for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.sinh([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('1.2144'), Decimal('18.0050'), Decimal('177.8979'), Decimal('225.5253'))
+   ```
+
+   ii. (sm) **cosh(__a, __pr)**: To get the cosh for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.cosh([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('1.5731'), Decimal('18.0328'), Decimal('177.9007'), Decimal('225.5275'))
+   ```
+
+   iii. (sm) **tanh(__a, __pr)**: To get the tanh for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.tanh([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.77110'), Decimal('0.9985'), Decimal('0.99910'), Decimal('0.99910'))
+   ```
+
+   iv. (sm) **cosech(__a, __pr)**: To get the cosech for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.cosech([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.8235'), Decimal('0.055540'), Decimal('0.0056212'), Decimal('0.0044341'))
+   ```
+
+   v. (sm) **sech(__a, __pr)**: To get the sech for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.sech([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('0.6357'), Decimal('0.055455'), Decimal('0.0056211'), Decimal('0.0044340'))
+   ```
+
+   vi. (sm) **coth(__a, __pr)**: To get the coth for a list of numbers
+
+   ```python
+   >>> nums = ghtrig.coth([1.0251547, 3.5845677, 5.8743648, 6.1115845], 4)
+   '''
+      [1.0251547, 3.5845677, 5.8743648, 6.1115845] - List of numbers
+      4 - The precision
+   '''
+   >>> nums
+   (Decimal('1.2954'), Decimal('1.0015'), Decimal('1.0000'), Decimal('1.0000'))
+   ```
+
    </p>
 </details>
    </p>
@@ -692,6 +1007,117 @@
 <details>
    <summary>Statistics</summary>
    <p>
+
+   **(c) stat**: For statistical calculations
+
+   i. (sm) **amean(__a, __pr)**: To get the arithmatic mean of a list of numbers
+
+   ```python
+   >>> num = stat.amean([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('3.3578')
+   ```
+
+   ii. (sm) **gmean(__a, __pr)**: To get the geometric mean of a list of numbers
+
+   ```python
+   >>> num = stat.gmean([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('2.8756')
+   ```
+
+   iii. (sm) **hmean(__a, __pr)**: To get the harmonic mean of a list of numbers
+
+   ```python
+   >>> num = stat.hmean([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('0.4697')
+   ```
+
+   iv. (cm) **pvar(__a, __pr)**: To get the population variance of numbers
+
+   ```python
+   >>> num = stat.pvar([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('2.6057')
+   ```
+
+   v. (cm) **svar(__a, __pr)**: To get the sample variance of numbers
+
+   ```python
+   >>> num = stat.svar([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('3.2572')
+   ```
+
+   vi. (cm) **pstd_dev(__a, __pr)**: To get the population standard deviation of numbers
+
+   ```python
+   >>> num = stat.pstd_dev([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('1.6142')
+   ```
+
+   vii. (cm) **sstd_dev(__a, __pr)**: To get the sample standard deviation of numbers
+
+   ```python
+   >>> num = stat.sstd_dev([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('1.8048')
+   ```
+
+   viii. (sm) **median(__a, __pr)**: To get the median of a list of numbers
+
+   ```python
+   >>> num = stat.median([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('2.7974')
+   ```
+
+   ix. (sm) **mode(__a, __pr)**: To get the mode of a list of numbers
+
+   ```python
+   >>> num = stat.mode([1, 2.352, 3.242814, 5.5415, 5.5415, 1, 1, 4.65247541, 5.5415])
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   {'values': (1, 5.5415), 'mode': 3}
+   ```
+
    </p>
 </details>
 
