@@ -368,7 +368,6 @@ class algbra:
             for i in __a[1:]:
                 r=str(__mul(r,str(i)))
                 if r=='None':raise Exception;
-            print(r,pr)
             return deciml(r,pr)
         except:return Decimal('NaN');
 
