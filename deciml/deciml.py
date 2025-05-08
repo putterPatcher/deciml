@@ -1292,4 +1292,4 @@ class stat:
 # print(algbra.div(1, '2.4215315E-30', 1))
 # print(algbra.div(1, '24215315.0E-37', 1))
 
-print(algbra.div('0.0', '-5.00'))
+# print(algbra.div('0.0', '-5.00'))
