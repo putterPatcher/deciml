@@ -54,11 +54,9 @@ def deciml(__a:float|int|str|Decimal,__pr=getpr())->Decimal:
         # for positive exponential
         if (ia1:=int(a1[1])) > 0:
             if (la2:=len(a2[1])) > 0:
-                i = la2 - 1
-                while a2[1][i] == '0':
-                    i-=1
-                a2[1] = a2[1][:i+1]
-                la2 = len(a2[1])
+                if int(a2[1]) == 0:
+                    a2[1] = ''
+                    la2=0
                 a2[0]=a2[0]+a2[1][:ia1 if (dd:=la2 - ia1) > 0 else la2]
                 if dd < 0:
                     s = ''
@@ -1293,3 +1291,5 @@ class stat:
 # print(deciml('2.42153154E+10', 0))
 # print(algbra.div(1, '2.4215315E-30', 1))
 # print(algbra.div(1, '24215315.0E-37', 1))
+
+print(algbra.div('0.0', '-5.00'))
