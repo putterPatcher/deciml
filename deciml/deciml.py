@@ -77,15 +77,17 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None)->Decimal:
                 if len(a2[1])>__pr:
                     a2[1]=a2[1][:__pr+1];del __pr,__a;
                     if int(a2[1][-1])>=5:
-                        a2[1]=a2[1][:-2]+str(int(a2[1][-2])+1);
+                        a2[1] = a2[1][:-1]
+                        while a2[1][-1]=='9' and len(a2[1])!=0:a2[1]=a2[1][:-1];
+                        if a2[1]=='':a2[0]=str(int(a2[0])+1);
+                        else:a2[1]=a2[1][:-1]+str(int(a2[1][-1])+1);
                     else:a2[1]=a2[1][:-1];
         else:
-            if len(a2[1]) > 0:
+            if len(a2[1])>0:
                 a2[1]=a2[1][0];del __pr,__a;
-                if int(a2[1][0])>=5:
-                    a2[0]=a2[0][:-2]+str(int(a2[0][-2:])+1);
-                a2[1]='0';
-        return Decimal(a0+a2[0]+'.'+a2[1]+'E'+a1[1]);
+                if int(a2[1][0])>=5:a2[0]=a2[0][:-2]+str(int(a2[0][-2:])+1);
+                a2[1]='';
+        return Decimal(a0+a2[0]+('.'+a2[1] if a2[1]!='' else '')+('E'+a1[1] if a2[1]!='' else ''));
     except:return Decimal('NaN');
 
 # args: (start number,end number), decimal precision, seed
