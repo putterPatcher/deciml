@@ -1358,5 +1358,6 @@ class stat:
 
 # print(algbra.div('0.0', '-5.00'))
 
-setpr(3)
-print(deciml('12.000000000000000'))
+# setpr(3)
+# print(deciml('12.000000000000000'))
+print("Imported deciml...")
