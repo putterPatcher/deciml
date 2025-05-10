@@ -82,6 +82,7 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None)->Decimal:
                         if a2[1]=='':a2[0]=str(int(a2[0])+1);
                         else:a2[1]=a2[1][:-1]+str(int(a2[1][-1])+1);
                     else:a2[1]=a2[1][:-1];
+            if int(a2[1]) == 0:a2[1]='0'
         else:
             if len(a2[1])>0:
                 a2[1]=a2[1][0];del __pr,__a;
@@ -1356,3 +1357,6 @@ class stat:
 # print(algbra.div(1, '24215315.0E-37', 1))
 
 # print(algbra.div('0.0', '-5.00'))
+
+setpr(3)
+print(deciml('12.000000000000000'))
