@@ -20,7 +20,7 @@
    <summary>Precision</summary>
    <p>
 
-   #### Note - Explaination of [precision](./deciml_explained/precision.md)
+   **Note - Explaination of [precision](./deciml_explained/precision.md)**
    
    1. (v) **__DecimalPrecision**: Variable used for precision, **default precision** used if precision is not specified.
 
@@ -51,7 +51,7 @@
    <summary>Constant</summary>
    <p>
 
-   #### Note - Explaination of [constant](./deciml_explained/constant.md)
+   **Note - Explaination of [constant](./deciml_explained/constant.md)**
 
    1. (v) **_Pi**: Variable that stores the value of pi
 
@@ -91,7 +91,7 @@
    <summary>Random</summary>
    <p>
 
-   #### Note - Explaination of [random](./deciml_explained/random.md)
+   **Note - Explaination of [random](./deciml_explained/random.md)**
 
    1. (f) **rint(__i, __j, __n, s)**: Generate random integers
 
@@ -156,7 +156,7 @@
 
    1. (f) **deciml(__a, __pr)**: Get a Decimal object
 
-      ##### Note - Explaination of [deciml](./deciml_explained/deciml_function.md)
+      **Note - Explaination of [deciml](./deciml_explained/deciml_function.md)**
 
       ```python
       >>> from deciml.deciml import deciml
@@ -171,7 +171,7 @@
 
    2. (f) **abs(__a)**: Get the absolute value
 
-      ##### Note - Explaination of [absolute](./deciml_explained/absolute.md)
+      **Note - Explaination of [absolute](./deciml_explained/absolute.md)**
 
       ```python
       >>> from deciml.deciml import abs
@@ -214,7 +214,7 @@
 
    i. (sm) **add(*__a, pr)**: add given numbers
 
-   ##### Note - Explaination of [add](./deciml_explained/aithmatic_operations/add.md)
+   **Note - Explaination of [add](./deciml_explained/aithmatic_operations/add.md)**
 
    ```python
    >>> nums_sum = algbra.add(2.3221, 5.2425, 120.522, pr=3)
@@ -228,7 +228,7 @@
 
    ii. (sm) **sub(*__a, pr)**: subtract given numbers
 
-   ##### Note - Explaination of [sub](./deciml_explained/aithmatic_operations/subtract.md)
+   **Note - Explaination of [sub](./deciml_explained/aithmatic_operations/subtract.md)**
 
    ```python
    >>> nums_sub = algbra.sub(2.5562, 25.5521, 2.245, pr=3)
@@ -243,7 +243,7 @@
 
    iii. (sm) **mul(*__a, pr)**: multiply given numbers
 
-   ##### Note - Explaination of [mul](./deciml_explained/aithmatic_operations/multiply.md)
+   **Note - Explaination of [mul](./deciml_explained/aithmatic_operations/multiply.md)**
 
    ```python
    >>> nums_mul = algbra.mul(2.9525, 3.755, 2.3524, pr=3)
@@ -256,7 +256,7 @@
    ```
    iv. (sm) **div(__a, __b, __pr)**: divide given numbers
 
-   ##### Note - Explaination of [div](./deciml_explained/aithmatic_operations/divide.md)
+   **Note - Explaination of [div](./deciml_explained/aithmatic_operations/divide.md)**
 
    ```python
    >>> num = algbra.div(2.02354, 3.2152, 4)
@@ -271,7 +271,7 @@
 
    v. (cm) **log(__a, __b, __pr)**: logarithmic given numbers
 
-   ##### Note - Explaination of [log](./deciml_explained/aithmatic_operations/log.md)
+   **Note - Explaination of [log](./deciml_explained/aithmatic_operations/log.md)**
 
    ```python
    >>> num = algbra.log(2.23541, 3, 4)
@@ -286,7 +286,7 @@
 
    vi. (cm) **pwr(__a, __b, __pr)**: exponent from given numbers
 
-   ##### Note - Explaination of [pwr](./deciml_explained/aithmatic_operations/exponent.md)
+   **Note - Explaination of [pwr](./deciml_explained/aithmatic_operations/exponent.md)**
 
    ```python
    >>> num = algbra.pwr(2.3214, 2.213, 4)
@@ -535,7 +535,7 @@
 
    i. (sm) **sin(__a, __pr)**: To get the sine of a number
 
-   ##### Note - Explaination of [sin](./deciml_explained/trignometric_operations/sine.md)
+   **Note - Explaination of [sin](./deciml_explained/trignometric_operations/sine.md)**
 
    ```python
    >>> num = trig.sin(2.012414, 5)
@@ -549,7 +549,7 @@
 
    ii. (sm) **cos(__a, __pr)**: To get the cosine of a number
 
-   ##### Note - Explaination of [cos](./deciml_explained/trignometric_operations/cosine.md)
+   **Note - Explaination of [cos](./deciml_explained/trignometric_operations/cosine.md)**
 
    ```python
    >>> num = trig.cos(2.012414, 5)
@@ -610,7 +610,8 @@
    ```
 
    vii. (cm) **asin(__a, __pr)**: To get the sine<sup>-1</sup> of a number
-   #### Note - Return upper bound is pi/2 and lower bound is -pi/2.
+   
+   **Note - Return upper bound is pi/2 and lower bound is -pi/2.**
 
    ```python
    >>> num = trig.asin(0.241445, 5)
@@ -623,7 +624,8 @@
    ```
 
    viii. (cm) **acos(__a, __pr)**: To get the cosine<sup>-1</sup> of a number
-   #### Note - Return upper bound is pi and lower bound is 0.
+   
+   **Note - Return upper bound is pi and lower bound is 0.**
 
    ```python
    >>> num = trig.acos(0.241445, 5)
@@ -689,6 +691,10 @@
    <p>
 
    **(c) gtrig**: Grouped trignometric operations
+   
+   ```python
+   >>> from deciml.deciml import gtrig
+   ```
 
    i. (sm) **sine(__a, __pr)**: To get the sine for a list of numbers
 
@@ -847,6 +853,10 @@
    <p>
 
    **(c) htrig**: Primitive hyperbolic trignometry operations
+   
+   ```python
+   >>> from deciml.deciml import htrig
+   ```
 
    i. (sm) **sinh(__a, __pr)**: To get the sinh for a number
 
@@ -926,6 +936,10 @@
    <p>
 
    **(c) ghtrig**: Grouped hyperbolic trignometry opeerations
+   
+   ```python
+   >>> from deciml.deciml import ghtrig
+   ```
 
    i. (sm) **sinh(__a, __pr)**: To get the sinh for a list of numbers
 
@@ -1009,6 +1023,10 @@
    <p>
 
    **(c) stat**: For statistical calculations
+   
+   ```python
+   >>> from deciml.deciml import stat
+   ```
 
    i. (sm) **amean(__a, __pr)**: To get the arithmatic mean of a list of numbers
 
@@ -1045,8 +1063,20 @@
    >>> num
    Decimal('0.4697')
    ```
+   
+   iv. (sm) **qmean(__a, __pr)**:To get the quadratic mean of a list of numbers
+   
+   ```python
+   >>> num = stat.qmean([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
+   '''
+      [1, 2.352, 3.242814, 4.65247541, 5.5415] - List of numbers
+      4 - The precision
+   '''
+   >>> num
+   Decimal('3.7256')
+   ```
 
-   iv. (cm) **pvar(__a, __pr)**: To get the population variance of numbers
+   v. (cm) **pvar(__a, __pr)**: To get the population variance of numbers
 
    ```python
    >>> num = stat.pvar([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
@@ -1058,7 +1088,7 @@
    Decimal('2.6057')
    ```
 
-   v. (cm) **svar(__a, __pr)**: To get the sample variance of numbers
+   vi. (cm) **svar(__a, __pr)**: To get the sample variance of numbers
 
    ```python
    >>> num = stat.svar([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
@@ -1070,7 +1100,7 @@
    Decimal('3.2572')
    ```
 
-   vi. (cm) **pstd_dev(__a, __pr)**: To get the population standard deviation of numbers
+   vii. (cm) **pstd_dev(__a, __pr)**: To get the population standard deviation of numbers
 
    ```python
    >>> num = stat.pstd_dev([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
@@ -1082,7 +1112,7 @@
    Decimal('1.6142')
    ```
 
-   vii. (cm) **sstd_dev(__a, __pr)**: To get the sample standard deviation of numbers
+   viii. (cm) **sstd_dev(__a, __pr)**: To get the sample standard deviation of numbers
 
    ```python
    >>> num = stat.sstd_dev([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
@@ -1094,7 +1124,7 @@
    Decimal('1.8048')
    ```
 
-   viii. (sm) **median(__a, __pr)**: To get the median of a list of numbers
+   ix. (sm) **median(__a, __pr)**: To get the median of a list of numbers
 
    ```python
    >>> num = stat.median([1, 2.352, 3.242814, 4.65247541, 5.5415], 4)
@@ -1106,7 +1136,7 @@
    Decimal('2.7974')
    ```
 
-   ix. (sm) **mode(__a, __pr)**: To get the mode of a list of numbers
+   x. (sm) **mode(__a, __pr)**: To get the mode of a list of numbers
 
    ```python
    >>> num = stat.mode([1, 2.352, 3.242814, 5.5415, 5.5415, 1, 1, 4.65247541, 5.5415])

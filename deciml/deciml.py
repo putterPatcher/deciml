@@ -1231,6 +1231,17 @@ class stat:
             print(e)
             return None
 
+    @staticmethod
+    def qmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+        '''
+        '''
+        try:
+            if __pr==None:__pr=getpr();
+            return algbra.pwr(algbra.div(algbra.add(*galgbra.pwrgs(__a,'2',__pr+3),pr=__pr+2),len(__a),__pr+1),'0.5',__pr)
+        except Exception as e:
+            print(e)
+            return None
+
     @classmethod
     def pvar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
         '''
