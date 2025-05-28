@@ -1312,8 +1312,8 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             lm=algbra.div(len(__x),'2',1);x=deciml_sort(__x,__pr+2);
-            if (i:=int(lm)-1)==lm:return x[i];
-            else:return(algbra.div(algbra.add(x[i],x[i+1],pr=__pr+1),'2',__pr));
+            if (i:=int(lm))<lm:return x[i];
+            else:return(algbra.div(algbra.add(x[i-1],x[i],pr=__pr+1),'2',__pr));
         except Exception as e:print("Invalid command: stat.median\n",e);return None;
     
     @staticmethod
