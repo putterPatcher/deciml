@@ -66,7 +66,7 @@ To find "c" we need to evaluate all the conditions.
 
 A. First let us consider the condition b < 1. Because I think it is convinient. 
 
-1. For the condition, a < b.
+1. For the condition, a <= b.
 
     a < b, log(a) < log(b) as log is a continiously increasing function.
     Also as b < 1. log(b) is negative. Therefore log(a) is also negative. But log(a) is more negative than log(b). Therefore, log(a)/log(b) will be greater than 1.
@@ -96,7 +96,7 @@ A. First let us consider the condition b < 1. Because I think it is convinient.
 
     So now we have two numbers, "n" which is greater than "b" and less than 1 and "b" which is less than 1. So log(n) will be more close to 0 than log(b). And log(n)/log(b) will be less than 1 and positive. So we can use this to calculate log(a)/log(b) to the given precision value. We use the natural log at it is more inherent. And the decimal precision takes care of the precision as the number has only a decimal part.
 
-2. For the condition a >= b,
+2. For the condition a > b,
 
     We know that if we multiply a number more than 1 with a number less than 1. We get a smaller number. Also if we multiply a number less than 1 but greater than the other number we get a number less than 1.
     So we can use this by multiplying the "a" to "b". To find a number less than "b". This is the same as dividing "a" by "b^-1". So the "c" will be the negative of the number of multiplications. But log(n)/log(b) can be greater than 1.
@@ -105,16 +105,18 @@ A. First let us consider the condition b < 1. Because I think it is convinient.
     The first case, a > 1.
 
     We can multiply a and b until we get a number less than 1. And if we multiply a number by 1, we get the same number. So, we know that the number obtained after multiplication will be less than 1 and greater than "b". So, considering the number of multiplication steps to be "c" and the number obtained to be "n". We will get the result as "-c + log(n)/log(b)".
+    
     The second case, a < 1.
+    
     We know that for a < 1 and b < 1, where a is greater than b. We will obtain a number less than 1. So we can directly get the value with the desired precision i.e. log(a)/log(b)
 
     This can be summarized into one equation. Because here we have considered the constraint on the multiplied value to be greater than "b". If we condider the multiplied value to be the new "a". We get the second case to be "c = 0".
 
-B. Now consider the condition b > 1.
+B. Now consider the condition b >= 1.
 
 We have now understood that the number obtained should be such that log(n)/log(b) should be less than 1.
 
-1. For the condition a > b.
+1. For the condition a >= b.
     If we keep on dividing "a" by "b" we at some point obtain a number less than b. We know that a number divided by itself is 1. So a number greater number divided by a smaller number will be more than 1. We konw that log is a increasing function. The number "n" will be greater than 1 but less than "b". Since log(1) is 0, log(n)/log(b) will be less than 1. Following the same logic the result will be "c + log(n)/log(b)".
 
 2. For condition a < b.

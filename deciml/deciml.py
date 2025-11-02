@@ -415,18 +415,18 @@ class algbra:
             getcontext().prec=p;
             if b>=1:
                 if a>=1:
-                    while a>b:a=cls.div(a,b,p);c+=1;
-                    return deciml(str(c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
+                    while a>=b:a=cls.div(a,b,p);c+=1;
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
                 if a<1:
                     while a<1:a=cls.mul(a,b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
             if b<1:
-                if a>=b:
-                    while a>b:a=cls.mul(a,b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
-                if a<b:
-                    while a<b:a=cls.div(a,b,p);c+=1;
-                    return deciml(str(c)+"."+s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' else 0,__pr);
+                if a>b:
+                    while a>1:a=cls.mul(a,b,pr=p);c+=1;
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                if a<=b:
+                    while a<=b:a=cls.div(a,b,p);c+=1;
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
         except:return Decimal('NaN');
 
     @classmethod
