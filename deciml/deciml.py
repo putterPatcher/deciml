@@ -412,6 +412,7 @@ class algbra:
             if __pr==None:__pr=getpr();
             p=__pr+2
             a=Decimal(str(__a));b=Decimal(str(__b));c=0;
+            if a==0:raise Exception()
             getcontext().prec=p;
             if b>=1:
                 if a>=1:
