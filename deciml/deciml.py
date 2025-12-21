@@ -1334,7 +1334,34 @@ class stat:
             return {"values":tuple(r),"mode":c}
         except Exception as e:print("Invalid command: stat.mode\n",e);return None;
 
+class FindEq:
+    def __init__(self,equation:str,*variables:str)->None:
+        try:
+            valid_keys=['()','*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth']
+            def __check_valid_and_convert(equation:dict):
+                for i in equation.keys():
+                    if i not in valid_keys:return (False, i);
+                    if equation[i].__class__.__name__=='dict':
+                        if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1])
+                    elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':
+                        tup=tuple(equation[i])
+                        for j in range(len(tup)):
+                            if tup[j] not in variables:
+                                if (s:=str(v:=deciml(tup[j])))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
+                                else:tup[j]=s;
+                        equation[i]=j
+                    else:return (False,str(equation[i]));
+                return (True,None)
+            for i in range(len(variables)):variables[i]=str(variables);
+            self.__variables=variables;
+            if not (valid:=__check_valid_and_convert(equation))[0]:raise Exception("Invalid argument: equation, {} not valid".format(valid[1]));
+        except Exception as e:print("Invalid command: FindEq\n",e);return None;
 
+    @property
+    def variables(self):return self.__variables;
+
+    def calculate(self, **values):
+        print(values)
 
 # print(deciml(22.01234485145124641E+42), deciml(0.000015646541E+100))
 # print(algbra.add(0.1234567156461254845148546554, '1.1234567'), algbra.add(1.2646515484544556546, 1, 2, 5), algbra.add(1.0123456789E-5, 1.234567890E-5), algbra.add(0.000010123456789, 0.00001234567890))
@@ -1372,4 +1399,7 @@ class stat:
 
 # setpr(3)
 # print(deciml('12.000000000000000'))
+# eq = FindEq("a+b+c", 'a', 'b', 'c')
+# eq.calculate(a=1, b=2, c=3)
+
 print("Imported deciml...")
