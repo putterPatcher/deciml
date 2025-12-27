@@ -1257,7 +1257,7 @@ class stat:
         except Exception as e:invalid_command('stat.mode');retrn(ret,e);
 
 class SolveEq:
-    def __init__(self,equation:str,*variables:str,ret='c')->None:
+    def __init__(self,equations:dict,*variables:str,ret='c')->None:
         try:
             valid_keys=['*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth']
             def __check_valid_and_convert(equation:dict):
@@ -1265,6 +1265,7 @@ class SolveEq:
                     if i not in valid_keys:return (False, i);
                     if equation[i].__class__.__name__=='dict':
                         if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1]);
+                        equation[i]=valid[1]
                     elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
                     elif equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
                         tup=tuple(equation[i])
@@ -1274,6 +1275,7 @@ class SolveEq:
                                     if len(tup[j])!=1:return (False, "expected 1, {} items".format(len(tup[j])));
                                     else:
                                         if not (valid:=__check_valid_and_convert(tup[j]))[0]:return (False,valid[1]);
+                                        tup[j]=valid[1]
                                 elif (s:=str(v:=Decimal(str(tup[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
                                 else:tup[j]=v;
                         equation[i]=tup
@@ -1286,10 +1288,11 @@ class SolveEq:
                                 if i not in ('+','-','*','/'):
                                     if l!=1:return (False,invalid_operation_length(1,l,i));
                     else:return (False,str(equation[i]));
-                return (True,None)
+                return (True,equation)
             for i in range(len(variables)):variables[i]=str(variables);
             self.__variables=variables;
-            if not (valid:=__check_valid_and_convert(equation))[0]:raise ValueError("Invalid argument: equation, {} not valid.".format(valid[1]));
+            if not (valid:=__check_valid_and_convert(equations))[0]:raise ValueError("Invalid argument: equation, {} not valid.".format(valid[1]));
+            self.__equations=valid[1]
         except Exception as e:invalid_command('SolveEq');retrn(ret,e);
 
     @property
@@ -1339,10 +1342,11 @@ class SolveEq:
                                 if j[i] in self.__variables:
                                     j[i]=values[j[i]]
                                 elif j[i].__class__.__name__=='dict':
-                                    j[i]=__calculate(j[i])[0]
+                                    j[i]=__calculate(j[i],pr+1)[0]
                             r.append(__operate(i,tuple(j)))
                     return tuple(r) if len(r)!=1 else r[0]
-                except Exception as e:retrn('a',e);
+                except Exception as e:raise e;
+            return __calculate(self.__equations,getpr())
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
                 
 
