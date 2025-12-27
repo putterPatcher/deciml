@@ -3,7 +3,8 @@
 ```python
 def abs(__a:float|int|str|Decimal)->Decimal|None:
     a=Decimal(str(__a))
-    if (a1:=str(a))=='NaN' or a1=='Inf' or a1=='-Inf':return None;
+    if (a1:=str(a))=='NaN':return a;
+    elif a1=='Infinity' or a1=='-Infinity':return Decimal('Infinity');
     elif a<0:return Decimal(a1[1:]);
     else:return a;
 ```

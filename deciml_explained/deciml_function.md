@@ -22,7 +22,7 @@ This function splits the string into a list with an non exponential part and an 
 
 ```python
 try:
-	if (sa:=str(__a))=='NaN' or sa=='Inf' or sa=='-Inf':return __a;
+	if (sa:=str(Decimal(str(__a))))=='NaN' or sa=='Infinity' or sa=='-Infinity':return __a;
     __a=str(__a)
     if __a[0]=='-':a0=__a[0];__a=__a[1:];
         else:a0='';
