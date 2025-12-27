@@ -1,7 +1,7 @@
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import randint, seed
 from terminate import retrn
-from .__helpers import invalid_command
+from .__helpers import invalid_command, invalid_operation_length
 # from __helpers import invalid_command
 
 __DecimalPrecision=16
@@ -1264,19 +1264,27 @@ class SolveEq:
                 for i in equation.keys():
                     if i not in valid_keys:return (False, i);
                     if equation[i].__class__.__name__=='dict':
-                        if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1])
+                        if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1]);
                     elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
                     elif equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
                         tup=tuple(equation[i])
                         for j in range(len(tup)):
                             if tup[j] not in variables:
-                                if (s:=str(v:=Decimal(str(tup[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
+                                if tup[j].__class__.__name__=='dict':
+                                    if len(tup[j])!=1:return (False, "expected 1, {} items".format(len(tup[j])));
+                                    else:
+                                        if not (valid:=__check_valid_and_convert(tup[j]))[0]:return (False,valid[1]);
+                                elif (s:=str(v:=Decimal(str(tup[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
                                 else:tup[j]=v;
-                        equation[i]=j
-                        # checks for operation
+                        equation[i]=tup
                         match i:
-                            case '+':
-                                pass
+                            case 'log':
+                                if (l:=len(tup))!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
+                            case '**':
+                                if l!=2:return (False,invalid_operation_length(2,l,i));
+                            case _:
+                                if i not in ('+','-','*','/'):
+                                    if l!=1:return (False,invalid_operation_length(1,l,i));
                     else:return (False,str(equation[i]));
                 return (True,None)
             for i in range(len(variables)):variables[i]=str(variables);
@@ -1320,9 +1328,20 @@ class SolveEq:
                     case 'sech':return htrig.sech(*values,pr);
                     case 'coth':return htrig.coth(*values,pr);
                     case _:raise ValueError("{} is not a operation".format(o))
-            def __calculate(o:str,d:dict,pr):
+            def __calculate(d:dict,pr):
                 try:
-                    pass
+                    r=list()
+                    for i,j in d.items():
+                        if j.__class__.__name__=='dict':r.append(__operate(i, __calculate(j,pr+1)));
+                        else:
+                            j=list(j)
+                            for i in range(len(j)):
+                                if j[i] in self.__variables:
+                                    j[i]=values[j[i]]
+                                elif j[i].__class__.__name__=='dict':
+                                    j[i]=__calculate(j[i])[0]
+                            r.append(__operate(i,tuple(j)))
+                    return tuple(r) if len(r)!=1 else r[0]
                 except Exception as e:retrn('a',e);
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
                 
@@ -1366,6 +1385,6 @@ class SolveEq:
 # eq = SolveEq("a+b+c", 'a', 'b', 'c')
 # eq.calculate(a=1, b=2, c=3)
 
-print(trig.tan(algbra.div(constant.pi(75),2,75)))
+# print(trig.tan(algbra.div(constant.pi(75),2,75)))
 
 print("Imported deciml...")
