@@ -77,10 +77,10 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret='c')->Decimal:
                     if int(a2[1][-1])>=5:
                         a2[1] = a2[1][:-1]
                         while len(a2[1])!=0 and a2[1][-1]=='9':a2[1]=a2[1][:-1];
-                        if a2[1]=='':a2[0]=str(int(a2[0])+1);a2[1]='0';
+                        if a2[1]=='':a2[0]=str(int(a2[0])+1);
                         else:a2[1]=a2[1][:-1]+str(int(a2[1][-1])+1);
                     else:a2[1]=a2[1][:-1];
-            if int(a2[1]) == 0:a2[1]='0'
+            if a2[1]=='' or int(a2[1])==0:a2[1]='0';
         else:
             if len(a2[1])>0:
                 a2[1]=a2[1][0];del __pr,__a;
