@@ -1,8 +1,8 @@
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import randint, seed
 from terminate import retrn
-# from .__helpers import invalid_command
-from __helpers import invalid_command
+from .__helpers import invalid_command
+# from __helpers import invalid_command
 
 __DecimalPrecision=16
 """
@@ -652,7 +652,7 @@ class galgbra:
 class trig:
 
     @staticmethod
-    def sin(__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def sin(__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         """
 #### Get the sine in Decimal.
 - **__a**: Number
@@ -666,10 +666,10 @@ class trig:
             rp=None;n=a;d=1;c=1;a1=algbra.pwr(a,'2',pr+1);r=algbra.div(n,d,pr+1);
             while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1),pr=pr);
             return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.sin\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.sin');retrn(ret,e);
 
     @staticmethod
-    def cos(__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def cos(__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosine in Decimal.
 - **__a**: Number
@@ -683,10 +683,10 @@ class trig:
             rp=0;n=1;d=1;c=0;r=1;a1=algbra.pwr(a,'2',pr);
             while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1),pr=pr);
             return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.cos\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.cos');retrn(ret,e);
 
     @classmethod
-    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the tan in Decimal.
 - **__a**: Number
@@ -698,10 +698,10 @@ class trig:
             if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
             elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
             r=algbra.div(cls.sin(a,pr+1),cls.cos(a,pr+1),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.tan\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.tan');retrn(ret,e);
 
     @classmethod
-    def cosec(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def cosec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosec in Decimal.
 - **__a**: Number
@@ -710,10 +710,10 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(1,cls.sin(__a,pr+1),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.cosec\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.cosec');retrn(ret,e);
 
     @classmethod
-    def sec(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def sec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the sec in Decimal.
 - **__a**: Number
@@ -722,10 +722,10 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(1,cls.cos(__a,pr+1),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.sec\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.sec');retrn(ret,e);
 
     @classmethod
-    def cot(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def cot(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cot in Decimal.
 - **__a**: Number
@@ -734,11 +734,11 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(cls.cos(__a,pr+1),cls.sin(__a,pr+1),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.cot\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.cot');retrn(ret,e);
 
     # [-pi/2, pi/2]
     @classmethod
-    def asin(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def asin(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the sine<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are -*pi/2* and *pi/2*.
@@ -755,11 +755,11 @@ class trig:
                 i=0;r=(n:=a);rn=None;a1=algbra.pwr(a,'2',pr);d1=1;d2=1;d3=1;
                 while r!=rn:rn=r;i+=1;r=algbra.add(r,algbra.div((n:=algbra.mul(n,(q:=2*i),(q-1),a1,pr=pr)),(d1:=d1*4)*((d2:=d2*i)**2)*(d3:=d3+2),pr),pr=pr);
             return deciml(r,__pr)
-        except Exception as e:print("Invalid command: trig.asin\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.asin');retrn(ret,e);
 
     # [0, pi]
     @classmethod
-    def acos(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def acos(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosine<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *0* and *pi*.
@@ -777,11 +777,11 @@ class trig:
                 rn=None;a1=algbra.pwr(a,'2',pr);d1=1;d2=1;d3=1;
                 while r!=rn:rn=r;i+=1;r=algbra.sub(r,algbra.div((n:=algbra.mul(n,(q:=2*i),(q-1),a1,pr=pr)),(d1:=d1*4)*((d2:=d2*i)**2)*(d3:=d3+2),pr),pr=pr);
             return deciml(r,__pr)
-        except Exception as e:print("Invalid command: trig.acos\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.acos');retrn(ret,e);
 
     # [-pi/2, pi/2]
     @classmethod
-    def atan(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def atan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the tan<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
@@ -794,11 +794,11 @@ class trig:
             if (a:=Decimal(str(__a)))<0:r=algbra.mul('-1',cls.asec(algbra.pwr(algbra.add(algbra.pwr(a,'2',pr),'1',pr=pr),'0.5',pr),pr),pr=pr);
             else:r=cls.asec(algbra.pwr(algbra.add(algbra.pwr(a,'2',pr),'1',pr=pr),'0.5',pr),pr);
             return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.atan\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.atan');retrn(ret,e);
 
     # [-pi/2, pi/2]
     @classmethod
-    def acosec(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def acosec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosec<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
@@ -808,11 +808,11 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=cls.asin(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.acosec\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.acosec');retrn(ret,e);
 
     # [0, pi]
     @classmethod
-    def asec(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def asec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the sec<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *0* and *pi*.
@@ -822,11 +822,11 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=cls.acos(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.asec\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.asec');retrn(ret,e);
 
     # [-pi/2, pi/2]
     @classmethod
-    def acot(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def acot(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cot<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
@@ -836,12 +836,12 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=cls.atan(algbra.div('1',__a,pr),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: trig.acot\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('trig.acot');retrn(ret,e);
 
 class gtrig:
 
     @staticmethod
-    def sine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def sine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sine for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -849,10 +849,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.sin(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.sine\n",e);return None;
+        except Exception as e:invalid_command('gtrig.asine');retrn(ret,e);
     
     @staticmethod
-    def cosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def cosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosine for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -860,10 +860,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.cos(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.cosine\n",e);return None;
+        except Exception as e:invalid_command('gtrig.cosine');retrn(ret,e);
     
     @staticmethod
-    def tan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def tan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the tan for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -871,10 +871,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.tan(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.tan\n",e);return None;
+        except Exception as e:invalid_command('gtrig.tan');retrn(ret,e);
     
     @staticmethod
-    def cot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr:int|None=None)->tuple[Decimal,...]|None:
+    def cot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cot for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -882,10 +882,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.cot(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.cot\n",e);return None;
+        except Exception as e:invalid_command('gtrig.cot');retrn(ret,e);
     
     @staticmethod
-    def sec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr:int|None=None)->tuple[Decimal,...]|None:
+    def sec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...], __pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sec for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -893,10 +893,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.sec(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.sec\n",e);return None;
+        except Exception as e:invalid_command('gtrig.sec');retrn(ret,e);
     
     @staticmethod
-    def cosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def cosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosec for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -904,10 +904,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.cosec(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.cosec\n",e);return None;
+        except Exception as e:invalid_command('gtrig.cosec');retrn(ret,e);
     
     @staticmethod
-    def asine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def asine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sine<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *-pi/2* and *pi/2*.
@@ -916,10 +916,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.asin(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.asine\n",e);return None;
+        except Exception as e:invalid_command('gtrig.asine');retrn(ret,e);
     
     @staticmethod
-    def acosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def acosine(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosine<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *0* and *pi*.
@@ -928,10 +928,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.acos(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.acosine\n",e);return None;
+        except Exception as e:invalid_command('gtrig.acosine');retrn(ret,e);
     
     @staticmethod
-    def atan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def atan(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the tan<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *-pi/2* and *pi/2*.
@@ -940,10 +940,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.tan(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.atan\n",e);return None;
+        except Exception as e:invalid_command('gtrig.atan');retrn(ret,e);
     
     @staticmethod
-    def acot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def acot(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cot<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *-pi/2* and *pi/2*.
@@ -952,10 +952,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.acot(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.acot\n",e);return None;
+        except Exception as e:invalid_command('gtrig.acot');retrn(ret,e);
     
     @staticmethod
-    def asec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def asec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sec<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *0* and *pi*.
@@ -964,10 +964,10 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.asec(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.asec\n",e);return None;
+        except Exception as e:invalid_command('gtrig.asec');retrn(ret,e);
     
     @staticmethod
-    def acosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def acosec(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosec<sup>-1</sup> for list or tuple as tuple with Decimal.
 ##### Return bounds are *-pi/2* and *pi/2*.
@@ -976,12 +976,12 @@ class gtrig:
         '''
         try:
             return tuple(map(lambda i:trig.acosec(i, __pr),__a))
-        except Exception as e:print("Invalid command: gtrig.acosec\n",e);return None;
+        except Exception as e:invalid_command('gtrig.acosec');retrn(ret,e);
 
 class htrig:
 
     @staticmethod
-    def sinh(__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def sinh(__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the sinh in Decimal.
 - **__a**: Number
@@ -992,10 +992,10 @@ class htrig:
             pr=__pr+2;r=__a;rn=None;n=__a;d=1;c=1;a1=algbra.pwr(__a,'2',pr);
             while r!=rn:rn=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,pr=pr)),(d:=d*(c+1)*((c:=c+2))),pr),pr=pr);
             return deciml(r,__pr)
-        except Exception as e:print("Invalid command: htrig.sinh\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.sinh');retrn(ret,e);
     
     @staticmethod
-    def cosh(__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def cosh(__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosh in Decimal.
 - **__a**: Number
@@ -1006,10 +1006,10 @@ class htrig:
             pr=__pr+2;r=1;rn=None;n=1;d=1;c=0;a1=algbra.pwr(__a,'2',pr);
             while r!=rn:rn=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,pr=pr)),(d:=d*(c+1)*((c:=c+2))),pr),pr=pr);
             return deciml(r,__pr);
-        except Exception as e:print("Invalid command: htrig.cosh\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.cosh');retrn(ret,e);
     
     @classmethod
-    def tanh(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def tanh(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the tanh in Decimal.
 - **__a**: Number
@@ -1018,10 +1018,10 @@ class htrig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(cls.sinh(__a,pr),cls.cosh(__a,pr),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: htrig.tanh\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.tanh');retrn(ret,e);
     
     @classmethod
-    def cosech(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def cosech(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the cosech in Decimal.
 - **__a**: Number
@@ -1030,10 +1030,10 @@ class htrig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(1,cls.sinh(__a),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: htrig.cosech\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.cosech');retrn(ret,e);
     
     @classmethod
-    def sech(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def sech(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the sech in Decimal.
 - **__a**: Number
@@ -1042,10 +1042,10 @@ class htrig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2;r=algbra.div(1,cls.cosh(__a),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: htrig.sech\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.sech');retrn(ret,e);
     
     @classmethod
-    def coth(cls,__a:Decimal|int|float|str,__pr:int|None=None)->Decimal:
+    def coth(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the coth in Decimal.
 - **__a**: Number
@@ -1056,12 +1056,12 @@ class htrig:
             pr=__pr+2
             if deciml(__a)==0:raise Exception;
             r=algbra.div(cls.cosh(__a),cls.sinh(__a),pr);return deciml(r,__pr);
-        except Exception as e:print("Invalid command: htrig.coth\n",e);return Decimal('NaN');
+        except Exception as e:invalid_command('htrig.coth');retrn(ret,e);
     
 class ghtrig:
 
     @staticmethod
-    def sinh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def sinh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sinh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1069,10 +1069,10 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.sinh(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.sinh\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.sinh');retrn(ret,e);
     
     @staticmethod
-    def cosh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def cosh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1080,10 +1080,10 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.cosh(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.cosh\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.cosh');retrn(ret,e);
     
     @staticmethod
-    def tanh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def tanh(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the tanh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1091,10 +1091,10 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.tanh(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.tanh\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.tanh');retrn(ret,e);
     
     @staticmethod
-    def coth(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def coth(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the coth for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1102,10 +1102,10 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.coth(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.coth\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.coth');retrn(ret,e);
     
     @staticmethod
-    def sech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def sech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the sech for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1113,10 +1113,10 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.sech(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.sech\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.sech');retrn(ret,e);
     
     @staticmethod
-    def cosech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->tuple[Decimal,...]|None:
+    def cosech(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
         '''
 #### Get the cosech for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
@@ -1124,12 +1124,12 @@ class ghtrig:
         '''
         try:
             return tuple(map(lambda i:htrig.cosech(i,__pr),__a))
-        except Exception as e:print("Invalid command: ghtrig.cosech\n",e);return None;
+        except Exception as e:invalid_command('ghtrig.cosech');retrn(ret,e);
 
 class stat:
 
     @staticmethod
-    def amean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def amean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the arithmatic mean of numbers.
 - **__a**: List or tuple of numbers
@@ -1138,10 +1138,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.div(algbra.add(*__a,pr=__pr+1),len(__a),__pr)
-        except Exception as e:print("Invalid command: stat.amean\n",e);return None;
+        except Exception as e:invalid_command('stat.amean');retrn(ret,e);
     
     @staticmethod
-    def gmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def gmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the geometric mean of numbers.
 - **__a**: List or tuple of numbers
@@ -1150,10 +1150,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.pwr(algbra.mul(*__a, pr=__pr+1),algbra.div('1',len(__a),__pr+1),__pr)
-        except Exception as e:print("Invalid command: stat.gmean\n",e);return None;
+        except Exception as e:invalid_command('stat.gmean');retrn(ret,e);
 
     @staticmethod
-    def hmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def hmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the harmonic mean of numbers.
 - **__a**: List or tuple of numbers
@@ -1162,19 +1162,19 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.div('1', algbra.add(*tuple(map(lambda i:algbra.div('1',i,__pr+2),__a)),pr=__pr+1),__pr)
-        except Exception as e:print("Invalid command: stat.hmean\n",e);return None;
+        except Exception as e:invalid_command('stat.hmean');retrn(ret,e);
 
     @staticmethod
-    def qmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def qmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
         '''
         try:
             if __pr==None:__pr=getpr();
             return algbra.pwr(algbra.div(algbra.add(*galgbra.pwrgs(__a,'2',__pr+3),pr=__pr+2),len(__a),__pr+1),'0.5',__pr)
-        except Exception as e:print("Invalid command: stat.qmean\n",e);return None;
+        except Exception as e:invalid_command('stat.qmean');retrn(ret,e);
 
     @classmethod
-    def pvar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def pvar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the population variance of numbers.
 ##### Note: For large sample.
@@ -1184,12 +1184,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.div(algbra.add(*galgbra.pwrgs(galgbra.subgs(__a,cls.amean(__a,__pr+4),__pr+3),'2',__pr+2),pr=__pr+1),len(__a),__pr)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception as e:invalid_command('stat.pvar');retrn(ret,e);
     
     @classmethod
-    def svar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def svar(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the sample variance of numbers.
 ##### Note: For small sample.
@@ -1199,12 +1197,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.div(algbra.add(*galgbra.pwrgs(galgbra.subgs(__a,cls.amean(__a,__pr+4),__pr+3),'2',__pr+2),pr=__pr+1),len(__a)-1,__pr)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception as e:invalid_command('stat.svar');retrn(ret,e);
 
     @classmethod
-    def pstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def pstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the poulation standard deviation of numbers.
 ##### Note: For large sample.
@@ -1214,12 +1210,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.pwr(cls.pvar(__a,__pr+1),'0.5',__pr)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception as e:invalid_command('stat.pstd_dev');retrn(ret,e);
 
     @classmethod
-    def sstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def sstd_dev(cls,__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the sample standard deviation of numbers.
 ##### Note: For small sample.
@@ -1229,12 +1223,10 @@ class stat:
         try:
             if __pr==None:__pr=getpr();
             return algbra.pwr(cls.svar(__a,__pr+1),'0.5',__pr)
-        except Exception as e:
-            print(e)
-            return None
+        except Exception as e:invalid_command('stat.sstd_dev');retrn(ret,e);
 
     @staticmethod
-    def median(__x:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None)->Decimal|None:
+    def median(__x:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the median of numbers.
 - **__x**: List or tuple of numbers
@@ -1245,10 +1237,10 @@ class stat:
             lm=algbra.div(len(__x),'2',1);x=deciml_sort(__x,__pr+2);
             if (i:=int(lm))<lm:return x[i];
             else:return(algbra.div(algbra.add(x[i-1],x[i],pr=__pr+1),'2',__pr));
-        except Exception as e:print("Invalid command: stat.median\n",e);return None;
+        except Exception as e:invalid_command('stat.median');retrn(ret,e);
     
     @staticmethod
-    def mode(__x:list[Decimal|str|float]|tuple[Decimal|str|float,...])->dict["values":tuple[Decimal,...],"mode":int]|None:
+    def mode(__x:list[Decimal|str|float]|tuple[Decimal|str|float,...],ret='c')->dict["values":tuple[Decimal,...],"mode":int]|None:
         '''
 #### Get the mode of numbers as dict with keys - values and mode.
 ##### Note: Values are the numbers with mode occurrences.
@@ -1262,40 +1254,77 @@ class stat:
             for i in d.items():
                 if i[1]==c:r.append(i[0]);
             return {"values":tuple(r),"mode":c}
-        except Exception as e:print("Invalid command: stat.mode\n",e);return None;
+        except Exception as e:invalid_command('stat.mode');retrn(ret,e);
 
 class SolveEq:
-    def __init__(self,equation:str,*variables:str)->None:
+    def __init__(self,equation:str,*variables:str,ret='c')->None:
         try:
-            valid_keys=['()','*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth']
+            valid_keys=['*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth']
             def __check_valid_and_convert(equation:dict):
                 for i in equation.keys():
                     if i not in valid_keys:return (False, i);
                     if equation[i].__class__.__name__=='dict':
                         if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1])
-                    elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':
+                    elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
+                    elif equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
                         tup=tuple(equation[i])
                         for j in range(len(tup)):
                             if tup[j] not in variables:
-                                if (s:=str(v:=deciml(tup[j])))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
-                                else:tup[j]=s;
+                                if (s:=str(v:=Decimal(str(tup[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
+                                else:tup[j]=v;
                         equation[i]=j
+                        # checks for operation
+                        match i:
+                            case '+':
+                                pass
                     else:return (False,str(equation[i]));
                 return (True,None)
             for i in range(len(variables)):variables[i]=str(variables);
             self.__variables=variables;
-            if not (valid:=__check_valid_and_convert(equation))[0]:raise Exception("Invalid argument: equation, {} not valid.".format(valid[1]));
-        except Exception as e:print("Invalid command: FindEq\n",e);return None;
+            if not (valid:=__check_valid_and_convert(equation))[0]:raise ValueError("Invalid argument: equation, {} not valid.".format(valid[1]));
+        except Exception as e:invalid_command('SolveEq');retrn(ret,e);
 
     @property
     def variables(self):return self.__variables;
 
-    def calculate(self, **values):
+    def calculate(self,pr=None,ret='c',**values):
         try:
-            for i in values.keys():
-                if i not in self.__variables:
-                    raise Exception()
-        except Exception as e:print("Invalid argument: values\n",e);return Decimal('NaN')
+            if pr==None:pr=getpr();
+            for i in self.__variables:
+                if i not in values.keys():raise KeyError("Invalid argument: values, got {}".format(i));
+            def __operate(o:str,values:tuple,pr):
+                match o:
+                    case '+':return algbra.add(*values,pr=pr);
+                    case '-':return algbra.sub(*values,pr=pr);
+                    case '*':return algbra.mul(*values,pr=pr);
+                    case '/':return algbra.div(*values,pr);
+                    case 'log':return algbra.log(*values,pr);
+                    case 'ln':return algbra.log(*values,pr);
+                    case '**':return algbra.pwr(*values,pr);
+                    case 'sin':return trig.sin(*values,pr);
+                    case 'cos':return trig.cos(*values,pr);
+                    case 'tan':return trig.tan(*values,pr);
+                    case 'cosec':return trig.cosec(*values,pr);
+                    case 'sec':return trig.sec(*values,pr);
+                    case 'cot':return trig.cot(*values,pr);
+                    case 'asin':return trig.asin(*values,pr);
+                    case 'acos':return trig.acos(*values,pr);
+                    case 'atan':return trig.atan(*values,pr);
+                    case 'acosec':return trig.acosec(*values,pr);
+                    case 'asec':return trig.asec(*values,pr);
+                    case 'acot':return trig.acot(*values,pr);
+                    case 'sinh':return htrig.sinh(*values,pr);
+                    case 'cosh':return htrig.cosh(*values,pr);
+                    case 'tanh':return htrig.tanh(*values,pr);
+                    case 'cosech':return htrig.cosech(*values,pr);
+                    case 'sech':return htrig.sech(*values,pr);
+                    case 'coth':return htrig.coth(*values,pr);
+                    case _:raise ValueError("{} is not a operation".format(o))
+            def __calculate(o:str,d:dict,pr):
+                try:
+                    pass
+                except Exception as e:retrn('a',e);
+        except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
                 
 
 # print(deciml(22.01234485145124641E+42), deciml(0.000015646541E+100))
@@ -1337,6 +1366,6 @@ class SolveEq:
 # eq = SolveEq("a+b+c", 'a', 'b', 'c')
 # eq.calculate(a=1, b=2, c=3)
 
-# print(trig.tan(algbra.div(constant.pi(75),2,75)))
+print(trig.tan(algbra.div(constant.pi(75),2,75)))
 
 print("Imported deciml...")
