@@ -1359,19 +1359,19 @@ class SolveEq:
                     if equation[i].__class__.__name__=='dict':
                         if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1]);
                         equation[i]=valid[1]
-                    elif equation[i].__class__.__name__!='list' or equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
-                    elif equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
-                        tup=tuple(equation[i])
-                        for j in range(len(tup)):
-                            if tup[j] not in variables:
-                                if tup[j].__class__.__name__=='dict':
-                                    if len(tup[j])!=1:return (False, "expected 1, {} items".format(len(tup[j])));
+                    elif equation[i].__class__.__name__!='list' and equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
+                    if equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
+                        lis=list(equation[i])
+                        for j in range(len(lis)):
+                            if lis[j] not in variables:
+                                if lis[j].__class__.__name__=='dict':
+                                    if len(lis[j])!=1:return (False, "expected 1, {} items".format(len(lis[j])));
                                     else:
-                                        if not (valid:=__check_valid_and_convert(tup[j]))[0]:return (False,valid[1]);
-                                        tup[j]=valid[1]
-                                elif (s:=str(v:=Decimal(str(tup[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,tup[j]);
-                                else:tup[j]=v;
-                        equation[i]=tup
+                                        if not (valid:=__check_valid_and_convert(lis[j]))[0]:return (False,valid[1]);
+                                        lis[j]=valid[1]
+                                elif (s:=str(v:=Decimal(str(lis[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,lis[j]);
+                                else:lis[j]=v;
+                        equation[i]=tuple(lis)
                         match i:
                             case 'log':
                                 if (l:=len(tup))!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
@@ -1384,8 +1384,8 @@ class SolveEq:
                                     if l!=1:return (False,invalid_operation_length(1,l,i));
                     else:return (False,str(equation[i]));
                 return (True,equation)
-            for i in range(len(variables)):variables[i]=str(variables);
-            self.__variables=variables;
+            for i in range(len(variables:=list(variables))):variables[i]=str(variables[i]);
+            self.__variables=tuple(variables);
             if not (valid:=__check_valid_and_convert(equations))[0]:raise ValueError("Invalid argument: equation, {} not valid.".format(valid[1]));
             self.__equations=valid[1]
         except Exception as e:invalid_command('SolveEq');retrn(ret,e);
@@ -1406,8 +1406,8 @@ class SolveEq:
         '''
         try:
             if pr==None:pr=getpr();
-            for i in self.__variables:
-                if i not in values.keys():raise KeyError("Invalid argument: values, got {}".format(i));
+            for i in values.keys():
+                if i not in self.__variables:raise KeyError("Invalid argument: values, got {}".format(i));
             def __operate(o:str,values:tuple,pr):
                 match o:
                     case '+':return algbra.add(*values,pr=pr);
@@ -1443,12 +1443,12 @@ class SolveEq:
                         if j.__class__.__name__=='dict':r.append(__operate(i, __calculate(j,pr+1)));
                         else:
                             j=list(j)
-                            for i in range(len(j)):
-                                if j[i] in self.__variables:
-                                    j[i]=values[j[i]]
-                                elif j[i].__class__.__name__=='dict':
-                                    j[i]=__calculate(j[i],pr+1)[0]
-                            r.append(__operate(i,tuple(j)))
+                            for k in range(len(j)):
+                                if j[k] in self.__variables:
+                                    j[k]=values[j[k]]
+                                elif j[k].__class__.__name__=='dict':
+                                    j[k]=__calculate(j[k],pr+1)[0]
+                            r.append(__operate(i,tuple(j),pr))
                     return tuple(r) if len(r)!=1 else r[0]
                 except Exception as e:raise e;
             return __calculate(self.__equations,getpr())
