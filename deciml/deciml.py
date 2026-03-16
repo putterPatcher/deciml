@@ -16,6 +16,7 @@ def setpr(__p:int,ret='c')->None:
     """
 #### Changes __DecimalPrecision.
 - **__p**: The new precision
+- **ret**: The return method on exception ('c', 'w', 'a')
     """
     try:
         if (__p:=int(__p)) < 0:raise ValueError("{} less than 0.".format(__p));
@@ -35,6 +36,7 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret='c')->Decimal:
 #### Get Decimal object.
 - **__a**: Value to convert to Decimal
 - **__pr**: Precision for the Decimal value
+- **ret**: The return method on exception ('c', 'w', 'a')
     '''
     try:
         if __pr==None:__pr=getpr();
@@ -97,6 +99,7 @@ def rint(__i:int,__j:int,__n=1,s=None,ret='c')->int|tuple[int,...]:
 - **__j**: Maximum integer
 - **__n**: Number of numbers
 - **s**: Seed *"Positive integer"*
+- **ret**: The return method on exception ('c', 'w', 'a')
     """
     try:
         if s is not None:seed(s);
@@ -113,8 +116,8 @@ class rdeciml:
 #### Object to generate random numbers
 - **__a, __b**: Range extremities
 - **__pr**: Precision for random numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
     """
-    
     def __init__(self,__a:int|float|Decimal|str,__b:int|float|Decimal|str,__pr:int|None=None,ret='c')->None:
         try:
             if __pr==None:__pr=getpr();
@@ -181,6 +184,7 @@ class rdeciml:
         """
 #### Change precision for random numbers
 - __pr: New precision
+- **ret**: The return method on exception ('c', 'w', 'a')
         """
         try:
             if __pr < 0:raise ValueError("{} less than 0.".format(__pr))
@@ -207,6 +211,7 @@ class constant:
         """
 #### Get value of Euler's number as Decimal.
 - **pr**: Precision *"not more than 100"*
+- **ret**: The return method on exception ('c', 'w', 'a')
         """
         try:
             if pr==None:pr=getpr();
@@ -219,6 +224,7 @@ class constant:
         """
 #### Get value of Pi as Decimal.
 - **pr**: Precision *"not more than 100"*
+- **ret**: The return method on exception ('c', 'w', 'a')
         """
         try:
             if pr==None:pr=getpr();
@@ -239,11 +245,13 @@ def abs(__a:float|int|str|Decimal)->Decimal|None:
     elif a<0:return Decimal(a1[1:]);
     else:return a;
 
-def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=None,reverse=None,ret='c')->list[Decimal]:
+def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=None,reverse:bool|None=None,ret='c')->list[Decimal]:
     '''
 #### Returns a new sorted list in Decimal.
 - **__a**: List to convert to Decimal and sort
 - **__pr**: Precison for Decimal
+- **reverse**: True for decending
+- **ret**: The return method on exception ('c', 'w', 'a')
     '''
     try:
         lis=list(map(lambda i:deciml(i,__pr),__a));lis.sort(reverse=reverse);return lis;
@@ -257,6 +265,7 @@ class algbra:
 #### Get the addition of numbers in Decimal.
 - **\\*__a**: Numbers to add
 - **pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if pr==None:pr=getpr();
@@ -291,6 +300,7 @@ class algbra:
 #### Get the subtraction of numbers in Decimal.
 - **\\*__a**: Numbers to subtract (Next arguments subtracted from the first number)
 - **pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if pr==None:pr=getpr();
@@ -325,6 +335,7 @@ class algbra:
 #### Get the multiplication of numbers in Decimal.
 - **\\*__a**: Numbers to multiply
 - **pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if pr==None:pr=getpr();
@@ -356,6 +367,7 @@ class algbra:
 - **__a**: Numerator
 - **__b**: Denominator
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -381,6 +393,7 @@ class algbra:
 - **__a**: Number
 - **__b**: Base
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -411,6 +424,7 @@ class algbra:
 - **__a**: Number to exponent
 - **__b**: Exponent
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -449,6 +463,7 @@ class galgbra:
 ##### (a, b, c) + [A, B, C] + ... = (a+A+..., b+B+..., c+C+...)
 - **\\*__a**: Lists or tuples to perform addition
 - **pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda x:algbra.add(*x,pr=pr),zip(*__a)));
@@ -461,6 +476,7 @@ class galgbra:
 ##### (a, b, c) - [A, B, C] - ... = (a-A-..., b-B-..., c-C-...)
 - **\\*__a**: Lists or tuples to perform subtraction
 - **pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda x:algbra.sub(*x,pr=pr),zip(*__a)));
@@ -473,6 +489,7 @@ class galgbra:
 ##### (a, b, c) x [A, B, C] x ... = (a\\*A\\*..., b\\*B\\*..., c\\*C\\*...)
 - **\\*__a**: Lists or tuples to perform mutiplication
 - **pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda x:algbra.mul(*x,pr=pr),zip(*__a)));
@@ -486,6 +503,7 @@ class galgbra:
 - **__a**: List or tuple with numerators
 - **__b**: List or tuple with denominators
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda x:algbra.div(*x,__pr),zip(__a,__b)));
@@ -499,6 +517,7 @@ class galgbra:
 - **__a**: List or tuple with numbers
 - **__b**: List or tuple of exponents
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
 
         '''
         try:
@@ -513,6 +532,7 @@ class galgbra:
 - **__a**: List or tuple with numbers
 - **__b**: List or tuple with base values
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda x:algbra.log(*x,__pr),zip(__a,__b)));
@@ -526,6 +546,7 @@ class galgbra:
 - **__a**: Number to add
 - **__b**: List or tuple with numbers for addition
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.add(__a,x,pr=__pr),__b));
@@ -539,6 +560,7 @@ class galgbra:
 - **__a**: List or tuple with numbers
 - **__b**: Number to subtract
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __b=str(__b);return tuple(map(lambda x:algbra.sub(x,__b,pr=__pr),__a));
@@ -552,6 +574,7 @@ class galgbra:
 - **__a**: Number
 - **__b**: List or tuple with numbers to subtract
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.sub(__a,x,pr=__pr),__b));
@@ -565,6 +588,7 @@ class galgbra:
 - **__a**: Number
 - **__b**: List or tuple with numbers to multiply
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.mul(__a,x,pr=__pr),__b));
@@ -578,6 +602,7 @@ class galgbra:
 - **__a**: List or tuple with numerators
 - **__b**: Denominator
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __b=str(__b);return tuple(map(lambda x:algbra.div(x,__b,__pr),__a));
@@ -591,6 +616,7 @@ class galgbra:
 - **__a**: Numerator
 - **__b**: List or tuple with numbers to denominators
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.div(__a,x,__pr),__b));
@@ -604,6 +630,7 @@ class galgbra:
 - **__a**: List or tuple with numbers
 - **__b**: Exponent
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __b=str(__b);return tuple(map(lambda x:algbra.pwr(x,__b,__pr),__a));
@@ -617,6 +644,7 @@ class galgbra:
 - **__a**: Number
 - **__b**: List or tuple with exponents
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.pwr(__a,x,__pr),__b));
@@ -630,6 +658,7 @@ class galgbra:
 - **__a**: List or tuple of numbers
 - **__b**: Base of logarithm
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __b=str(__b);return tuple(map(lambda x:algbra.log(x,__b,__pr),__a));
@@ -643,6 +672,7 @@ class galgbra:
 - **__a**: Number
 - **__a**: List or tuple with bases of logarithms
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             __a=str(__a);return tuple(map(lambda x:algbra.log(__a,x,__pr),__b));
@@ -657,6 +687,7 @@ class trig:
 #### Get the sine in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         """
         try:
             if __pr==None:__pr=getpr();
@@ -674,6 +705,7 @@ class trig:
 #### Get the cosine in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -691,6 +723,7 @@ class trig:
 #### Get the tan in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -706,6 +739,7 @@ class trig:
 #### Get the cosec in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -718,6 +752,7 @@ class trig:
 #### Get the sec in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -730,6 +765,7 @@ class trig:
 #### Get the cot in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -744,6 +780,7 @@ class trig:
 ##### Note - Return bounds are -*pi/2* and *pi/2*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -765,6 +802,7 @@ class trig:
 ##### Note - Return bounds are *0* and *pi*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -787,6 +825,7 @@ class trig:
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -804,6 +843,7 @@ class trig:
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -818,6 +858,7 @@ class trig:
 ##### Note - Return bounds are *0* and *pi*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -832,6 +873,7 @@ class trig:
 ##### Note - Return bounds are *-pi/2* and *pi/2*.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal number
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -846,6 +888,7 @@ class gtrig:
 #### Get the sine for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.sin(i, __pr),__a))
@@ -857,6 +900,7 @@ class gtrig:
 #### Get the cosine for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.cos(i, __pr),__a))
@@ -868,6 +912,7 @@ class gtrig:
 #### Get the tan for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.tan(i, __pr),__a))
@@ -879,6 +924,7 @@ class gtrig:
 #### Get the cot for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.cot(i, __pr),__a))
@@ -890,6 +936,7 @@ class gtrig:
 #### Get the sec for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.sec(i, __pr),__a))
@@ -901,6 +948,7 @@ class gtrig:
 #### Get the cosec for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.cosec(i, __pr),__a))
@@ -913,6 +961,7 @@ class gtrig:
 ##### Return bounds are *-pi/2* and *pi/2*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.asin(i, __pr),__a))
@@ -925,6 +974,7 @@ class gtrig:
 ##### Return bounds are *0* and *pi*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.acos(i, __pr),__a))
@@ -937,6 +987,7 @@ class gtrig:
 ##### Return bounds are *-pi/2* and *pi/2*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.tan(i, __pr),__a))
@@ -949,6 +1000,7 @@ class gtrig:
 ##### Return bounds are *-pi/2* and *pi/2*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.acot(i, __pr),__a))
@@ -961,6 +1013,7 @@ class gtrig:
 ##### Return bounds are *0* and *pi*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.asec(i, __pr),__a))
@@ -973,6 +1026,7 @@ class gtrig:
 ##### Return bounds are *-pi/2* and *pi/2*.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:trig.acosec(i, __pr),__a))
@@ -986,6 +1040,7 @@ class htrig:
 #### Get the sinh in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1000,6 +1055,7 @@ class htrig:
 #### Get the cosh in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1014,6 +1070,7 @@ class htrig:
 #### Get the tanh in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1026,6 +1083,7 @@ class htrig:
 #### Get the cosech in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1038,6 +1096,7 @@ class htrig:
 #### Get the sech in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1050,6 +1109,7 @@ class htrig:
 #### Get the coth in Decimal.
 - **__a**: Number
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1066,6 +1126,7 @@ class ghtrig:
 #### Get the sinh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.sinh(i,__pr),__a))
@@ -1077,6 +1138,7 @@ class ghtrig:
 #### Get the cosh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.cosh(i,__pr),__a))
@@ -1088,6 +1150,7 @@ class ghtrig:
 #### Get the tanh for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.tanh(i,__pr),__a))
@@ -1099,6 +1162,7 @@ class ghtrig:
 #### Get the coth for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.coth(i,__pr),__a))
@@ -1110,6 +1174,7 @@ class ghtrig:
 #### Get the sech for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.sech(i,__pr),__a))
@@ -1121,6 +1186,7 @@ class ghtrig:
 #### Get the cosech for list or tuple as tuple with Decimal.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             return tuple(map(lambda i:htrig.cosech(i,__pr),__a))
@@ -1134,6 +1200,7 @@ class stat:
 #### Get the arithmatic mean of numbers.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1146,6 +1213,7 @@ class stat:
 #### Get the geometric mean of numbers.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1158,6 +1226,7 @@ class stat:
 #### Get the harmonic mean of numbers.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1167,6 +1236,10 @@ class stat:
     @staticmethod
     def qmean(__a:list[Decimal|str|float]|tuple[Decimal|str|float,...],__pr:int|None=None,ret='c')->Decimal|None:
         '''
+#### Get the quadratic mean of numbers.
+- **__a**: List or tuple of numbers
+- **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1180,6 +1253,7 @@ class stat:
 ##### Note: For large sample.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1193,6 +1267,7 @@ class stat:
 ##### Note: For small sample.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1206,6 +1281,7 @@ class stat:
 ##### Note: For large sample.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1219,6 +1295,7 @@ class stat:
 ##### Note: For small sample.
 - **__a**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1231,6 +1308,7 @@ class stat:
 #### Get the median of numbers.
 - **__x**: List or tuple of numbers
 - **__pr**: Precision for returned Decimal
+- **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
             if __pr==None:__pr=getpr();
@@ -1245,6 +1323,7 @@ class stat:
 #### Get the mode of numbers as dict with keys - values and mode.
 ##### Note: Values are the numbers with mode occurrences.
 - **__x**: List or tuple of numbers
+- **ret**: The return method on exception ('c', 'w', 'a')
 
         '''
         try:
@@ -1269,6 +1348,7 @@ class SolveEq:
 ##### A '*', '+', and '-' keys can have as many values as the 'value'.
 ##### All other keys shouls have 1 value as the 'value'.
 - **\\*variables**: Variables in the equations
+- **ret**: The return method on exception ('c', 'w', 'a')
     '''
     def __init__(self,equations:dict[str, dict|str|list|tuple],*variables:str,ret='c')->None:
         try:
@@ -1321,8 +1401,8 @@ class SolveEq:
         '''
 #### Calcualte the value of the equations for the given values.
 - **pr**: The precision for the calcuation
+- **ret**: The return method on exception ('c', 'w', 'a')
 - **\\*\\*values**: The value for the variables as the arguments.
-
         '''
         try:
             if pr==None:pr=getpr();
