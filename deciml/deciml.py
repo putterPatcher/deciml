@@ -1257,7 +1257,20 @@ class stat:
         except Exception as e:invalid_command('stat.mode');retrn(ret,e);
 
 class SolveEq:
-    def __init__(self,equations:dict,*variables:str,ret='c')->None:
+    '''
+#### Create an object with equations and variables.
+- **equations**: A dictionary of equations
+##### Note:
+##### The equation should be of the following format -
+##### A dictionary with the key as the operation - '*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth'
+##### The value of the dictionary is the value/list of values to perform the operation on.
+##### A 'log' key should have at least 1 and at most 2 values as the 'value'.
+##### A '**' and '/' keys should have 2 values as the 'value'.
+##### A '*', '+', and '-' keys can have as many values as the 'value'.
+##### All other keys shouls have 1 value as the 'value'.
+- **\\*variables**: Variables in the equations
+    '''
+    def __init__(self,equations:dict[str, dict|str|list|tuple],*variables:str,ret='c')->None:
         try:
             valid_keys=['*','/','+','-','log','ln','**','sin','cos','sec','cosec','tan','cot','asin','acos','acosec','asec','atan','acot','sinh','cosh','cosech','sech','tanh','coth']
             def __check_valid_and_convert(equation:dict):
@@ -1284,8 +1297,10 @@ class SolveEq:
                                 if (l:=len(tup))!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
                             case '**':
                                 if l!=2:return (False,invalid_operation_length(2,l,i));
+                            case '/':
+                                if l!=2:return (False,invalid_operation_length(2,l,i));
                             case _:
-                                if i not in ('+','-','*','/'):
+                                if i not in ('+','-','*'):
                                     if l!=1:return (False,invalid_operation_length(1,l,i));
                     else:return (False,str(equation[i]));
                 return (True,equation)
@@ -1296,9 +1311,19 @@ class SolveEq:
         except Exception as e:invalid_command('SolveEq');retrn(ret,e);
 
     @property
-    def variables(self):return self.__variables;
+    def variables(self):
+        '''
+#### Returns the variables.
+        '''
+        return self.__variables;
 
     def calculate(self,pr=None,ret='c',**values):
+        '''
+#### Calcualte the value of the equations for the given values.
+- **pr**: The precision for the calcuation
+- **\\*\\*values**: The value for the variables as the arguments.
+
+        '''
         try:
             if pr==None:pr=getpr();
             for i in self.__variables:
@@ -1310,7 +1335,7 @@ class SolveEq:
                     case '*':return algbra.mul(*values,pr=pr);
                     case '/':return algbra.div(*values,pr);
                     case 'log':return algbra.log(*values,pr);
-                    case 'ln':return algbra.log(*values,pr);
+                    case 'ln':return algbra.log(*values,constant.e(pr+1),pr);
                     case '**':return algbra.pwr(*values,pr);
                     case 'sin':return trig.sin(*values,pr);
                     case 'cos':return trig.cos(*values,pr);
