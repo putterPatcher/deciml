@@ -1359,7 +1359,7 @@ class SolveEq:
                     if (te:=equation[i].__class__.__name__)=='dict':
                         if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1]);
                         equation[i]=valid[1]
-                    elif te!='list' and te!='tuple':equation[i]=equation[i],;
+                    elif te!='list' and te!='tuple':equation[i]=equation[i],;te=equation[i].__class__.__name__;
                     if te=='list' or te=='tuple' or te=='dict':
                         if te!='dict':
                             lis=list(equation[i])
