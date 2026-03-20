@@ -1176,11 +1176,15 @@
    **(f) calculate(pr,ret,\*\*variables)**: Returns the value or tuple of values for the given variable values
 
    ```python
+   >>> from deciml.deciml import setpr
+   >>> setpr(3)
    >>> eq.calculate(a=10, b=5)
    '''
       a=10, b=5 - Values fot the variables
    '''
    (Decimal('10.0'), Decimal('-0.262'))
+   >>> eq.calculate(4, a=10, b=5)
+   (Decimal('10.0'), Decimal('-0.2624'))
    ```
    </p>
 </details>

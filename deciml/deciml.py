@@ -1451,7 +1451,7 @@ class SolveEq:
                             r.append(__operate(i,tuple(j),pr))
                     return tuple(r) if len(r)!=1 else r[0]
                 except Exception as e:raise e;
-            return __calculate(self.__equations,getpr())
+            return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
                 
 
