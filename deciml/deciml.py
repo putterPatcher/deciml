@@ -1372,11 +1372,11 @@ class SolveEq:
                                             lis[j]=valid[1]
                                     elif (s:=str(v:=Decimal(str(lis[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,lis[j]);
                                     else:lis[j]=v;
-                            equation[i]=tuple(lis)
                             l=len(lis)
                             match i:
                                 case 'log':
                                     if l!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
+                                    if l==1:lis.append('10')
                                 case '**':
                                     if l!=2:return (False,invalid_operation_length(2,l,i));
                                 case '/':
@@ -1384,6 +1384,7 @@ class SolveEq:
                                 case _:
                                     if i not in ('+','-','*'):
                                         if l!=1:return (False,invalid_operation_length(1,l,i));
+                            equation[i]=tuple(lis)
                     else:return (False,str(equation[i]));
                 return (True,equation)
             for i in range(len(variables:=list(variables))):variables[i]=str(variables[i]);
