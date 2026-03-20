@@ -1356,32 +1356,34 @@ class SolveEq:
             def __check_valid_and_convert(equation:dict):
                 for i in equation.keys():
                     if i not in valid_keys:return (False, i);
-                    if equation[i].__class__.__name__=='dict':
+                    if (te:=equation[i].__class__.__name__)=='dict':
                         if not (valid:=__check_valid_and_convert(equation[i]))[0]:return (False,valid[1]);
                         equation[i]=valid[1]
-                    elif equation[i].__class__.__name__!='list' and equation[i].__class__.__name__!='tuple':equation[i]=equation[i],;
-                    if equation[i].__class__.__name__=='list' or equation[i].__class__.__name__=='tuple':
-                        lis=list(equation[i])
-                        for j in range(len(lis)):
-                            if lis[j] not in variables:
-                                if lis[j].__class__.__name__=='dict':
-                                    if len(lis[j])!=1:return (False, "expected 1, {} items".format(len(lis[j])));
-                                    else:
-                                        if not (valid:=__check_valid_and_convert(lis[j]))[0]:return (False,valid[1]);
-                                        lis[j]=valid[1]
-                                elif (s:=str(v:=Decimal(str(lis[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,lis[j]);
-                                else:lis[j]=v;
-                        equation[i]=tuple(lis)
-                        match i:
-                            case 'log':
-                                if (l:=len(tup))!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
-                            case '**':
-                                if l!=2:return (False,invalid_operation_length(2,l,i));
-                            case '/':
-                                if l!=2:return (False,invalid_operation_length(2,l,i));
-                            case _:
-                                if i not in ('+','-','*'):
-                                    if l!=1:return (False,invalid_operation_length(1,l,i));
+                    elif te!='list' and te!='tuple':equation[i]=equation[i],;
+                    if te=='list' or te=='tuple' or te=='dict':
+                        if te!='dict':
+                            lis=list(equation[i])
+                            for j in range(len(lis)):
+                                if lis[j] not in variables:
+                                    if lis[j].__class__.__name__=='dict':
+                                        if len(lis[j])!=1:return (False, "expected 1, {} items".format(len(lis[j])));
+                                        else:
+                                            if not (valid:=__check_valid_and_convert(lis[j]))[0]:return (False,valid[1]);
+                                            lis[j]=valid[1]
+                                    elif (s:=str(v:=Decimal(str(lis[j]))))=='NaN' or s=='Infinity' or s=='-Infinity':return (False,lis[j]);
+                                    else:lis[j]=v;
+                            equation[i]=tuple(lis)
+                            l=len(lis)
+                            match i:
+                                case 'log':
+                                    if l!=1 and l!=2:return (False, invalid_operation_length('1 or 2',l,i));
+                                case '**':
+                                    if l!=2:return (False,invalid_operation_length(2,l,i));
+                                case '/':
+                                    if l!=2:return (False,invalid_operation_length(2,l,i));
+                                case _:
+                                    if i not in ('+','-','*'):
+                                        if l!=1:return (False,invalid_operation_length(1,l,i));
                     else:return (False,str(equation[i]));
                 return (True,equation)
             for i in range(len(variables:=list(variables))):variables[i]=str(variables[i]);
@@ -1415,39 +1417,37 @@ class SolveEq:
                     case '*':return algbra.mul(*values,pr=pr);
                     case '/':return algbra.div(*values,pr);
                     case 'log':return algbra.log(*values,pr);
-                    case 'ln':return algbra.log(*values,constant.e(pr+1),pr);
+                    case 'ln':return algbra.log(values,constant.e(pr+1),pr);
                     case '**':return algbra.pwr(*values,pr);
-                    case 'sin':return trig.sin(*values,pr);
-                    case 'cos':return trig.cos(*values,pr);
-                    case 'tan':return trig.tan(*values,pr);
-                    case 'cosec':return trig.cosec(*values,pr);
-                    case 'sec':return trig.sec(*values,pr);
-                    case 'cot':return trig.cot(*values,pr);
-                    case 'asin':return trig.asin(*values,pr);
-                    case 'acos':return trig.acos(*values,pr);
-                    case 'atan':return trig.atan(*values,pr);
-                    case 'acosec':return trig.acosec(*values,pr);
-                    case 'asec':return trig.asec(*values,pr);
-                    case 'acot':return trig.acot(*values,pr);
-                    case 'sinh':return htrig.sinh(*values,pr);
-                    case 'cosh':return htrig.cosh(*values,pr);
-                    case 'tanh':return htrig.tanh(*values,pr);
-                    case 'cosech':return htrig.cosech(*values,pr);
-                    case 'sech':return htrig.sech(*values,pr);
-                    case 'coth':return htrig.coth(*values,pr);
+                    case 'sin':return trig.sin(values,pr);
+                    case 'cos':return trig.cos(values,pr);
+                    case 'tan':return trig.tan(values,pr);
+                    case 'cosec':return trig.cosec(values,pr);
+                    case 'sec':return trig.sec(values,pr);
+                    case 'cot':return trig.cot(values,pr);
+                    case 'asin':return trig.asin(values,pr);
+                    case 'acos':return trig.acos(values,pr);
+                    case 'atan':return trig.atan(values,pr);
+                    case 'acosec':return trig.acosec(values,pr);
+                    case 'asec':return trig.asec(values,pr);
+                    case 'acot':return trig.acot(values,pr);
+                    case 'sinh':return htrig.sinh(values,pr);
+                    case 'cosh':return htrig.cosh(values,pr);
+                    case 'tanh':return htrig.tanh(values,pr);
+                    case 'cosech':return htrig.cosech(values,pr);
+                    case 'sech':return htrig.sech(values,pr);
+                    case 'coth':return htrig.coth(values,pr);
                     case _:raise ValueError("{} is not a operation".format(o))
             def __calculate(d:dict,pr):
                 try:
                     r=list()
                     for i,j in d.items():
-                        if j.__class__.__name__=='dict':r.append(__operate(i, __calculate(j,pr+1)));
+                        if j.__class__.__name__=='dict':r.append(__operate(i, __calculate(j,pr+1),pr));
                         else:
                             j=list(j)
                             for k in range(len(j)):
-                                if j[k] in self.__variables:
-                                    j[k]=values[j[k]]
-                                elif j[k].__class__.__name__=='dict':
-                                    j[k]=__calculate(j[k],pr+1)[0]
+                                if j[k] in self.__variables:j[k]=values[j[k]];
+                                elif j[k].__class__.__name__=='dict':j[k]=__calculate(j[k],pr+1);
                             r.append(__operate(i,tuple(j),pr))
                     return tuple(r) if len(r)!=1 else r[0]
                 except Exception as e:raise e;
