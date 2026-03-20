@@ -1151,4 +1151,36 @@
    </p>
 </details>
 
+<details>
+   <summary>Equation</summary>
+   <p>
 
+   **(c) SolveEq(equations,*variables,ret)**: Object to store multi-variable equations and get their values
+
+   ```python
+   >>> from deciml.deciml import SolveEq
+   >>> eq = SolveEq({"+": ("a", {"-": ("b", 5)}), "sin": {"*": ("a", "b")}}, "a", "b")
+   '''
+      {"+": ("a", {"-": ("b", 5)}), "sin": {"*": ("a", "b")}} - The equations (a+(b-5) and sin(a*b))
+      "a", "b" - The variables
+   '''
+   ```
+
+   **(g) variables**: Returns the variables used in the equations
+
+   ```python
+   >>> eq.variables
+   ('a', 'b')
+   ```
+
+   **(f) calculate(pr,ret,\*\*variables)**: Returns the value or tuple of values for the given variable values
+
+   ```python
+   >>> eq.calculate(a=10, b=5)
+   '''
+      a=10, b=5 - Values fot the variables
+   '''
+   (Decimal('10.0'), Decimal('-0.262'))
+   ```
+   </p>
+</details>
