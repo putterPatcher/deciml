@@ -1173,6 +1173,13 @@
    ('a', 'b')
    ```
 
+   **(g) equations**: Returns the equations as a dictionary
+
+   ```python
+   >>> eq.equations
+   {'+': ('a', {'-': ('b', Decimal('5'))}), 'sin': {'*': ('a', 'b')}}
+   ```
+
    **(f) calculate(pr,ret,\*\*variables)**: Returns the value or tuple of values for the given variable values
 
    ```python

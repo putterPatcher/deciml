@@ -1399,6 +1399,13 @@ class SolveEq:
 #### Returns the variables.
         '''
         return self.__variables;
+    
+    @property
+    def equations(self):
+        '''
+#### Returns the equations as a dictionary
+        '''
+        return self.__equations
 
     def calculate(self,pr=None,ret='c',**values):
         '''
