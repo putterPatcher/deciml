@@ -1,7 +1,11 @@
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import randint, seed
 from terminate import retrn
+
+# Package and testing
 from .__helpers import invalid_command, invalid_operation_length
+
+# For File
 # from __helpers import invalid_command, invalid_operation_length
 
 __DecimalPrecision=16
@@ -64,6 +68,10 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret='c')->Decimal:
                     for i in range(-dd):
                         s+='0'
                 a2[0]=a2[0]+('' if dd > 0 else s);a2[1]='0' if dd <= 0 else a2[1][ia1:];a1[1]='0';
+        # for negative exponential
+        elif ia1!=0:
+            if -1*ia1<=len(a2[0]):a1[1]=str(int(a1[1])+len(a2[0]));a2[0],a2[1]='0',a2[0]+a2[1];
+        del ia1
         if Decimal(a1[0])==0:return Decimal('0.0');
         if int(a2[0])==0:
             if a2[1][0]=='0':
@@ -1462,46 +1470,5 @@ class SolveEq:
             return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
                 
-
-# print(deciml(22.01234485145124641E+42), deciml(0.000015646541E+100))
-# print(algbra.add(0.1234567156461254845148546554, '1.1234567'), algbra.add(1.2646515484544556546, 1, 2, 5), algbra.add(1.0123456789E-5, 1.234567890E-5), algbra.add(0.000010123456789, 0.00001234567890))
-# print(algbra.add(0.1234567156461254845148546554, 1.1234567), algbra.add(1.2646515484544556546, 1, 2, 5), algbra.mul(-2,-4), algbra.mul(-2.123, 1.123), algbra.mul(2E+1,-1.123), algbra.mul(12.5467E-1, 25), algbra.div(4E-1,2), algbra.div(2E+1,4), algbra.div(2.5E+1, 7.5), algbra.div(-7.5E-1, -2.5), algbra.div(7.5, -2), algbra.div(-2, 7.5))
-# print(Decimal(str(2 ** 0.5)))
-# a=algbra.log(0.9395227492140118E-100, 2E-11)
-# print(a, len(str(a)))
-# print(trig.cos(trig.acos(0)), len(str(trig.cos(trig.acos(0)))))
-# print(algbra.pwr(2, 3), algbra.pwr(2, -3.5), algbra.div(constant.pi(), 1), trig.sin(trig.asin(-0.8)), trig.cos(trig.acos(-0.8)), trig.tan(trig.atan(111111111111)), trig.tan(1.5707963267947966))
-# print(htrig.sinh(-10), htrig.cosh(-10))
-
-# print(trig.asin(-1.0), trig.asin(1.0))
-# print(constant.pi()/2)
-# print(trig.acos(-1.0), trig.acos(1.0))
-# print(trig.acot(0.0000001), trig.acot(-0.0000001))
-# print(trig.asec(-1.0), trig.asec(1.0))
-
-# r=rdeciml('.111111e-1',5E-20)
-# print(r.random(5))
-# setpr(5)
-# print(deciml('.454245424'))
-
-# a=stat.median([1,2,3,4,5,3,2,1,2,3])
-# print(a)
-# a=stat.mode(['1','2','3','4','5','3','2','1','2','3'])
-# print(a)
-# print(deciml('000.00000000000000000045'))
-# print(algbra.log('1', '10'))
-# print(deciml_sort(['2.42153154E3', 2.852582, 5.52582], 4))
-# print(deciml('2.42153154E+10', 0))
-# print(algbra.div(1, '2.4215315E-30', 1))
-# print(algbra.div(1, '24215315.0E-37', 1))
-
-# print(algbra.div('0.0', '-5.00'))
-
-# setpr(3)
-# print(deciml('12.000000000000000'))
-# eq = SolveEq("a+b+c", 'a', 'b', 'c')
-# eq.calculate(a=1, b=2, c=3)
-
-# print(trig.tan(algbra.div(constant.pi(75),2,75)))
 
 print("Imported deciml...")
