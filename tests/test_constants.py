@@ -5,3 +5,8 @@ from ..deciml.deciml import constant
 def test_pi_and_e_value(precision, pi_value, e_value):
     assert str(constant.pi(precision)) == str(pi_value)
     assert str(constant.e(precision)) == str(e_value)
+
+@pytest.mark.parametrize('precision', [10000, 100000, -1000])
+def test_wrong_pi_and_e_value(precision):
+    assert constant.pi(precision) is None
+    assert constant.e(precision) is None

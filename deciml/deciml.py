@@ -1,7 +1,7 @@
-from decimal import ROUND_HALF_UP, Decimal, getcontext, InvalidOperation
+from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import randint, seed
-from typing import cast, Any
 from collections.abc import Callable
+from typing import cast, Any
 from terminate import retrn
 
 # Package and testing
@@ -18,7 +18,7 @@ __DecimalPrecision=16
 getcontext().rounding=ROUND_HALF_UP
 
 
-def setpr(__p:int,ret:str='c')->None:
+def setpr(__p:int,ret='c')->None:
     """
 #### Changes __DecimalPrecision.
 - **__p**: The new precision
@@ -37,7 +37,7 @@ def getpr()->int:
     return __DecimalPrecision;
 
 
-def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret:str='c')->Decimal|None:
+def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret='c')->Decimal|None:
     '''
 #### Get Decimal object.
 - **__a**: Value to convert to Decimal
@@ -46,16 +46,16 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret:str='c')->Decimal|No
     '''
     try:
         if __pr==None:__pr=getpr();
-        if (sa:=str(Decimal(str(__a))))=='NaN' or sa=='Infinity' or sa=='-Infinity':return Decimal(__a);
-        def __exp(__a:str)->list[str]:
+        if (sa:=str(Decimal(str(__a))))=='NaN' or sa=='Infinity' or sa=='-Infinity':return Decimal(str(__a));
+        def __exp(__a:str)->list:
             match len(a:=__a.split('e')):
                 case 1:
                     match len(a:=__a.split('E')):
                         case 1:return a+['0',]; 
                         case 2:return a;
-                        case _:raise InvalidOperation
+                        case _:raise Exception
                 case 2:return a;
-                case _:raise InvalidOperation
+                case _:raise Exception
         __a=str(__a)
         if __a[0]=='-':a0=__a[0];__a=__a[1:];
         else:a0='';
@@ -66,8 +66,8 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret:str='c')->Decimal|No
                 if int(a2[1]) == 0:
                     a2[1] = ''
                     la2=0
-                a2[0]=a2[0]+a2[1][:ia1 if (dd:=la2-ia1) > 0 else la2]
-                s=''
+                a2[0]=a2[0]+a2[1][:ia1 if (dd:=la2 - ia1) > 0 else la2]
+                s = ''
                 if dd < 0:
                     for i in range(-dd):
                         s+='0'
@@ -101,11 +101,10 @@ def deciml(__a:float|int|str|Decimal,__pr:int|None=None,ret:str='c')->Decimal|No
                 if int(a2[1][0])>=5:a2[0]=a2[0][:-2]+str(int(a2[0][-2:])+1);
                 a2[1]='';
         return Decimal(a0+a2[0]+('.'+a2[1] if a2[1]!='' else '')+('E'+a1[1] if a1[1]!='' else ''));
-    except InvalidOperation as e:return Decimal('NaN');
     except Exception as e:invalid_command('deciml');retrn(ret,e,False);
 
 # args: (start number,end number), decimal precision, seed
-def rint(__i:int,__j:int,__n:int=1,s:int|None=None,ret:str='c')->int|tuple[int,...]|None:
+def rint(__i:int,__j:int,__n=1,s=None,ret='c')->int|tuple[int,...]|None:
     """
 #### Get a random integer or tuple of random integers.
 - **__i**: Minimum integer
@@ -117,6 +116,7 @@ def rint(__i:int,__j:int,__n:int=1,s:int|None=None,ret:str='c')->int|tuple[int,.
     try:
         if s is not None:seed(s);
         if __n==1:return randint(__i,__j);
+        elif __n<1:raise Exception
         return tuple(map(lambda _:randint(__i,__j),range(__n)))
     except Exception as e:invalid_command('rint');retrn(ret,e,False);
 
@@ -139,7 +139,7 @@ class rdeciml:
                 match len(a1:=__a.split('E')):
                     case 1:
                         match len(a2:=__a.split('e')):
-                            case 1:return a2+[0,];
+                            case 1:return a2+['0',];
                             case 2:return a2;
                             case _:raise Exception
                     case 2:return a1;
@@ -167,11 +167,11 @@ class rdeciml:
                         return ['0',z+a1[0]+__a[1]]
                     else:
                         return [a1[0][:(da:=la0-ni1a)],a1[1][da:]+a1[0]]
-            __a,__b=cast(tuple[str,str],tuple(map(__exp,(__a,__b))))
-            a1,b1=tuple(map(__dtd,(__a[0],__b[0])));
-            __a,__b=cast(tuple[str,str], tuple(map(__etd,((__a,a1),(__b,b1)))))
-            self.__oa=__a;self.__ob=__b;del a1,b1;__a,__b=map(self.__dtip,((__a,__pr),(__b,__pr)));
-            self.__a=__a;self.__b=__b;self.__pr=__pr;del __a,__b,__pr;self.random=lambda __n,__s=None:self.__frandom(self.__pr,__n,__s);
+            __A,__B=tuple(map(__exp,(__a,__b)))
+            a1,b1=tuple(map(__dtd,(__A[0],__B[0])));
+            __A,__B=tuple(map(__etd,((__A,a1),(__B,b1))))
+            self.__oa=__A;self.__ob=__B;del a1,b1;__A,__B=map(self.__dtip,((__A,__pr),(__B,__pr)));
+            self.__a=__A;self.__b=__B;self.__pr=__pr;del __A,__B,__pr;self.random=lambda __n,__s=None:self.__frandom(self.__pr,__n,__s);
             """
 #### Get a tuple of random numbers in Decimal.
 - **__n**: Number of random numbers to generate
@@ -185,7 +185,7 @@ class rdeciml:
             for _ in range(__pr-la):__a[1]+='0';
         return int(__a[0]+__a[1][:__pr]);
 
-    def __frandom(self,__pr,__n,__s)->tuple:
+    def __frandom(self,__pr,__n,__s)->tuple[Decimal,...]:
         def rint(__a,__b,__pr):
             (z:=[__a,__b]).sort();__a,__b=z;del z;r=str(randint(__a,__b));
             if (r1:=len(r)-__pr)>0:
@@ -262,7 +262,7 @@ def abs(__a:float|int|str|Decimal)->Decimal|None:
     elif a<0:return Decimal(a1[1:]);
     else:return a;
 
-def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=None,reverse:bool=False,key:Callable[[Decimal | None], Any]|None=None,ret='c')->list[Decimal]|None:
+def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=None,reverse:bool=False,key:Callable[[Decimal | None], Any]|None=None,ret='c')->list[Decimal|None]|None:
     '''
 #### Returns a new sorted list in Decimal.
 - **__a**: List to convert to Decimal and sort
@@ -271,9 +271,8 @@ def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=
 - **ret**: The return method on exception ('c', 'w', 'a')
     '''
     try:
-        lis=list(map(lambda i:deciml(i,__pr),__a));
-        if key:lis.sort(key=key, reverse=reverse)
-        return cast(list[Decimal], lis)
+        # Cast because None type for key is not available
+        lis=list(map(lambda i:deciml(i,__pr),__a));lis.sort(key=cast(Callable[[Decimal | None], Any],key),reverse=reverse);return lis;
     except Exception as e:invalid_command("deciml_sort");retrn(ret,e,False);
 
 class algbra:
@@ -289,7 +288,7 @@ class algbra:
         try:
             if pr==None:pr=getpr();
             p=pr+2
-            def __add(__a:str,__b:str)->Decimal|str:
+            def __add(__a:str,__b:str)->str:
                 try:
                     def __exp(__a)->list[str]:
                         match len(a1:=__a.split('E')):
@@ -326,7 +325,7 @@ class algbra:
         try:
             if pr==None:pr=getpr();
             p=pr+2
-            def __sub(__a:str,__b:str)->Decimal|str:
+            def __sub(__a:str,__b:str)->str:
                 try:
                     def __exp(__a)->list[str]:
                         match len(a1:=__a.split('E')):
@@ -363,7 +362,7 @@ class algbra:
         try:
             if pr==None:pr=getpr();
             p=pr+2
-            def __mul(__a:str,__b:str)->Decimal|str:
+            def __mul(__a:str,__b:str)->str:
                 try:
                     def __exp(__a)->list[str]:
                         match len(a1:=__a.split('E')):
@@ -414,7 +413,7 @@ class algbra:
         except Exception as e:invalid_command('algbra.div');retrn(ret,e,False);
     
     @classmethod
-    def log(cls,__a:float|int|str|Decimal,__b:float|int|str|Decimal='10',__pr:int|None=None,ret='c')->Decimal|None:
+    def log(cls,__a:float|int|str|Decimal,__b:Decimal|float|int|str='10',__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the logarithm of number in Decimal.
 - **__a**: Number
@@ -425,23 +424,31 @@ class algbra:
         try:
             if __pr==None:__pr=getpr();
             p=__pr+2
-            a=Decimal(str(__a));b=Decimal(str(__b));c=0;
-            if a==0:raise Exception
+            a:Decimal|None=Decimal(str(__a));b=Decimal(str(__b));c=0;
+            if a==0:raise Exception()
             getcontext().prec=p;
             if b>=1:
                 if a>=1:
-                    while cast(Decimal,a)>=b:a=cls.div(cast(Decimal,a),b,p);c+=1;
-                    return deciml(str(c)+"."+(s[2:] if (s := str(cast(Decimal,a).ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    while a>=b:
+                        if a:=cls.div(a,b,p):c+=1;
+                        else:raise Exception
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
                 if a<1:
-                    while cast(Decimal,a)<1:a=cls.mul(cast(Decimal,a),b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+(s[2:] if (s := str(cast(Decimal,a).ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    while a<1:
+                        if a:=cls.mul(a,b,pr=p):c+=1;
+                        else:raise Exception
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
             if b<1:
                 if a>b:
-                    while cast(Decimal,a)>1:a=cls.mul(cast(Decimal,a),b,pr=p);c+=1;
-                    return deciml(str(-c)+"."+(s[2:] if (s := str(cast(Decimal,a).ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    while a>1:
+                        if a:=cls.mul(a,b,pr=p):c+=1;
+                        else:raise Exception
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
                 if a<=b:
-                    while cast(Decimal,a)<=b:a=cls.div(cast(Decimal,a),b,p);c+=1;
-                    return deciml(str(c)+"."+(s[2:] if (s := str(cast(Decimal,a).ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    while a<=b:
+                        if a:=cls.div(a,b,p):c+=1;
+                        else:raise Exception
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
         except Exception as e:invalid_command('algbra.log');retrn(ret,e,False);
 
     @classmethod
@@ -455,36 +462,42 @@ class algbra:
         '''
         try:
             if __pr==None:__pr=getpr();
-            a=Decimal(str(__a));c=0;p=__pr+2;
+            a:Decimal|None=Decimal(str(__a));c=0;p=__pr+2;
+            if a is None:raise Exception
             if (b:=Decimal(str(__b)))==(ib:=int(b)):
-                r=1
+                r:int|Decimal|None=1
                 if b<0:
-                    for _ in range(-ib):r=cls.mul(cast(Decimal,r),a,pr=p);
-                    r=cls.div(1,cast(Decimal,r),p)
+                    for _ in range(-ib):
+                        if r:=cls.mul(r,a,pr=p) is None:raise Exception
+                    if r:=cls.div(1,r,p) is None:raise Exception
                 else:
-                    for _ in range(ib):r=cls.mul(cast(Decimal,r),a,pr=p);
-                return deciml(cast(Decimal,r),__pr)
+                    for _ in range(ib):
+                        if r:=cls.mul(r,a,pr=p) is None:raise Exception
+                return deciml(r,__pr)
             elif a<0:raise Exception;
             elif b==0:return Decimal('1');
             elif a==0:return Decimal('0');
             if a>=1:
                 if b>=0:
-                    while cast(Decimal,a)>1:a=cls.div(cast(Decimal,a),10,p);c+=1;
-                    getcontext().prec=int((p1:=cast(Decimal,cls.mul(c, b, pr=p))))+p;return deciml((10**p1)*(cast(Decimal,a)**b),__pr);
+                    while a>1:
+                        if a:=cls.div(a,10,p):c+=1;
+                        else:raise Exception
+                    if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(a**b),__pr);
+                    else:raise Exception
                 if b<0:getcontext().prec=p;return deciml(a**b,__pr);
             if a<1:
                 if b>=0:
                     getcontext().prec=p;return deciml(a**b,__pr);
                 if b<0:
                     while cast(Decimal,a)<1:a=cls.mul(cast(Decimal,a),10,pr=p);c+=1;
-                    getcontext().prec=int((p1:=cast(Decimal,cls.mul(-c, b, pr=p))))+p;return deciml((10**p1)*(cast(Decimal,a)**b),__pr);
+                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(cast(Decimal,a)**b),__pr);
         except Exception as e:invalid_command('algbra.pwr');retrn(ret,e,False);
 
 
 class galgbra:
 
     @staticmethod
-    def add(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def add(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after addition for lists or tuples.
 ##### (a, b, c) + [A, B, C] + ... = (a+A+..., b+B+..., c+C+...)
@@ -493,11 +506,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.add(*x,pr=pr),zip(*__a))));
+            return tuple(map(lambda x:algbra.add(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.add");retrn(ret,e,False);
     
     @staticmethod
-    def sub(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def sub(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction for lists or tuples.
 ##### (a, b, c) - [A, B, C] - ... = (a-A-..., b-B-..., c-C-...)
@@ -506,11 +519,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.sub(*x,pr=pr),zip(*__a))));
+            return tuple(map(lambda x:algbra.sub(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.sub");retrn(ret,e,False);
     
     @staticmethod
-    def mul(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def mul(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after multiplication for lists or tuples.
 ##### (a, b, c) x [A, B, C] x ... = (a\\*A\\*..., b\\*B\\*..., c\\*C\\*...)
@@ -519,11 +532,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.mul(*x,pr=pr),zip(*__a))));
+            return tuple(map(lambda x:algbra.mul(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.mul");retrn(ret,e,False);
     
     @staticmethod
-    def div(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def div(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division for lists or tuples.
 ##### (a, b, c, ...) / [A, B, C, ...] = (a/A, b/B, c/C, ...)
@@ -533,11 +546,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.div(*x,__pr),zip(__a,__b))));
+            return tuple(map(lambda x:algbra.div(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.div");retrn(ret,e,False);
     
     @staticmethod
-    def pwr(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def pwr(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### (a, b, c, ...) ^ (A, B, C, ...) = (a^A, b^B, c^C, ...)
@@ -548,11 +561,11 @@ class galgbra:
 
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.pwr(*x,__pr),zip(__a,__b))));
+            return tuple(map(lambda x:algbra.pwr(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.pwr");retrn(ret,e,False);
     
     @staticmethod
-    def log(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def log(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### (a, b, c), (A, B, C) = (log_a(A), log_b(B), log_c(C))
@@ -562,11 +575,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.log(*x,__pr),zip(__a,__b))));
+            return tuple(map(lambda x:algbra.log(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.log");retrn(ret,e,False);
     
     @staticmethod
-    def addsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def addsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after addition.
 ##### N + (A, B, C, ...) = (N+A, N+B, N+C, ...)
@@ -576,11 +589,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.add(__a,x,pr=__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.add(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.addsg");retrn(ret,e,False);
     
     @staticmethod
-    def subgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|str,__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def subgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction.
 ##### (A, B, C, ...) - N = (A-N, B-N, C-N, ...)
@@ -590,11 +603,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __b=str(__b);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.sub(x,__b,pr=__pr),__a)));
+            __b=str(__b);return tuple(map(lambda x:algbra.sub(x,__b,pr=__pr),__a));
         except Exception as e:invalid_command("galgra.subgs");retrn(ret,e,False);
     
     @staticmethod
-    def subsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def subsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction.
 ##### N - (A, B, C, ...) = (N-A, N-B, N-C, ...)
@@ -604,11 +617,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.sub(__a,x,pr=__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.sub(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.subsg");retrn(ret,e,False);
 
     @staticmethod
-    def mulsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def mulsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after multiplication.
 ##### N x (A, B, C, ...) = (N*A, N*B, N*C, ...)
@@ -618,11 +631,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.mul(__a,x,pr=__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.mul(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.mulsg");retrn(ret,e,False);
 
     @staticmethod
-    def divgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|str,__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def divgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division.
 ##### (A, B, C, ...) / N = (A/N, B/N, C/N, ...)
@@ -632,11 +645,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __b=str(__b);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.div(x,__b,__pr),__a)));
+            __b=str(__b);return tuple(map(lambda x:algbra.div(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.divgs");retrn(ret,e,False);
     
     @staticmethod
-    def divsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def divsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division.
 ##### N / (A, B, C, ...) = (N/A, N/B, N/C, ...)
@@ -646,11 +659,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.div(__a,x,__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.div(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.divs");retrn(ret,e,False);
 
     @staticmethod
-    def pwrgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|str,__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def pwrgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### (A, B, C, ...) ^ N = (A^N, B^N, B^N, ...)
@@ -660,11 +673,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __b=str(__b);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.pwr(x,__b,__pr),__a)));
+            __b=str(__b);return tuple(map(lambda x:algbra.pwr(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.pwrgs");retrn(ret,e,False);
     
     @staticmethod
-    def pwrsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def pwrsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### N ^ (A, B, C, ...) = (N^A, N^B, N^C, ...)
@@ -674,11 +687,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.pwr(__a,x,__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.pwr(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.pwrsg");retrn(ret,e,False);
     
     @staticmethod
-    def loggs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|str,__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def loggs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### (A, B, C, ...), N = (log_N(A), log_N(B), log_N(C), ...)
@@ -688,11 +701,11 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __b=str(__b);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.log(x,__b,__pr),__a)));
+            __b=str(__b);return tuple(map(lambda x:algbra.log(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.loggs");retrn(ret,e,False);
     
     @staticmethod
-    def logsg(__a:Decimal|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal,...]|None:
+    def logsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### N, (A, B, C, ...) = (log_A(N), log_B(N), log_C(N), ...)
@@ -702,7 +715,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            __a=str(__a);return cast(tuple[Decimal,...],tuple(map(lambda x:algbra.log(__a,x,__pr),__b)));
+            __a=str(__a);return tuple(map(lambda x:algbra.log(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.logsg");retrn(ret,e,False);
 
 
@@ -719,10 +732,23 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=cast(Decimal,algbra.mul(cast(Decimal,constant.pi(pr)),'2',pr=pr))):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<cast(Decimal,algbra.mul('-1',p,pr=pr)):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            rp=None;n=a;d=1;c=1;a1=algbra.pwr(cast(Decimal,a),'2',pr+1);r=algbra.div(cast(Decimal,n),d,pr+1);
-            while r!=rp:rp=r;r=algbra.add(cast(Decimal,r),cast(Decimal,algbra.div((n:=algbra.mul(n,cast(Decimal,a1),'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1)),pr=pr);
+            if pi:=constant.pi(pr) is None:raise Exception
+            if p:=algbra.mul(pi,'2',pr=pr) is None:raise Exception
+            if val:=algbra.mul('-1',p,pr=pr) is None:raise Exception
+            if (a:=Decimal(str(__a)))>p:
+                a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
+                if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
+            elif a<val:
+                a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
+                if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
+            rp=None;n=a;d=1;c=1;
+            if a1:=algbra.pwr(a,'2',pr+1) is None:raise Exception
+            if r:=algbra.div(n,d,pr+1) is None:raise Exception
+            while r!=rp:
+                rp=r
+                if n:=algbra.mul(n,a1,'-1',pr=pr+2) is None:raise Exception
+                if r1:=algbra.div(n,(d:=d*(c+1)*((c:=c+2))),pr+1) is None:raise Exception
+                r=algbra.add(cast(Decimal,r),r1,pr=pr);
             return deciml(cast(Decimal,r),__pr);
         except Exception as e:invalid_command('trig.sin');retrn(ret,e);
 
@@ -737,15 +763,15 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=cast(Decimal,algbra.mul(cast(Decimal,constant.pi(pr)),'2',pr=pr))):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<cast(Decimal,algbra.mul('-1',p,pr=pr)):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            rp=0;n=1;d=1;c=0;r=1;a1=algbra.pwr(cast(Decimal,a),'2',pr);
-            while r!=rp:rp=r;r=algbra.add(cast(Decimal,r),cast(Decimal,algbra.div((n:=algbra.mul(n,cast(Decimal,a1),'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1)),pr=pr);
-            return deciml(cast(Decimal,r),__pr);
+            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
+            rp=0;n=1;d=1;c=0;r=1;a1=algbra.pwr(a,'2',pr);
+            while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1),pr=pr);
+            return deciml(r,__pr);
         except Exception as e:invalid_command('trig.cos');retrn(ret,e);
 
     @classmethod
-    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
+    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
         '''
 #### Get the tan in Decimal.
 - **__a**: Number
@@ -1488,7 +1514,7 @@ class SolveEq:
                 except Exception as e:raise e;
             return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
-                
-deciml('1000.002.03034')
+
+print(rint(34, 12, 3))          
 
 print("Imported deciml...")
