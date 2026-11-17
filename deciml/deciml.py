@@ -251,16 +251,18 @@ class constant:
         except Exception as e:invalid_command("constant.pi");retrn(ret,e,False);
 
 
-def abs(__a:float|int|str|Decimal)->Decimal|None:
+def abs(__a:float|int|str|Decimal,ret='c')->Decimal|None:
     """
 #### Get the absolute value in Decimal.
 - **__a**: Value to convert to it's absolute value
     """
-    a=Decimal(str(__a))
-    if (a1:=str(a))=='NaN':return a;
-    elif a1=='Infinity' or a1=='-Infinity':return Decimal('Infinity');
-    elif a<0:return Decimal(a1[1:]);
-    else:return a;
+    try:
+        a=Decimal(str(__a))
+        if (a1:=str(a))=='NaN':return a;
+        elif a1=='Infinity' or a1=='-Infinity':return Decimal('Infinity');
+        elif a<0:return Decimal(a1[1:]);
+        else:return a;
+    except Exception as e:invalid_command('abs');retrn(ret,e,False)
 
 def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=None,reverse:bool=False,key:Callable[[Decimal | None], Any]|None=None,ret='c')->list[Decimal|None]|None:
     '''
