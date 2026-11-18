@@ -739,10 +739,10 @@ class trig:
             if (val:=algbra.mul('-1',p,pr=pr)) is None:raise Exception
             if (a:=Decimal(str(__a)))>p:
                 a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
-                if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
             elif a<val:
                 a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
-                if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
             rp=None;n=a;d=1;c=1;
             if (a1:=algbra.pwr(a,'2',pr+1)) is None:raise Exception
             if (r:=algbra.div(n,d,pr+1)) is None:raise Exception
@@ -765,15 +765,28 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            rp=0;n=1;d=1;c=0;r=1;a1=algbra.pwr(a,'2',pr);
-            while r!=rp:rp=r;r=algbra.add(r,algbra.div((n:=algbra.mul(n,a1,'-1',pr=pr+2)),(d:=d*(c+1)*((c:=c+2))),pr+1),pr=pr);
-            return deciml(r,__pr);
+            if (pi:=constant.pi(pr)) is None:raise Exception
+            if (p:=algbra.mul(pi,'2',pr=pr)) is None:raise Exception
+            if (val:=algbra.mul('-1',p,pr=pr)) is None:raise Exception
+            if (a:=Decimal(str(__a)))>p:
+                a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
+            elif a<val:
+                a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
+                # Here too because elif
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
+            rp=0;n=1;d=1;c=0;r=1;
+            if (a1:=algbra.pwr(a,'2',pr)) is None:raise Exception
+            while r!=rp:
+                rp=r
+                if (n:=algbra.mul(n,a1,'-1',pr=pr+2)) is None:raise Exception
+                if (r1:=algbra.div(n,(d:=d*(c+1)*((c:=c+2))),pr+1)) is None:raise Exception
+                if (r:=algbra.add(r,r1,pr=pr)) is None:raise Exception
+            return deciml(r,__pr)
         except Exception as e:invalid_command('trig.cos');retrn(ret,e);
 
     @classmethod
-    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def tan(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the tan in Decimal.
 - **__a**: Number
@@ -783,13 +796,23 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2
-            if (a:=Decimal(str(__a)))>(p:=algbra.mul(constant.pi(pr),'2',pr=pr)):a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            elif a<algbra.mul('-1',p,pr=pr):a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1];a=algbra.mul(a,p,pr=pr);
-            r=algbra.div(cls.sin(a,pr+1),cls.cos(a,pr+1),pr);return deciml(r,__pr);
+            if (pi:=constant.pi(pr)) is None:raise Exception
+            if (p:=algbra.mul(pi,'2',pr=pr)) is None:raise Exception
+            if (p1:=algbra.mul('-1',p,pr=pr)) is None:raise Exception
+            if (a:=Decimal(str(__a)))>p:
+                a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
+            elif a<p1:
+                a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
+                if (a:=algbra.mul(a,p,pr=pr)) is None:raise Exception
+            if (s:=cls.sin(a,pr+1)) is None:raise Exception
+            if (c:=cls.cos(a,pr+1)) is None:raise Exception
+            if (r:=algbra.div(s,c,pr)) is None:raise Exception
+            return deciml(r,__pr);
         except Exception as e:invalid_command('trig.tan');retrn(ret,e);
 
     @classmethod
-    def cosec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def cosec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the cosec in Decimal.
 - **__a**: Number
@@ -1517,6 +1540,7 @@ class SolveEq:
             return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
 
-trig.sin(0)
+
+trig.cos(3.14)
 
 print("Imported deciml...")

@@ -71,7 +71,7 @@ def test_division_zero():
     '''
     assert algbra.div(12.343, 0) == None
 
-@pytest.mark.parametrize('base, exponent, precision, result', [('12.343', '3.4322', 4, '5571.5268'), (12.343, -3.45, 3, '0.0001716'), (12.1232, 0, 5, '1'), (0, 2.3433, 2, '0')])
+@pytest.mark.parametrize('base, exponent, precision, result', [('12.343', '3.4322', 4, '5571.5268'), (12.343, -3.45, 3, '0.0001716'), (12.1232, 0, 5, '1'), (0, 2.3433, 2, '0'), (2, 3, 0, '8'), (2, 3, 3, '8.0')])
 def test_exponentiation(base, exponent, precision, result):
     '''
         Check if result is correct
