@@ -415,7 +415,7 @@ class algbra:
         except Exception as e:invalid_command('algbra.div');retrn(ret,e,False);
     
     @classmethod
-    def log(cls,__a:float|int|str|Decimal,__b:Decimal|float|int|str='10',__pr:int|None=None,ret='c')->Decimal|None:
+    def log(cls,__a:float|int|str|Decimal,__b:Decimal|float|int|str='10',pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the logarithm of number in Decimal.
 - **__a**: Number
@@ -424,33 +424,33 @@ class algbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
-            if __pr==None:__pr=getpr();
-            p=__pr+2
+            if pr==None:pr=getpr();
+            p=pr+2
             a:Decimal|None=Decimal(str(__a));b=Decimal(str(__b));c=0;
-            if a==0:raise Exception()
+            if a<=0:raise Exception
             getcontext().prec=p;
             if b>=1:
                 if a>=1:
                     while a>=b:
                         if a:=cls.div(a,b,p):c+=1;
                         else:raise Exception
-                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),pr);
                 if a<1:
                     while a<1:
                         if a:=cls.mul(a,b,pr=p):c+=1;
                         else:raise Exception
-                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),pr);
             if b<1:
                 if a>b:
                     while a>1:
                         if a:=cls.mul(a,b,pr=p):c+=1;
                         else:raise Exception
-                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    return deciml(str(-c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),pr);
                 if a<=b:
                     while a<=b:
                         if a:=cls.div(a,b,p):c+=1;
                         else:raise Exception
-                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),__pr);
+                    return deciml(str(c)+"."+(s[2:] if (s := str(a.ln()/b.ln()))[1] != 'E' and s[2] != 'E' else '0'),pr);
         except Exception as e:invalid_command('algbra.log');retrn(ret,e,False);
 
     @classmethod
@@ -466,7 +466,8 @@ class algbra:
             if __pr==None:__pr=getpr();
             a:Decimal|None=Decimal(str(__a));c=0;p=__pr+2;
             if a is None:raise Exception
-            if (b:=Decimal(str(__b)))==(ib:=int(b)):
+            if (b:=Decimal(str(__b)))==0:return Decimal('1');
+            if b==(ib:=int(b)):
                 r:int|Decimal|None=1
                 if b<0:
                     for _ in range(-ib):
@@ -477,7 +478,6 @@ class algbra:
                         if r:=cls.mul(r,a,pr=p) is None:raise Exception
                 return deciml(r,__pr)
             elif a<0:raise Exception;
-            elif b==0:return Decimal('1');
             elif a==0:return Decimal('0');
             if a>=1:
                 if b>=0:
@@ -1516,7 +1516,5 @@ class SolveEq:
                 except Exception as e:raise e;
             return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
-
-print(rint(34, 12, 3))          
 
 print("Imported deciml...")
