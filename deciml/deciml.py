@@ -5,10 +5,10 @@ from typing import cast, Any
 from terminate import retrn
 
 # Package and testing
-from .__helpers import invalid_command, invalid_operation_length
+from .__helpers import invalid_command, invalid_operation_length, Input1
 
 # For File
-# from __helpers import invalid_command, invalid_operation_length
+# from __helpers import invalid_command, invalid_operation_length, Input1
 
 __DecimalPrecision=16
 """
@@ -471,11 +471,11 @@ class algbra:
                 r:int|Decimal|None=1
                 if b<0:
                     for _ in range(-ib):
-                        if r:=cls.mul(r,a,pr=p) is None:raise Exception
-                    if r:=cls.div(1,r,p) is None:raise Exception
+                        if (r:=cls.mul(r,a,pr=p)) is None:raise Exception
+                    if (r:=cls.div(1,r,p)) is None:raise Exception
                 else:
                     for _ in range(ib):
-                        if r:=cls.mul(r,a,pr=p) is None:raise Exception
+                        if (r:=cls.mul(r,a,pr=p)) is None:raise Exception
                 return deciml(r,__pr)
             elif a<0:raise Exception;
             elif a==0:return Decimal('0');
@@ -499,7 +499,7 @@ class algbra:
 class galgbra:
 
     @staticmethod
-    def add(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def add(*__a:list[Input1]|tuple[Input1,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after addition for lists or tuples.
 ##### (a, b, c) + [A, B, C] + ... = (a+A+..., b+B+..., c+C+...)
@@ -734,9 +734,9 @@ class trig:
         try:
             if __pr==None:__pr=getpr();
             pr=__pr+2
-            if pi:=constant.pi(pr) is None:raise Exception
-            if p:=algbra.mul(pi,'2',pr=pr) is None:raise Exception
-            if val:=algbra.mul('-1',p,pr=pr) is None:raise Exception
+            if (pi:=constant.pi(pr)) is None:raise Exception
+            if (p:=algbra.mul(pi,'2',pr=pr)) is None:raise Exception
+            if (val:=algbra.mul('-1',p,pr=pr)) is None:raise Exception
             if (a:=Decimal(str(__a)))>p:
                 a='0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
                 if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
@@ -744,12 +744,12 @@ class trig:
                 a='-0.'+str(algbra.div(a,p,pr+1)).split('.')[1]
                 if a:=algbra.mul(a,p,pr=pr) is None:raise Exception
             rp=None;n=a;d=1;c=1;
-            if a1:=algbra.pwr(a,'2',pr+1) is None:raise Exception
-            if r:=algbra.div(n,d,pr+1) is None:raise Exception
+            if (a1:=algbra.pwr(a,'2',pr+1)) is None:raise Exception
+            if (r:=algbra.div(n,d,pr+1)) is None:raise Exception
             while r!=rp:
                 rp=r
-                if n:=algbra.mul(n,a1,'-1',pr=pr+2) is None:raise Exception
-                if r1:=algbra.div(n,(d:=d*(c+1)*((c:=c+2))),pr+1) is None:raise Exception
+                if (n:=algbra.mul(n,a1,'-1',pr=pr+2)) is None:raise Exception
+                if (r1:=algbra.div(n,(d:=d*(c+1)*((c:=c+2))),pr+1)) is None:raise Exception
                 r=algbra.add(cast(Decimal,r),r1,pr=pr);
             return deciml(cast(Decimal,r),__pr);
         except Exception as e:invalid_command('trig.sin');retrn(ret,e);
@@ -1516,5 +1516,7 @@ class SolveEq:
                 except Exception as e:raise e;
             return __calculate(self.__equations,pr)
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
+
+trig.sin(0)
 
 print("Imported deciml...")
