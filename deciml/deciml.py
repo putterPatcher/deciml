@@ -273,7 +273,6 @@ def deciml_sort(__a:list[float]|list[int]|list[str]|list[Decimal],__pr:int|None=
 - **ret**: The return method on exception ('c', 'w', 'a')
     '''
     try:
-        # Cast because None type for key is not available
         lis=list(map(lambda i:deciml(i,__pr),__a));lis.sort(key=cast(Callable[[Decimal | None], Any],key),reverse=reverse);return lis;
     except Exception as e:invalid_command("deciml_sort");retrn(ret,e,False);
 
@@ -464,7 +463,7 @@ class algbra:
         '''
         try:
             if __pr==None:__pr=getpr();
-            a:Decimal|None=Decimal(str(__a));c=0;p=__pr+2;
+            a=Decimal(str(__a));c=0;p=__pr+2;
             if a is None:raise Exception
             if (b:=Decimal(str(__b)))==0:return Decimal('1');
             if b==(ib:=int(b)):
@@ -491,8 +490,10 @@ class algbra:
                 if b>=0:
                     getcontext().prec=p;return deciml(a**b,__pr);
                 if b<0:
-                    while cast(Decimal,a)<1:a=cls.mul(cast(Decimal,a),10,pr=p);c+=1;
-                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(cast(Decimal,a)**b),__pr);
+                    while a<1:
+                        if (a:=cls.mul(a,10,pr=p)) is None:raise Exception
+                        c+=1
+                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(a**b),__pr);
         except Exception as e:invalid_command('algbra.pwr');retrn(ret,e,False);
 
 
@@ -750,8 +751,8 @@ class trig:
                 rp=r
                 if (n:=algbra.mul(n,a1,'-1',pr=pr+2)) is None:raise Exception
                 if (r1:=algbra.div(n,(d:=d*(c+1)*((c:=c+2))),pr+1)) is None:raise Exception
-                r=algbra.add(cast(Decimal,r),r1,pr=pr);
-            return deciml(cast(Decimal,r),__pr);
+                if (r:=algbra.add(r,r1,pr=pr)) is None:raise Exception
+            return deciml(r,__pr);
         except Exception as e:invalid_command('trig.sin');retrn(ret,e);
 
     @staticmethod
@@ -821,11 +822,14 @@ class trig:
         '''
         try:
             if __pr==None:__pr=getpr();
-            pr=__pr+2;r=algbra.div(1,cls.sin(__a,pr+1),pr);return deciml(r,__pr);
+            pr=__pr+2
+            if (s:=cls.sin(__a,pr+1)) is None:raise Exception
+            if (r:=algbra.div(1,s,pr)) is None:raise Exception
+            return deciml(r,__pr)
         except Exception as e:invalid_command('trig.cosec');retrn(ret,e);
 
     @classmethod
-    def sec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def sec(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the sec in Decimal.
 - **__a**: Number
@@ -834,11 +838,14 @@ class trig:
         '''
         try:
             if __pr==None:__pr=getpr();
-            pr=__pr+2;r=algbra.div(1,cls.cos(__a,pr+1),pr);return deciml(r,__pr);
+            pr=__pr+2
+            if (c:=cls.cos(__a,pr+1)) is None:raise Exception
+            if (r:=algbra.div(1,c,pr)) is None:raise Exception
+            return deciml(r,__pr);
         except Exception as e:invalid_command('trig.sec');retrn(ret,e);
 
     @classmethod
-    def cot(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def cot(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the cot in Decimal.
 - **__a**: Number
@@ -847,12 +854,15 @@ class trig:
         '''
         try:
             if __pr==None:__pr=getpr();
-            pr=__pr+2;r=algbra.div(cls.cos(__a,pr+1),cls.sin(__a,pr+1),pr);return deciml(r,__pr);
+            pr=__pr+2
+            if (c:=cls.cos(__a,pr+1)) is None or (s:=cls.sin(__a,pr+1)) is None:raise Exception
+            if (r:=algbra.div(c,s,pr)) is None:raise Exception
+            return deciml(r,__pr);
         except Exception as e:invalid_command('trig.cot');retrn(ret,e);
 
     # [-pi/2, pi/2]
     @classmethod
-    def asin(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def asin(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the sine<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are -*pi/2* and *pi/2*.
