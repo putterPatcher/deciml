@@ -874,17 +874,32 @@ class trig:
             if __pr==None:__pr=getpr();
             pr=__pr+2;a=Decimal(str(__a));
             if a<-1 or a>1:raise Exception;
-            if a>(a1:=algbra.pwr('2','-0.5',pr)):r=cls.acos(algbra.pwr(algbra.sub(1,algbra.pwr(a,'2',pr),pr=pr),'0.5',pr),pr);
-            elif a<Decimal('-'+str(a1)):r=algbra.mul('-1',cls.acos(algbra.pwr(algbra.sub('1',algbra.pwr(a,'2',pr),pr=pr),'0.5',pr),pr),pr=pr);
+            if (a1:=algbra.pwr('2','-0.5',pr)) is None:raise Exception
+            if a>a1:
+                if (p2:=algbra.pwr(a,'2',pr)) is None:raise Exception
+                if (s1:=algbra.sub(1,p2,pr=pr)) is None:raise Exception
+                if (p1:=algbra.pwr(s1,'0.5',pr)) is None:raise Exception
+                r=cls.acos(p1,pr);
+            elif a<Decimal('-'+str(a1)):
+                if (p2:=algbra.pwr(a,'2',pr)) is None:raise Exception
+                if (s1:=algbra.sub('1',p2,pr=pr)) is None:raise Exception
+                if (p1:=algbra.pwr(s1,'0.5',pr)) is None:raise Exception
+                if (r:=algbra.mul('-1',cls.acos(p1,pr),pr=pr)) is None:raise Exception
             else:
-                i=0;r=(n:=a);rn=None;a1=algbra.pwr(a,'2',pr);d1=1;d2=1;d3=1;
-                while r!=rn:rn=r;i+=1;r=algbra.add(r,algbra.div((n:=algbra.mul(n,(q:=2*i),(q-1),a1,pr=pr)),(d1:=d1*4)*((d2:=d2*i)**2)*(d3:=d3+2),pr),pr=pr);
+                i=0;r=(n:=a);rn=None;
+                if (a1:=algbra.pwr(a,'2',pr)) is None:raise Exception;
+                d1=1;d2=1;d3=1;
+                while r!=rn:
+                    rn=r;i+=1;
+                    if (n:=algbra.mul(n,(q:=2*i),(q-1),a1,pr=pr)) is None:raise Exception
+                    if (d1:=algbra.div(n,(d1:=d1*4)*((d2:=d2*i)**2)*(d3:=d3+2),pr)) is None:raise Exception
+                    if (r:=algbra.add(r,d1,pr=pr)) is None:raise Exception
             return deciml(r,__pr)
         except Exception as e:invalid_command('trig.asin');retrn(ret,e);
 
     # [0, pi]
     @classmethod
-    def acos(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal:
+    def acos(cls,__a:Decimal|int|float|str,__pr:int|None=None,ret='c')->Decimal|None:
         '''
 #### Get the cosine<sup>-1</sup> in Decimal.
 ##### Note - Return bounds are *0* and *pi*.
