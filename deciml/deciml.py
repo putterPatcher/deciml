@@ -5,10 +5,10 @@ from typing import cast, Any
 from terminate import retrn
 
 # Package and testing
-from .__helpers import invalid_command, invalid_operation_length, Input1
+from .__helpers import invalid_command, invalid_operation_length, Input_deciml
 
 # For File
-# from __helpers import invalid_command, invalid_operation_length, Input1
+# from __helpers import invalid_command, invalid_operation_length, Input_deciml
 
 __DecimalPrecision=16
 """
@@ -500,7 +500,7 @@ class algbra:
 class galgbra:
 
     @staticmethod
-    def add(*__a:list[Input1]|tuple[Input1,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def add(*__a:list[Input_deciml]|tuple[Input_deciml,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after addition for lists or tuples.
 ##### (a, b, c) + [A, B, C] + ... = (a+A+..., b+B+..., c+C+...)
@@ -509,11 +509,13 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            for i in __a:
+                if i.__class__.__name__ != 'list' and i.__class__.__name__ != 'tuple':raise Exception
             return tuple(map(lambda x:algbra.add(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.add");retrn(ret,e,False);
     
     @staticmethod
-    def sub(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def sub(*__a:list[Input_deciml]|tuple[Input_deciml,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction for lists or tuples.
 ##### (a, b, c) - [A, B, C] - ... = (a-A-..., b-B-..., c-C-...)
@@ -522,11 +524,13 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            for i in __a:
+                if i.__class__.__name__!='list' and i.__class__.__name__!='tuple':raise Exception
             return tuple(map(lambda x:algbra.sub(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.sub");retrn(ret,e,False);
     
     @staticmethod
-    def mul(*__a:list[Decimal]|tuple[Decimal,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def mul(*__a:list[Input_deciml]|tuple[Input_deciml,...],pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after multiplication for lists or tuples.
 ##### (a, b, c) x [A, B, C] x ... = (a\\*A\\*..., b\\*B\\*..., c\\*C\\*...)
@@ -535,11 +539,13 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            for i in __a:
+                if i.__class__.__name__!='list' and i.__class__.__name__!='tuple':raise Exception
             return tuple(map(lambda x:algbra.mul(*x,pr=pr),zip(*__a)));
         except Exception as e:invalid_command("galgra.mul");retrn(ret,e,False);
     
     @staticmethod
-    def div(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def div(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division for lists or tuples.
 ##### (a, b, c, ...) / [A, B, C, ...] = (a/A, b/B, c/C, ...)
@@ -549,11 +555,12 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list' and __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             return tuple(map(lambda x:algbra.div(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.div");retrn(ret,e,False);
     
     @staticmethod
-    def pwr(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def pwr(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### (a, b, c, ...) ^ (A, B, C, ...) = (a^A, b^B, c^C, ...)
@@ -568,7 +575,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.pwr");retrn(ret,e,False);
     
     @staticmethod
-    def log(__a:list[Decimal]|tuple[Decimal,...],__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def log(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### (a, b, c), (A, B, C) = (log_a(A), log_b(B), log_c(C))
@@ -582,7 +589,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.log");retrn(ret,e,False);
     
     @staticmethod
-    def addsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def addsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after addition.
 ##### N + (A, B, C, ...) = (N+A, N+B, N+C, ...)
@@ -596,7 +603,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.addsg");retrn(ret,e,False);
     
     @staticmethod
-    def subgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def subgs(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction.
 ##### (A, B, C, ...) - N = (A-N, B-N, C-N, ...)
@@ -610,7 +617,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.subgs");retrn(ret,e,False);
     
     @staticmethod
-    def subsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def subsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after subtraction.
 ##### N - (A, B, C, ...) = (N-A, N-B, N-C, ...)
@@ -624,7 +631,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.subsg");retrn(ret,e,False);
 
     @staticmethod
-    def mulsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def mulsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after multiplication.
 ##### N x (A, B, C, ...) = (N*A, N*B, N*C, ...)
@@ -638,7 +645,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.mulsg");retrn(ret,e,False);
 
     @staticmethod
-    def divgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def divgs(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division.
 ##### (A, B, C, ...) / N = (A/N, B/N, C/N, ...)
@@ -652,7 +659,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.divgs");retrn(ret,e,False);
     
     @staticmethod
-    def divsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def divsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after division.
 ##### N / (A, B, C, ...) = (N/A, N/B, N/C, ...)
@@ -666,7 +673,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.divs");retrn(ret,e,False);
 
     @staticmethod
-    def pwrgs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def pwrgs(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### (A, B, C, ...) ^ N = (A^N, B^N, B^N, ...)
@@ -680,7 +687,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.pwrgs");retrn(ret,e,False);
     
     @staticmethod
-    def pwrsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def pwrsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the numbers after exponentiation.
 ##### N ^ (A, B, C, ...) = (N^A, N^B, N^C, ...)
@@ -694,7 +701,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.pwrsg");retrn(ret,e,False);
     
     @staticmethod
-    def loggs(__a:list[Decimal]|tuple[Decimal,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def loggs(__a:list[Input_deciml]|tuple[Input_deciml,...],__b:Decimal|float|int|str,__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### (A, B, C, ...), N = (log_N(A), log_N(B), log_N(C), ...)
@@ -708,7 +715,7 @@ class galgbra:
         except Exception as e:invalid_command("galgra.loggs");retrn(ret,e,False);
     
     @staticmethod
-    def logsg(__a:Decimal|float|int|str,__b:list[Decimal]|tuple[Decimal,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
+    def logsg(__a:Decimal|float|int|str,__b:list[Input_deciml]|tuple[Input_deciml,...],__pr:int|None=None,ret='c')->tuple[Decimal|None,...]|None:
         '''
 #### Get the logarithm of numbers.
 ##### N, (A, B, C, ...) = (log_A(N), log_B(N), log_C(N), ...)
@@ -879,12 +886,13 @@ class trig:
                 if (p2:=algbra.pwr(a,'2',pr)) is None:raise Exception
                 if (s1:=algbra.sub(1,p2,pr=pr)) is None:raise Exception
                 if (p1:=algbra.pwr(s1,'0.5',pr)) is None:raise Exception
-                r=cls.acos(p1,pr);
+                if (r:=cls.acos(p1,pr)) is None:raise Exception
             elif a<Decimal('-'+str(a1)):
                 if (p2:=algbra.pwr(a,'2',pr)) is None:raise Exception
                 if (s1:=algbra.sub('1',p2,pr=pr)) is None:raise Exception
                 if (p1:=algbra.pwr(s1,'0.5',pr)) is None:raise Exception
-                if (r:=algbra.mul('-1',cls.acos(p1,pr),pr=pr)) is None:raise Exception
+                if (ac:=cls.acos(p1,pr)) is None:raise Exception
+                if (r:=algbra.mul('-1',ac,pr=pr)) is None:raise Exception
             else:
                 i=0;r=(n:=a);rn=None;
                 if (a1:=algbra.pwr(a,'2',pr)) is None:raise Exception;

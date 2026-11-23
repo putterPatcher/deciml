@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-type Input1 = Decimal | float | int | str
+type Input_deciml = Decimal | float | int | str
 
 def invalid_command(function):print("Invalid command: {}".format(function));
 
