@@ -481,7 +481,7 @@ class algbra:
             if a>=1:
                 if b>=0:
                     if a>1:c=len(str(a).split('.')[0])
-                    if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
+                    if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(a**b,__pr);
                     else:raise Exception
                 if b<0:getcontext().prec=p;return deciml(a**b,__pr);
             if a<1:
@@ -489,11 +489,9 @@ class algbra:
                     getcontext().prec=p;return deciml(a**b,__pr);
                 if b<0:
                     if a<1:
-                        n=str(a).split('.')[1]
-                        print("???",n)
-                        for ind,i in enumerate(n):
+                        for ind,i in enumerate(str(a).split('.')[1]):
                             if i!='0':c=ind+1;break;
-                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
+                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(a**b,__pr);
         except Exception as e:invalid_command('algbra.pwr');retrn(ret,e,False);
 
 
