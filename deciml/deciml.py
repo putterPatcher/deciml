@@ -480,9 +480,7 @@ class algbra:
             elif a==0:return Decimal('0');
             if a>=1:
                 if b>=0:
-                    while a>1:
-                        if a:=cls.div(a,10,p):c+=1;
-                        else:raise Exception
+                    if a>1:c=len(str(a).split('.')[0])
                     if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
                     else:raise Exception
                 if b<0:getcontext().prec=p;return deciml(a**b,__pr);
@@ -490,9 +488,11 @@ class algbra:
                 if b>=0:
                     getcontext().prec=p;return deciml(a**b,__pr);
                 if b<0:
-                    while a<1:
-                        if (a:=cls.mul(a,10,pr=p)) is None:raise Exception
-                        c+=1
+                    if a<1:
+                        n=str(a).split('.')[1]
+                        print("???",n)
+                        for ind,i in enumerate(n):
+                            if i!='0':c=ind+1;break;
                     if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
         except Exception as e:invalid_command('algbra.pwr');retrn(ret,e,False);
 
@@ -1575,6 +1575,6 @@ class SolveEq:
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
 
 
-algbra.pwr(45.34432, 7.54332, 3)
+# algbra.pwr(45.34432, 7.54332, 3)
 
 print("Imported deciml...")
