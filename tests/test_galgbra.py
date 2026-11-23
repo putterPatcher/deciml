@@ -62,16 +62,25 @@ def test_div():
             assert str(r) == str(e)
     else:assert False
 
-def test_mul_none():
+def test_div_none():
     result = cast(tuple[None],galgbra.div(['sdad'], [12.3332]))
     assert len(result) == 1
     assert result[0] == None
 
 @pytest.mark.parametrize('arg', ['sdsfs', '34325.3424.2433', 'fsf3242sdfs'])
-def test_mul_wrong_argument(arg):
+def test_div_wrong_argument(arg):
     with pytest.raises(TypeError):
         galgbra.div(arg)
 
 @pytest.mark.parametrize('arg1, arg2', [('dsad', 343), ('sfs23234fds', 54.43), ('32.2432.324', '43')])
 def test_mul_wrong_argument_2(arg1, arg2):
     assert galgbra.div(arg1, arg2) == None
+
+def test_pwr():
+    result = galgbra.pwr([12.2343, 45.34432, 0.4343, 45], [3.454332, '7.54332', -0.0324, 'fsdfs'], 3)
+    expected = [5712.936, 3130994268200.96, 1.027, None]
+    if result:
+        for r, e in zip(result, expected):
+            assert str(r) == str(e)
+    else:assert False
+    

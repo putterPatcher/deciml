@@ -483,7 +483,7 @@ class algbra:
                     while a>1:
                         if a:=cls.div(a,10,p):c+=1;
                         else:raise Exception
-                    if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(a**b),__pr);
+                    if p1:=cls.mul(c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
                     else:raise Exception
                 if b<0:getcontext().prec=p;return deciml(a**b,__pr);
             if a<1:
@@ -493,7 +493,7 @@ class algbra:
                     while a<1:
                         if (a:=cls.mul(a,10,pr=p)) is None:raise Exception
                         c+=1
-                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml((10**p1)*(a**b),__pr);
+                    if p1:=cls.mul(-c, b, pr=p):getcontext().prec=int(p1)+p;return deciml(Decimal(str(__a))**Decimal(str(__b)),__pr);
         except Exception as e:invalid_command('algbra.pwr');retrn(ret,e,False);
 
 
@@ -571,6 +571,7 @@ class galgbra:
 
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list' and __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             return tuple(map(lambda x:algbra.pwr(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.pwr");retrn(ret,e,False);
     
@@ -1574,6 +1575,6 @@ class SolveEq:
         except Exception as e:invalid_command('SolveEq.calculate');retrn(ret,e);
 
 
-trig.cos(3.14)
+algbra.pwr(45.34432, 7.54332, 3)
 
 print("Imported deciml...")
