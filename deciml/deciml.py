@@ -584,6 +584,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list' and __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             return tuple(map(lambda x:algbra.log(*x,__pr),zip(__a,__b)));
         except Exception as e:invalid_command("galgra.log");retrn(ret,e,False);
     
@@ -598,6 +599,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.add(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.addsg");retrn(ret,e,False);
     
@@ -612,6 +614,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list':raise Exception
             __b=str(__b);return tuple(map(lambda x:algbra.sub(x,__b,pr=__pr),__a));
         except Exception as e:invalid_command("galgra.subgs");retrn(ret,e,False);
     
@@ -626,6 +629,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.sub(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.subsg");retrn(ret,e,False);
 
@@ -640,6 +644,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.mul(__a,x,pr=__pr),__b));
         except Exception as e:invalid_command("galgra.mulsg");retrn(ret,e,False);
 
@@ -654,6 +659,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list':raise Exception
             __b=str(__b);return tuple(map(lambda x:algbra.div(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.divgs");retrn(ret,e,False);
     
@@ -668,6 +674,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.div(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.divs");retrn(ret,e,False);
 
@@ -682,6 +689,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list':raise Exception
             __b=str(__b);return tuple(map(lambda x:algbra.pwr(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.pwrgs");retrn(ret,e,False);
     
@@ -696,6 +704,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.pwr(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.pwrsg");retrn(ret,e,False);
     
@@ -710,6 +719,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __a.__class__.__name__!='tuple' and __a.__class__.__name__!='list':raise Exception
             __b=str(__b);return tuple(map(lambda x:algbra.log(x,__b,__pr),__a));
         except Exception as e:invalid_command("galgra.loggs");retrn(ret,e,False);
     
@@ -724,6 +734,7 @@ class galgbra:
 - **ret**: The return method on exception ('c', 'w', 'a')
         '''
         try:
+            if __b.__class__.__name__!='tuple' and __b.__class__.__name__!='list':raise Exception
             __a=str(__a);return tuple(map(lambda x:algbra.log(__a,x,__pr),__b));
         except Exception as e:invalid_command("galgra.logsg");retrn(ret,e,False);
 

@@ -72,9 +72,9 @@ def test_div_wrong_argument(arg):
     with pytest.raises(TypeError):
         galgbra.div(arg)
 
-@pytest.mark.parametrize('arg1, arg2', [('dsad', 343), ('sfs23234fds', 54.43), ('32.2432.324', '43')])
+@pytest.mark.parametrize('arg1, arg2', [(['dsad'], [343]), (['sfs23234fds'], [54.43]), (['32.2432.324'], ['43'])])
 def test_mul_wrong_argument_2(arg1, arg2):
-    assert galgbra.div(arg1, arg2) == None
+    assert cast(tuple[None],galgbra.div(arg1, arg2))[0] == None
 
 def test_pwr():
     result = galgbra.pwr([12.2343, 45.34432, 0.4343, 45], [3.454332, '7.54332', -0.0324, 'fsdfs'], 3)
@@ -83,4 +83,39 @@ def test_pwr():
         for r, e in zip(result, expected):
             assert str(r) == str(e)
     else:assert False
-    
+
+def test_pwr_none():
+    result = cast(tuple[None],galgbra.pwr(['sdad'], [12.3332]))
+    assert len(result) == 1
+    assert result[0] == None
+
+@pytest.mark.parametrize('arg', ['sdsfs', '34325.3424.2433', 'fsf3242sdfs'])
+def test_pwr_wrong_argument(arg):
+    with pytest.raises(TypeError):
+        galgbra.pwr(arg)
+
+@pytest.mark.parametrize('arg1, arg2', [(['dsad'], [343]), (['sfs23234fds'], [54.43]), (['32.2432.324'], ['43'])])
+def test_pwr_wrong_argument_2(arg1, arg2):
+    assert cast(tuple[None],galgbra.pwr(arg1, arg2))[0] == None
+
+def test_log():
+    result = galgbra.log([12.2343, 4.34432, 0.4343, 45], [3.454332, '7.54332', -0.0324, 'fsdfs'], 3)
+    expected = ['2.020', '0.727', None, None]
+    if result:
+        for r, e in zip(result, expected):
+            assert str(r) == str(e)
+    else:assert False
+
+def test_log_none():
+    result = cast(tuple[None],galgbra.log(['sdad'], [12.3332]))
+    assert len(result) == 1
+    assert result[0] == None
+
+@pytest.mark.parametrize('arg', ['sdsfs', '34325.3424.2433', 'fsf3242sdfs'])
+def test_log_wrong_argument(arg):
+    with pytest.raises(TypeError):
+        galgbra.log(arg)
+
+@pytest.mark.parametrize('arg1, arg2', [(['dsad'], [343]), (['sfs23234fds'], [54.43]), (['32.2432.324'], ['43'])])
+def test_log_wrong_argument_2(arg1, arg2):
+    assert cast(tuple[None],galgbra.log(arg1, arg2))[0] == None
